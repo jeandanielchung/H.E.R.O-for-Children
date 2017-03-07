@@ -1,0 +1,18 @@
+login page:
+    - needs a query to return usernames paired with a password in a dictionary
+
+search results page:
+    - get table format for the information that is being searched for
+    - should include:
+        1) the name of the kid(s)
+        2) the criteria that is being searched for (?)
+            -might be nice to have 
+                - ex. range of ages, 13-17
+                - can specify which kid is what age
+            -might be redundant in some scenarios
+                - ex. peanut allergies
+                - a redundant list of "peanut allergy" down the second column
+
+view profile page:
+    -should be able to get all the information for a kid that is clicked on/searched for
+    -everything related to a kid; the whole profile
