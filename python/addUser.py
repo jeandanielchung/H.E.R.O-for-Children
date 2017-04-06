@@ -1,25 +1,29 @@
 from Tkinter import *
 
-class addUser:
+class AddUser:
     def __init__(self, master):
 
-        self.name = Label(master, text="Name").grid(row=0)
-        self.entry1 = Entry(master).grid(row=0, column=1)
+        self.frame = Frame(master)
+        self.frame.pack()
 
-        self.username = Label(master, text="Username").grid(row=1)
-        self.entry2 = Entry(master).grid(row=1, column=1)
+        self.name = Label(self.frame, text="Name").grid(row=1)
+        self.entry1 = Entry(self.frame).grid(row=1, column=1)
 
-        self.password = Label(master, text="Password").grid(row=2)
-        self.entry3 = Entry(master).grid(row=2, column=1)
+        self.username = Label(self.frame, text="Username").grid(row=2)
+        self.entry2 = Entry(self.frame).grid(row=2, column=1)
 
-        self.level = Label(master, text="Label").grid(row=3)
+        self.password = Label(self.frame, text="Password").grid(row=3)
+        self.entry3 = Entry(self.frame).grid(row=3, column=1)
+
+        self.level = Label(self.frame, text="Type").grid(row=4)
         self.variable = StringVar(master)
         self.variable.set("Options")
-        self.menu = OptionMenu(master, self.variable, "Manager", "Admin").grid(row=3, column=1)
+        self.menu = OptionMenu(self.frame, self.variable, "Manager", "Admin").grid(row=4, column=1)
 
-        self.add = Button(master, text="ADD").grid(row=5, column=3)
+        self.add = Button(self.frame, text="Add User").grid(row=6, column=3)
+        self.back = Button(self.frame, text="Go Back").grid(row=6, column=0)
 
 master = Tk()
-addUserPage = addUser(master)
+addUserPage = AddUser(master)
 master.mainloop()
 
