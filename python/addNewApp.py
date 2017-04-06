@@ -22,12 +22,23 @@ class AddNewApp(tk.Tk):
 
         entryDate = Entry(master, bd = 3)
         entryDate.grid(row = 1, column = 4)
+        
+        returningTxt = Label(master, text = "Returning Child?")
+        returningTxt.grid(row = 2, column = 3)
+
+        v = StringVar()
+        returningInq = Radiobutton(master, text="Yes", variable=v, value=1)
+        returningInq.grid(row = 2,column = 4)
+
+        returningInq = Radiobutton(master, text="No", variable=v, value=1)
+        returningInq.grid(row = 2,column = 5)
+
 
         createButton = Button(master, text = "Create", command = self.create)
-        createButton.grid(row = 2, column = 3)
+        createButton.grid(row = 3, column = 3)
 
-        closeButton = Button(master, text = "Close", command = self.close)
-        closeButton.grid(row  = 4, column = 3)
+        closeButton = Button(master, text = "Back", command = self.close)
+        closeButton.grid(row  = 0, column = 0)
 
 
     def create(self):
