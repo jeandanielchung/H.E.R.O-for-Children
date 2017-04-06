@@ -1,16 +1,11 @@
 from Tkinter import *
 #import homePage
 #from homePage import *
-import MySQLdb
 
 class LoginPage:
     def __init__(self, master):
         self.master = master
         master.title("Login Page")
-
-        #Database Connection
-        db = MySQLdb.connect(host = "localhost", user="root", db="HERO" ) # I don't have a password for mysql
-        curr = db.cursor()
 
         #self.label = Label(master, text = "Welcome!")
         #self.label.pack()
@@ -34,25 +29,25 @@ class LoginPage:
         """These are the Buttons for the page"""
 
         # need to set things as callbacks so they dont get called immediately, so lambda
-        self.loginButton = Button(master, text = "login", command = lambda: self.login(entryUsername.get(), entryPassword.get(), curr))
+        self.loginButton = Button(master, text = "login", command = lambda: self.login(entryUsername.get(), entryPassword.get()))
         self.loginButton.grid(row = 2, column = 0)
 
         self.closeButton = Button(master, text = "close", command = self.closeWindow)
         self.closeButton.grid(row = 2, column = 1)
 
 
-    def login(self, username, password, curr):
+    def login(self, username, password):
 
         print username
         print password
 
-        curr.execute("SELECT * FROM User WHERE Username = %s AND Password = SHA1(%s)", (username, password,))
-        result = curr.fetchone()
+        userInfo = {
+            "user": "pass",
+            "jerm": "pass"
+        }
 
-        if result is not None:
-            user_type = result[2] # this is the type of user i.e. admininistrator, manager, regular
+        if ((username in userInfo) & (password in userInfo.values())):
             print "You logged in"
-            print "User Type is " + user_type
             self.newWindow = Tk()
             #self.app = HomePage(self.newWindow)
             self.master.destroy()

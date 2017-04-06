@@ -11,6 +11,8 @@ class AddNewApp(tk.Tk):
         about the programs that are offered
         and then add them to a list and pull them into the programList"""
 
+
+        #get this program list from the DB
         programList = ['none', 'program1', 'program2']
         programs = StringVar(master)
         programs.set(programList[0])
@@ -43,6 +45,15 @@ class AddNewApp(tk.Tk):
 
     def create(self):
         #send to create page
+        #add an application form to the DB
+        
+        db = MySQLdb.connect(
+            host = "localhost", 
+            user="root", 
+            passwd="yourMySqlPassword", 
+            db="HERO" )
+        curr = db.cursor()
+
         print "app created"
 
     def close(self):
