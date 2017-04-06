@@ -617,7 +617,7 @@ class Example(tk.Frame):
         curr.execute("SELECT Count FROM Household_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         countArr = curr.fetchall()
         for count in countArr:
-            #NAME
+            #Name
             curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, count[0]))
             val = curr.fetchall()[0][0]
             if val is not None:

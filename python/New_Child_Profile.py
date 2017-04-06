@@ -631,6 +631,378 @@ class Example(tk.Frame):
         labelParentInfoSection.grid(row = r, column = 0)
         labelParentInfoSection.config(font=("Helvetica", 20))
 
+    #person1
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 1')
+        label.grid(row = r, column = 0, sticky = 'w')
+        
+        #Name1
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+        global houseInfo10
+        houseInfo10 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo10.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Relationship to Child1
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+        global houseInfo11
+        houseInfo11 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo11.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Sex1
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+        global houseInfo12
+        houseInfo12 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo12.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age1
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+        global houseInfo13
+        houseInfo13 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo13.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #HIV Status1
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+        global houseInfo14
+        houseInfo14 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo14.grid(row = r, column = 1)
+        label.grid(row = r, column = 0) 
+
+
+    #person2
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 2')
+        label.grid(row = r, column = 0, sticky = 'w')
+        
+        #Name2
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+        global houseInfo20
+        houseInfo10 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo10.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Relationship to Child2
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+        global houseInfo21
+        houseInfo21 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo21.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Sex2
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+        global houseInfo22
+        houseInfo22 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo22.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age2
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+        global houseInfo23
+        houseInfo23 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo23.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #HIV Status2
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+        global houseInfo24
+        houseInfo24 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo24.grid(row = r, column = 1)
+        label.grid(row = r, column = 0) 
+
+
+    #person3
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 3')
+        label.grid(row = r, column = 0, sticky = 'w')
+        
+        #Name3
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+        global houseInfo30
+        houseInfo30 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo30.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Relationship to Child3
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+        global houseInfo31
+        houseInfo31 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo31.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Sex3
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+        global houseInfo32
+        houseInfo32 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo32.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age3
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+        global houseInfo33
+        houseInfo33 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo33.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #HIV Status3
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+        global houseInfo34
+        houseInfo34 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo34.grid(row = r, column = 1)
+        label.grid(row = r, column = 0) 
+
+
+    #person4
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 4')
+        label.grid(row = r, column = 0, sticky = 'w')
+        
+        #Name4
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+        global houseInfo40
+        houseInfo40 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo40.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Relationship to Child4
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+        global houseInfo41
+        houseInfo41 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo41.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Sex4
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+        global houseInfo42
+        houseInfo42 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo42.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age4
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+        global houseInfo43
+        houseInfo43 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo43.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #HIV Status4
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+        global houseInfo44
+        houseInfo44 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo44.grid(row = r, column = 1)
+        label.grid(row = r, column = 0) 
+
+
+    #person5
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 5')
+        label.grid(row = r, column = 0, sticky = 'w')
+        
+        #Name5
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+        global houseInfo50
+        houseInfo50 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo50.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Relationship to Child5
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+        global houseInfo51
+        houseInfo51 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo51.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Sex5
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+        global houseInfo52
+        houseInfo52 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo52.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age5
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+        global houseInfo53
+        houseInfo53 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo53.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #HIV Status5
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+        global houseInfo54
+        houseInfo54 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo54.grid(row = r, column = 1)
+        label.grid(row = r, column = 0) 
+
+
+    #person6
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 6')
+        label.grid(row = r, column = 0, sticky = 'w')
+        
+        #Name6
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+        global houseInfo60
+        houseInfo60 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo60.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Relationship to Child6
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+        global houseInfo61
+        houseInfo61 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo61.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Sex6
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+        global houseInfo62
+        houseInfo62 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo62.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age6
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+        global houseInfo63
+        houseInfo63 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo63.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #HIV Status6
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+        global houseInfo64
+        houseInfo64 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        houseInfo64.grid(row = r, column = 1)
+        label.grid(row = r, column = 0) 
+
+        #Family Annual Income Info
+        label = Label(self.ChildInfoSectionframe, text = "\nFamily Annual Income Information ......................................................... ")
+        global famIncome0
+        famIncome0 = StringVar()
+        choices = ['$0-10,000','$10,001-15,000','$15,001-20,000','$20,000-25,000','$25,001-30,000','$30,001-35,000','$35,001-40,000','$40,001-45,000','$50,000+']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, famIncome0, *choices)
+
+        r = r+1
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
+
+        #Source of Family Income
+        label = Label(self.ChildInfoSectionframe, text = "\nSource of Family Income ....................................................................... ")
+        global famIncome1
+        famIncome1 = StringVar()
+        choices = ['Employment','Government Support','Public Assistance', 'Unemployment Benefits','Medicaid','Social Security','Veterans Benefits','Other']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, famIncome1, *choices)
+
+        r = r+1
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
+
+        #Source of Family Income Other
+        label = Label(self.ChildInfoSectionframe, text = "If Other ................................................................................................. ")
+        global famIncome2
+        famIncome2 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        famIncome2.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+ #In Case of Emergency Contact
+        #header
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nIN CASE OF EMERGENCY CONTACT")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+        #first name
+        label = Label(self.ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
+        global emergencyInfo0
+        emergencyInfo0 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        emergencyInfo0.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #last name
+        label = Label(self.ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
+        global emergencyInfo1
+        emergencyInfo1 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        emergencyInfo1.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Relationship to child
+        label = Label(self.ChildInfoSectionframe, text = "\nRelationship to child ............................................................................. ")
+        global emergencyInfo2
+        emergencyInfo2 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        emergencyInfo2.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        
+
 #Submit Button
         r = r+1
         submitProfileButton = Button(self.ChildInfoSectionframe, text = "Submit Profile", command = lambda:self.submitProfile())

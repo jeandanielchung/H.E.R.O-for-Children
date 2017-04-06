@@ -1,4 +1,5 @@
 from Tkinter import *
+import MySQLdb
 
 
 class searchPage:
@@ -24,10 +25,13 @@ class searchPage:
 
 
 		#grab all dat submitted, remove duplicates, set to yearList
-
-		childDatesSubmitted = curr.execute("SELECT DISTINCT Year(Date_Submitted) FROM Child Application")
+                db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+                curr = db.cursor()
+		childDatesSubmitted = curr.execute("SELECT DISTINCT Year(Date_Submitted) FROM Child_Application")
 		campDatesSubmitted = curr.execute("SELECT DISTINCT Year(Date_Submitted) FROM Camp_Application")
 		yearList = []
+
+		print childDatesSubmitted
 
 		for item in childDatesSubmitted:
 			if item not in yearList:
@@ -78,7 +82,9 @@ class searchPage:
 
 
 
-
+                curr.close()
+                db.close()
+            
 
 
 
