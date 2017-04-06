@@ -6,6 +6,14 @@ DROP DATABASE IF EXISTS HERO;
 CREATE DATABASE HERO;
 USE HERO;
 
+#User
+DROP TABLE IF EXISTS User;
+
+CREATE TABLE User (
+  Username VARCHAR(25) NOT NULL,
+  Password VARCHAR(40) NOT NULL, # needs to be 40 characters for SHA1 encryption
+  User_Type ENUM('Administrator', 'Manager', 'Regular'),
+  PRIMARY KEY (Username));
 
 #Child
 DROP TABLE IF EXISTS Child;
