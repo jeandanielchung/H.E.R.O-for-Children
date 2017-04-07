@@ -929,7 +929,7 @@ class Example(tk.Frame):
         labelParentInfoSection.pack(fill = "x")
         labelParentInfoSection.config(font=("Helvetica", 20))
 
-        #signeture completed
+        #signature completed
         curr.execute("SELECT Signature FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         if val is not None:
