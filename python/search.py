@@ -1,4 +1,5 @@
 from Tkinter import *
+import MySQLdb
 
 
 class searchPage:
@@ -11,26 +12,54 @@ class searchPage:
 		nameHead = Label(master, text = "Search by Category", font= "Verdana 10 underline")
 		nameHead.grid(row = 1, column = 0)
 
-		nameHead2 = Label(master, text = "Search by name", font= "Verdana 10 underline")
+		nameHead2 = Label(master, text = "Search by Name", font= "Verdana 10 underline")
 		nameHead2.grid(row = 4, column = 0)
 
-		var = StringVar(master)
-		var.set("Program") 
 
-		option1 = OptionMenu(master, var, "one", "two", "three", "four")
-		option1.grid(row = 2, column = 1)
+		programList = ['None', "Child Application", "Camp High Five Application"]
+		programs = StringVar(master)
+		programs.set('Program') 
 
-		var1 = StringVar(master)
-		var1.set("Year")
+		dropdownProgram = OptionMenu(master, programs, *programList)
+		dropdownProgram.grid(row = 2, column = 1)
 
-		option2 = OptionMenu(master, var1, "one", "two", "three", "four")
-		option2.grid(row = 2, column = 2)
 
-		var2 = StringVar(master)
-		var2.set("Category")
+		#grab all dat submitted, remove duplicates, set to yearList
+                db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+                curr = db.cursor()
+		childDatesSubmitted = curr.execute("SELECT DISTINCT Year(Date_Submitted) FROM Child_Application")
+		campDatesSubmitted = curr.execute("SELECT DISTINCT Year(Date_Submitted) FROM Camp_Application")
+		yearList = []
 
-		option3 = OptionMenu(master, var2, "one", "two", "three", "four")
-		option3.grid(row = 3, column = 1)
+		print childDatesSubmitted
+
+		for item in childDatesSubmitted:
+			if item not in yearList:
+				yearList.append(item)
+
+		for item in campDatesSubmitted:
+			if item not in yearList:
+				yearList.append(item)
+
+		years = StringVar(master)
+		years.set("Year")
+
+		dropdownYear = OptionMenu(master, years, "None", *yearList)
+		dropdownYear.grid(row = 2, column = 2)
+
+
+		categoriesList = ['None', 'City', "County", 'Referral Source', "Child's Age",
+					"Child's Gender", "Child's Race/Ethnicity",
+					"Child's HIV Status (infected or affected)", "Child's Learning Disabilities",
+					"Child's HERO Program Participation", "Child's Allergies", "Child's Years with HERO",
+					"Household Composition", "Parent(s) HIV Status (infected or affected)",
+					"Household Income Range", "Household Income Source", "Parent(s) Highest Level of Education",
+					"Parent(s) Employment Status"]
+		categories = StringVar(master)
+		categories.set("Category")
+
+		dropdownCategories = OptionMenu(master, categories, *categoriesList)
+		dropdownCategories.grid(row = 3, column = 1)
 
 		cat = Entry(master, width=15)
 		cat.grid(row = 3, column = 2)
@@ -53,7 +82,9 @@ class searchPage:
 
 
 
-
+                curr.close()
+                db.close()
+            
 
 
 

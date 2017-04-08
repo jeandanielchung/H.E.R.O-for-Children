@@ -21,15 +21,56 @@ class HomePage(tk.Tk):
 
     def newApp(self):
         #goes to new Application Page
+        self.newWindow = Tk()
+        self.app = AddNewApp(self.newWindow)
+        self.master.destroy()
+
         print "make a new app"
 
     def search(self):
         #goes to the search Page
-        print "make a search"
+
+        db = MySQLdb.connect(
+            host = "localhost", 
+            user="root", 
+            passwd="yourMySqlPassword", 
+            db="HERO" )
+        curr = db.cursor()
+
+        credentials = curr.execute("SELECT User_Type FROM User WHERE ID = %s AND Date_Submitted = %s;", (ID, Date,))
+
+        #need to be able to get the user credentials
+        if (credentials == 'Administrator' or credentials == 'Manager'):
+            self.newWindow = Tk()
+            self.app = searchPage(self.newWindow)
+            self.master.destroy()
+        else:
+            "Sorry, you do not have the needed credentials for this command."
+
+        curr.close()
+        db.close()
 
     def admin(self):
         #goes to admin the Users
-        print "do admin things"
+
+        db = MySQLdb.connect(
+            host = "localhost", 
+            user="root", 
+            passwd="yourMySqlPassword", 
+            db="HERO" )
+        curr = db.cursor()
+
+        credentials = curr.execute("SELECT User_Type FROM User WHERE ID = %s AND Date_Submitted = %s;", (ID, Date,))
+
+        if (credentials == 'Administrator'):
+            self.newWindow = Tk()
+            self.app = adminPage(self.newWindow)
+            self.master.destroy()
+        else:
+            "Sorry, you do not have the needed credentials for this command."
+
+        curr.close()
+        db.close()
 
     def close(self):
         #deletes the Page

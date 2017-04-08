@@ -259,14 +259,19 @@ class Example(tk.Frame):
         else:
             label = Label(self.ChildInfoSectionframe, text = "\nGrade Level ........................................................................................... Unanswered")
         label.pack(anchor = 'w')
-        
+
         #Ethnicity
-        curr.execute("SELECT Ethnicity FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        val = curr.fetchall()[0][0]
-        if val is not None:
-            label = Label(self.ChildInfoSectionframe, text = "\nEthnicity ............................................................................................... " + val)
+        curr.execute("SELECT Ethnicity_Other FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        ethnicityOther = curr.fetchall()[0][0]
+        if ethnicityOther is not None:
+            label = Label(self.ChildInfoSectionframe, text = "\nEthnicity ............................................................................................... " + ethnicityOther)
         else:
-            label = Label(self.ChildInfoSectionframe, text = "\nEthnicity ............................................................................................... Unanswered")
+            curr.execute("SELECT Ethnicity FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            ethnicity = curr.fetchall()[0][0]
+            if ethnicity is not None:
+                label = Label(self.ChildInfoSectionframe, text = "\nEthnicity ............................................................................................... " + ethnicity)
+            else:
+                label = Label(self.ChildInfoSectionframe, text = "\nEthnicity ............................................................................................... Unanswered")
         label.pack(anchor = 'w')
         
         #Even been...
@@ -617,7 +622,7 @@ class Example(tk.Frame):
         curr.execute("SELECT Count FROM Household_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         countArr = curr.fetchall()
         for count in countArr:
-            #NAME
+            #Name
             curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, count[0]))
             val = curr.fetchall()[0][0]
             if val is not None:
@@ -929,7 +934,7 @@ class Example(tk.Frame):
         labelParentInfoSection.pack(fill = "x")
         labelParentInfoSection.config(font=("Helvetica", 20))
 
-        #signeture completed
+        #signature completed
         curr.execute("SELECT Signature FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         if val is not None:
