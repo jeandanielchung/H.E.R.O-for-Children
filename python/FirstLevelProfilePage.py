@@ -10,8 +10,8 @@ class ProfilePage:
         # Child's first and last name will appear here
         self.delete = Button(self.frame, text="Delete").grid(row=0, column=10)
         # Child's first and last name will appear here
-        self.name = Label(self.frame, text="First Name").grid(row=1, column=3)
-        self.name = Label(self.frame, text="Last Name").grid(row=1, column=4)
+        self.name = Label(self.frame, text="First Name", font="Arial 12 underline").grid(row=1, column=3)
+        self.name = Label(self.frame, text="Last Name", font="Arial 12 underline").grid(row=1, column=4)
 
         self.programs = Label(self.frame, text="PROGRAMS").grid(row=3, column=3)
         self.years = Label(self.frame, text="YEARS").grid(row=3, column=4)
