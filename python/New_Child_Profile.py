@@ -631,6 +631,11 @@ class Example(tk.Frame):
         labelParentInfoSection.grid(row = r, column = 0)
         labelParentInfoSection.config(font=("Helvetica", 20))
 
+        #list all individuals living in the household
+        label = Label(self.ChildInfoSectionframe, text = "\nAll Individuals Living in the Household")
+        r = r+1
+        label.grid(row = r, column = 0)
+
     #person1
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = '\nPerson 1')
@@ -690,10 +695,10 @@ class Example(tk.Frame):
         #Name2
         label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
         global houseInfo20
-        houseInfo10 = Entry(self.ChildInfoSectionframe)
+        houseInfo20 = Entry(self.ChildInfoSectionframe)
 
         r = r+1
-        houseInfo10.grid(row = r, column = 1)
+        houseInfo20.grid(row = r, column = 1)
         label.grid(row = r, column = 0)        
 
         #Relationship to Child2

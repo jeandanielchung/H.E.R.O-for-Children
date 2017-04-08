@@ -736,6 +736,1504 @@ class Example(tk.Frame):
         labelParentInfoSection.grid(row = r, column = 0)
         labelParentInfoSection.config(font=("Helvetica", 20))
 
+        #first name
+        curr.execute("SELECT Name_First FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
+        global parentInfo0
+        parentInfo0 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo0.insert(0, val)
+        else:
+            parentInfo0.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo0.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #last name
+        curr.execute("SELECT Name_Last FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        label = Label(self.ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
+        global parentInfo1
+        parentInfo1 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo1.insert(0, val)
+        else:
+            parentInfo1.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo1.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Relationship to child
+        curr.execute("SELECT Relationship_to_Child FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nRelationship to child ............................................................................. ")
+        global parentInfo2
+        parentInfo2 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo2.insert(0, val)
+        else:
+            parentInfo2.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo2.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age
+        curr.execute("SELECT Age FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nAge ....................................................................................................... ")
+        global parentInfo3
+        parentInfo3 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo3.insert(0, val)
+        else:
+            parentInfo3.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo3.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #HIV status
+        label = Label(self.ChildInfoSectionframe, text = "\nHIV status ............................................................................................. ")
+
+        curr.execute("SELECT HIV_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        global parentInfo4
+        parentInfo4 = StringVar()
+        
+        choices = ['HIV Positive','HIV Negative']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, parentInfo4, *choices)
+
+        if val is not None:
+            parentInfo4.set(val)
+            
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
+
+        #Adoptive Parent
+        label = Label(self.ChildInfoSectionframe, text = "\nAdoptive Parent ..................................................................................... ")
+
+        curr.execute("SELECT Adoptive_Parent FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        global parentInfo5
+        parentInfo5 = StringVar()
+        
+        choices = ['Yes','No','Not Applicable']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, parentInfo5, *choices)
+
+        if val is not None:
+            parentInfo5.set(val)
+            
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
+
+        #Marital Status
+        label = Label(self.ChildInfoSectionframe, text = "\nMarital Status ...................................................................................... ")
+
+        curr.execute("SELECT Marital_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        global parentInfo6
+        parentInfo6 = StringVar()
+        
+        choices = ['Married','Single','Separated','Divorced','Widowed']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, parentInfo6, *choices)
+
+        if val is not None:
+            parentInfo6.set(val)
+            
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
+
+        #Highest Level of Education Completed
+        label = Label(self.ChildInfoSectionframe, text = "\nHighest Level of Education Completed .................................................. ")
+
+        curr.execute("SELECT Education_Completed FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        global parentInfo7
+        parentInfo7 = StringVar()
+        
+        choices = ['HS','GED','Some College','Associates Degree','Bachelor Degree','Master Degree','Doctorate']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, parentInfo7, *choices)
+
+        if val is not None:
+            parentInfo7.set(val)
+            
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
+
+        #Employment Status
+        label = Label(self.ChildInfoSectionframe, text = "\nEmployment Status ............................................................................... ")
+
+        curr.execute("SELECT Employment_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        global parentInfo8
+        parentInfo8 = StringVar()
+        
+        choices = ['Full-Time','Part-Time','Unemployed','Disability']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, parentInfo8, *choices)
+
+        if val is not None:
+            parentInfo8.set(val)
+            
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
+
+        #Employment Company
+        curr.execute("SELECT Employment_Company_Name FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        r= r+1
+        label = Label(self.ChildInfoSectionframe, text = "\nIf employed,")
+        label.grid(row = r, column = 0, sticky = 'w')
+        label = Label(self.ChildInfoSectionframe, text = "please provide Company Name ............................................................. ")
+
+        global parentInfo9
+        parentInfo9 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo9.insert(0, val)
+        else:
+            parentInfo9.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo9.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Address
+        curr.execute("SELECT Address_Street FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nAddress ................................................................................................ ")
+        global parentInfo10
+        parentInfo10 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo10.insert(0, val)
+        else:
+            parentInfo10.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo10.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #City
+        curr.execute("SELECT Address_City FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nCity ...................................................................................................... ")
+        global parentInfo11
+        parentInfo11 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo11.insert(0, val)
+        else:
+            parentInfo11.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo11.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #State
+        curr.execute("SELECT Address_State FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nState .................................................................................................... ")
+        global parentInfo12
+        parentInfo12 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo12.insert(0, val)
+        else:
+            parentInfo12.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo12.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Zip
+        curr.execute("SELECT Address_Zip FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nZip ........................................................................................................ ")
+        global parentInfo13
+        parentInfo13 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo13.insert(0, val)
+        else:
+            parentInfo13.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo13.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Work Phone
+        curr.execute("SELECT WorkPhone FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nWork Phone .......................................................................................... ")
+        global parentInfo14
+        parentInfo14 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo14.insert(0, val)
+        else:
+            parentInfo14.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo14.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #E-mail
+        curr.execute("SELECT Email FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nE-mail ................................................................................................... ")
+        global parentInfo15
+        parentInfo15 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            parentInfo15.insert(0, val)
+        else:
+            parentInfo15.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        parentInfo15.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+#Absent Parent Info
+        #header
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nABSENT PARENT INFORMATION")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+        #first name
+        curr.execute("SELECT Name_First FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
+        global absParentInfo0
+        absParentInfo0 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            absParentInfo0.insert(0, val)
+        else:
+            absParentInfo0.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        absParentInfo0.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #last name
+        curr.execute("SELECT Name_Last FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        label = Label(self.ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
+        global absParentInfo1
+        absParentInfo1 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            absParentInfo1.insert(0, val)
+        else:
+            absParentInfo1.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        absParentInfo1.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Telephone
+        curr.execute("SELECT Telephone FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        label = Label(self.ChildInfoSectionframe, text = "\nTelephone .............................................................................................. ")
+        global absParentInfo2
+        absParentInfo2 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            absParentInfo2.insert(0, val)
+        else:
+            absParentInfo2.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        absParentInfo2.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Home Address
+        curr.execute("SELECT Address_Street FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        label = Label(self.ChildInfoSectionframe, text = "\nHome Address ....................................................................................... ")
+        global absParentInfo3
+        absParentInfo3 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            absParentInfo3.insert(0, val)
+        else:
+            absParentInfo3.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        absParentInfo3.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #City
+        curr.execute("SELECT Address_City FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        label = Label(self.ChildInfoSectionframe, text = "\nCity ....................................................................................................... ")
+        global absParentInfo4
+        absParentInfo4 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            absParentInfo4.insert(0, val)
+        else:
+            absParentInfo4.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        absParentInfo4.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #County
+        curr.execute("SELECT Address_County FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        label = Label(self.ChildInfoSectionframe, text = "\nCounty .................................................................................................. ")
+        global absParentInfo5
+        absParentInfo5 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            absParentInfo5.insert(0, val)
+        else:
+            absParentInfo5.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        absParentInfo5.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Zip
+        curr.execute("SELECT Address_Zip FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        label = Label(self.ChildInfoSectionframe, text = "\nZip ......................................................................................................... ")
+        global absParentInfo6
+        absParentInfo6 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            absParentInfo6.insert(0, val)
+        else:
+            absParentInfo6.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        absParentInfo6.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #HIV status
+        label = Label(self.ChildInfoSectionframe, text = "\nHIV status ............................................................................................. ")
+
+        curr.execute("SELECT HIV_Status FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        global absParentInfo7
+        absParentInfo7 = StringVar()
+        
+        choices = ['HIV Positive','HIV Negative', 'Unkown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, absParentInfo7, *choices)
+
+        if val is not None:
+            absParentInfo7.set(val)
+            
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
+
+#Household Info
+        #header
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nHOUSEHOLD INFORMATION")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+        #list all individuals living in the household
+        label = Label(self.ChildInfoSectionframe, text = "\nAll Individuals Living in the Household")
+        r = r+1
+        label.grid(row = r, column = 0)
+
+    #person1
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 1')
+        label.grid(row = r, column = 0, sticky = 'w')
+        person = 1
+        
+        #Name1
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo10
+        houseInfo10 = Entry(self.ChildInfoSectionframe)
+
+        if (val is ()) or (val[0][0] is None):
+            houseInfo10.insert(0, 'Unanswered')
+        else: 
+            houseInfo10.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo10.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+        
+        #Relationship to Child1
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo11
+        houseInfo11 = Entry(self.ChildInfoSectionframe)
+
+        if (val is ()) or (val[0][0] is None):
+            houseInfo11.insert(0, 'Unanswered')
+        else: 
+            houseInfo11.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo11.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Sex1
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo12
+        houseInfo12 = Entry(self.ChildInfoSectionframe)
+
+        if (val is ()) or (val[0][0] is None):
+            houseInfo12.insert(0, 'Unanswered')
+        else: 
+            houseInfo12.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo12.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age1
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo13
+        houseInfo13 = Entry(self.ChildInfoSectionframe)
+
+        if (val is ()) or (val[0][0] is None):
+            houseInfo13.insert(0, 'Unanswered')
+        else: 
+            houseInfo13.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo13.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+ 
+        #HIV Status1
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo14
+        houseInfo14 = Entry(self.ChildInfoSectionframe)
+
+        if (val is ()) or (val[0][0] is None):
+            houseInfo14.insert(0, 'Unanswered')
+        else: 
+            houseInfo14.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo14.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)       
+
+    #person2
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 2')
+        label.grid(row = r, column = 0, sticky = 'w')
+        person = 2
+        
+        #Name2
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo20
+        houseInfo20 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo20.insert(0, 'Unanswered')
+        else: 
+            houseInfo20.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo20.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+        
+        #Relationship to Child2
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo21
+        houseInfo21 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo21.insert(0, 'Unanswered')
+        else: 
+            houseInfo21.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo21.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Sex2
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo22
+        houseInfo22 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo22.insert(0, 'Unanswered')
+        else: 
+            houseInfo22.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo22.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age2
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo23
+        houseInfo23 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo23.insert(0, 'Unanswered')
+        else: 
+            houseInfo23.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo23.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+ 
+        #HIV Status2
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo24
+        houseInfo24 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo24.insert(0, 'Unanswered')
+        else: 
+            houseInfo24.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo24.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)       
+
+    #person3
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 3')
+        label.grid(row = r, column = 0, sticky = 'w')
+        person = 3
+        
+        #Name3
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo30
+        houseInfo30 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo30.insert(0, 'Unanswered')
+        else: 
+            houseInfo30.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo30.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+        
+        #Relationship to Child3
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo31
+        houseInfo31 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo31.insert(0, 'Unanswered')
+        else: 
+            houseInfo31.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo31.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Sex3
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo32
+        houseInfo32 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo32.insert(0, 'Unanswered')
+        else: 
+            houseInfo32.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo32.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age3
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo33
+        houseInfo33 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo33.insert(0, 'Unanswered')
+        else: 
+            houseInfo33.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo33.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+ 
+        #HIV Status3
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo34
+        houseInfo34 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo34.insert(0, 'Unanswered')
+        else: 
+            houseInfo34.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo34.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)       
+
+
+    #person4
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 4')
+        label.grid(row = r, column = 0, sticky = 'w')
+        person = 4
+        
+        #Name4
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo40
+        houseInfo40 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo40.insert(0, 'Unanswered')
+        else: 
+            houseInfo40.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo40.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+        
+        #Relationship to Child4
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo41
+        houseInfo41 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo41.insert(0, 'Unanswered')
+        else: 
+            houseInfo41.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo41.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Sex4
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo42
+        houseInfo42 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo42.insert(0, 'Unanswered')
+        else: 
+            houseInfo42.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo42.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age4
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo43
+        houseInfo43 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo43.insert(0, 'Unanswered')
+        else: 
+            houseInfo43.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo43.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+ 
+        #HIV Status4
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo44
+        houseInfo44 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo44.insert(0, 'Unanswered')
+        else: 
+            houseInfo44.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo44.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)       
+
+    #person5
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 5')
+        label.grid(row = r, column = 0, sticky = 'w')
+        person = 5
+        
+        #Name5
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo50
+        houseInfo50 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo50.insert(0, 'Unanswered')
+        else: 
+            houseInfo50.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo50.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+        
+        #Relationship to Child5
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo51
+        houseInfo51 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo51.insert(0, 'Unanswered')
+        else: 
+            houseInfo51.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo51.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Sex5
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo52
+        houseInfo52 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo52.insert(0, 'Unanswered')
+        else: 
+            houseInfo52.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo52.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age5
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo53
+        houseInfo53 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo53.insert(0, 'Unanswered')
+        else: 
+            houseInfo53.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo53.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+ 
+        #HIV Status5
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo54
+        houseInfo54 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo54.insert(0, 'Unanswered')
+        else: 
+            houseInfo54.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo54.grid(row = r, column = 1)
+        label.grid(row = r, column = 0) 
+
+    #person6
+        r = r+1
+        label = Label(self.ChildInfoSectionframe, text = '\nPerson 6')
+        label.grid(row = r, column = 0, sticky = 'w')
+        person = 6
+        
+        #Name6
+        label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
+
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo60
+        houseInfo60 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo60.insert(0, 'Unanswered')
+        else: 
+            houseInfo60.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo60.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+        
+        #Relationship to Child6
+        label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
+
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo61
+        houseInfo61 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo61.insert(0, 'Unanswered')
+        else: 
+            houseInfo61.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo61.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)        
+
+        #Sex6
+        label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
+
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo62
+        houseInfo62 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo62.insert(0, 'Unanswered')
+        else: 
+            houseInfo62.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo62.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Age6
+        label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
+
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo63
+        houseInfo63 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo63.insert(0, 'Unanswered')
+        else: 
+            houseInfo63.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo63.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+ 
+        #HIV Status6
+        label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
+
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        val = curr.fetchall()
+
+        global houseInfo64
+        houseInfo64 = Entry(self.ChildInfoSectionframe)
+        
+        if (val is ()) or (val[0][0] is None):
+            houseInfo64.insert(0, 'Unanswered')
+        else: 
+            houseInfo64.insert(0, val[0][0])
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        houseInfo64.grid(row = r, column = 1)
+        label.grid(row = r, column = 0) 
+
+
+        #Family Annual Income Info
+        label = Label(self.ChildInfoSectionframe, text = "\n\nFamily Annual Income Information ......................................................... ")
+
+        curr.execute("SELECT Fam_Annual_Income FROM Fam_Annual_Income WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        global famIncome0
+        famIncome0 = StringVar()
+        
+        choices = ['$0-10,000','$10,001-15,000','$15,001-20,000','$20,000-25,000','$25,001-30,000','$30,001-35,000','$35,001-40,000','$40,001-45,000','$50,000+']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, famIncome0, *choices)
+
+        if val is not None:
+            famIncome0.set(val)
+            
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
+
+        #Source of Family Income
+        label = Label(self.ChildInfoSectionframe, text = "\nSource of Family Income ....................................................................... ")
+
+        curr.execute("SELECT Source_Fam_Income FROM Source_Fam_Income WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        global famIncome1
+        famIncome1 = StringVar()
+        
+        choices = ['Employment','Government Support','Public Assistance', 'Unemployment Benefits','Medicaid','Social Security','Veterans Benefits','Other']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, famIncome1, *choices)
+
+        if val is not None:
+            famIncome1.set(val)
+            
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
+
+        #Source of Family Income Other
+        curr.execute("SELECT Other FROM Source_Fam_Income WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        label = Label(self.ChildInfoSectionframe, text = "If Other ................................................................................................. ")
+        global famIncome2
+        famIncome2 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            famIncome2.insert(0, val)
+        else:
+            famIncome2.insert(0, 'Unanswered')
+            
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        famIncome2.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+ #In Case of Emergency Contact
+        #header
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nIN CASE OF EMERGENCY CONTACT")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+        #first name
+        curr.execute("SELECT Name_First FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
+        global emergencyInfo0
+        emergencyInfo0 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            emergencyInfo0.insert(0, val)
+        else:
+            emergencyInfo0.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        emergencyInfo0.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #last name
+        curr.execute("SELECT Name_Last FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        label = Label(self.ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
+        global emergencyInfo1
+        emergencyInfo1 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            emergencyInfo1.insert(0, val)
+        else:
+            emergencyInfo1.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        emergencyInfo1.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Relationship to child
+        curr.execute("SELECT Relationship_to_Child FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nRelationship to child ............................................................................. ")
+        global emergencyInfo2
+        emergencyInfo2 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            emergencyInfo2.insert(0, val)
+        else:
+            emergencyInfo2.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        emergencyInfo2.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+        
+        #Home Address
+        curr.execute("SELECT Address_Street FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nHome Address ....................................................................................... ")
+        global emergencyInfo3
+        emergencyInfo3 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            emergencyInfo3.insert(0, val)
+        else:
+            emergencyInfo3.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        emergencyInfo3.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #City
+        curr.execute("SELECT Address_City FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nCity ...................................................................................................... ")
+        global emergencyInfo4
+        emergencyInfo4 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            emergencyInfo4.insert(0, val)
+        else:
+            emergencyInfo4.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        emergencyInfo4.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #State
+        curr.execute("SELECT Address_State FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nState ..................................................................................................... ")
+        global emergencyInfo5
+        emergencyInfo5 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            emergencyInfo5.insert(0, val)
+        else:
+            emergencyInfo5.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        emergencyInfo5.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Zip
+        curr.execute("SELECT Address_Zip FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nZip ........................................................................................................ ")
+        global emergencyInfo6
+        emergencyInfo6 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            emergencyInfo6.insert(0, val)
+        else:
+            emergencyInfo6.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        emergencyInfo6.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Home Phone Number
+        curr.execute("SELECT Phone_Home FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nHome Phone Number ............................................................................. ")
+        global emergencyInfo7
+        emergencyInfo7 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            emergencyInfo7.insert(0, val)
+        else:
+            emergencyInfo7.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        emergencyInfo7.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Cell Phone Number
+        curr.execute("SELECT Phone_Cell FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nCell Phone Number ............................................................................... ")
+        global emergencyInfo8
+        emergencyInfo8 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            emergencyInfo8.insert(0, val)
+        else:
+            emergencyInfo8.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        emergencyInfo8.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Alternate Phone Number
+        curr.execute("SELECT Phone_Alt FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        label = Label(self.ChildInfoSectionframe, text = "\nAlternate Phone Number ....................................................................... ")
+        global emergencyInfo9
+        emergencyInfo9 = Entry(self.ChildInfoSectionframe)
+
+        if val is not None:
+            emergencyInfo9.insert(0, val)
+        else:
+            emergencyInfo9.insert(0, 'Unanswered')
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        emergencyInfo9.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+#H.E.R.O. Programs
+        #header               
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nH.E.R.O. FOR CHILDREN PROGRAMS\n")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+    #Program(s) you wish your child to participate in
+        label = Label(self.ChildInfoSectionframe, text = "Program(s) you wish your child to participate in .................................... ")
+        r = r+1
+        label.grid(row = r, column = 0)
+
+        #Super HEROes Program
+        global programs0
+        programs0 = IntVar()
+        Checkbutton(self.ChildInfoSectionframe, text="Super HEROes Program", variable = programs0).grid(row = r,  column = 1, sticky = W)
+
+        #Bright HEROs Program
+        global programs1
+        programs1 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Bright HEROs Program", variable = programs1).grid(row = r,  column = 1, sticky = W)
+
+        #Camp High Five
+        global programs2
+        programs2 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Camp High Five", variable = programs2).grid(row = r,  column = 1, sticky = W)
+
+        #Holiday of HEROs
+        global programs3
+        programs3 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Holiday of HEROs", variable = programs3).grid(row = r,  column = 1, sticky = W)
+
+        #Transition to Adulthood
+        global programs4
+        programs4 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Transition to Adulthood", variable = programs4).grid(row = r,  column = 1, sticky = W)
+
+
+
+
 #Close Database Connection
         curr.close()
         db.close()

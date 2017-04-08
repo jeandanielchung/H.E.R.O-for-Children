@@ -17,8 +17,8 @@ class AddUser:
 
         self.level = Label(self.frame, text="Type").grid(row=4)
         self.variable = StringVar(master)
-        self.variable.set("Options")
-        self.menu = OptionMenu(self.frame, self.variable, "Manager", "Admin").grid(row=4, column=1)
+        self.variable.set("Regular")
+        self.menu = OptionMenu(self.frame, self.variable, "Regular", "Manager", "Admin").grid(row=4, column=1)
 
         self.add = Button(self.frame, text="Add User").grid(row=6, column=3)
         self.back = Button(self.frame, text="Go Back").grid(row=6, column=0)
