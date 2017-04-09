@@ -160,7 +160,7 @@ class Example(tk.Frame):
         label.grid(row = r, column = 0)
 
         #birthday
-        label = Label(self.ChildInfoSectionframe, text = "\nDate of Birth (Y/M/D) ............................................................................. ")
+        label = Label(self.ChildInfoSectionframe, text = "\nDate of Birth (YYYY-MM-DD) ................................................................ ")
         global childInfo11
         childInfo11 = Entry(self.ChildInfoSectionframe)
 
@@ -972,7 +972,7 @@ class Example(tk.Frame):
         famIncome2.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
- #In Case of Emergency Contact
+#In Case of Emergency Contact
         #header
         labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nIN CASE OF EMERGENCY CONTACT")
         r = r+1
@@ -1320,45 +1320,791 @@ class Example(tk.Frame):
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
 
-        #TODO
-            #handle empty string inputs just let it be an empty string
+        success = 1
 
-        j = None
-        curr.execute("INSERT INTO ChildApp_Emergency_Contact VALUES (2,'2016-12-12', 'Ted', 'Lamprich', 'Grandfather', %s, 'Farmerville', 'LA', '38234', 3188901234, 3185678901, 3182456789);", (j,))
+
+#Child App
+        #adapt for database
+        
+        #wish
+        programsA = ''
+
+        if programs0.get():
+            programsA = programsA + 'Super HEROes Program,'
+
+        if programs1.get():
+            programsA = programsA + 'Bright HEROs Program,'
+
+        if programs2.get():
+            programsA = programsA + 'Camp High Five,'
+
+        if programs3.get():
+            programsA = programsA + 'Holiday of HEROs,'
+
+        if programs4.get():
+            programsA = programsA + 'Transition to Adulthood,'
+
+        if programsA == '':
+            programsA = None
+        else:
+            programsA = programsA[:-1]
+
+        #future
+        programsB = ''
+
+        if programs5.get():
+            programsB = programsB + 'Healthy HEROs,'
+
+        if programs6.get():
+            programsB = programsB + 'Career Development/Job Readiness,'
+
+        if programs7.get():
+            programsB = programsB + 'Other,'
+
+        if programsB == '':
+            programsB = None
+        else:
+            programsB = programsB[:-1]
+
+
+        programsOther = programs8.get()
+        if programsOther == '':
+            programsOther = None
+
+
+        #refferal 
+        programsC = ''
+
+        if referal0.get():
+            programsC = programsC + 'Food,'
+
+        if referal1.get():
+            programsC = programsC + 'Transitional Housing/Shelter,'
+
+        if referal2.get():
+            programsC = programsC + 'Rent/Utilities Assistance,'
+
+        if referal3.get():
+            programsC = programsC + 'Clothing/Furniture,'
+
+        if referal4.get():
+            programsC = programsC + 'Financial/Public Assistance,'
+
+        if referal5.get():
+            programsC = programsC + 'Other,'
+
+        if programsC == '':
+            programsC = None
+        else:
+            programsC = programsC[:-1]
+
+        referalOther = referal6.get()
+        if referalOther == '':
+            referalOther = None
+
+        #Signature
+        sig = signature.get()
+        if sig == 0:
+            sig = None
+        elif sig == 2:
+            sig = 0
+
+        try:
+
+            curr.execute("""INSERT INTO Child_Application VALUES (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                (id, date, sig, programsC, referalOther, programsB, programsOther, programsA,))
+
+        except (MySQLdb.IntegrityError) as e:
+            success = 0
+            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
         db.commit()
 
-        curr.execute("select Address_Street from ChildApp_Emergency_Contact where id = 2;")
-        a = curr.fetchall()[0][0]
-        print a
-        if a is None:
-            print 'yes'
+
+   
+#Child's Information
+        #adapt to database
+
+        cI0 = childInfo0.get()
+        if cI0 == '':
+            cI0 = None
+
+        cI1 = childInfo1.get()
+        if cI1 == '':
+            cI1 = None
+
+        cI2 = childInfo2.get()
+        if cI2 == '':
+            cI2 = None        
+
+        cI3 = childInfo3.get()
+        if cI3 == '':
+            cI3 = None
+
+        cI4 = childInfo4.get()
+        if cI4 == '':
+            cI4 = None
+
+        cI5 = childInfo5.get()
+        if cI5 == '':
+            cI5 = None
+
+        cI6 = childInfo6.get()
+        if cI6 == '':
+            cI6 = None
         else:
-            print 'no'
+            cI6 = int(cI6)
 
+        cI7 = childInfo7.get()
+        if cI7 == '':
+            cI7 = None
+
+        cI8 = childInfo8.get()
+        if cI8 == '':
+            cI8 = None
             
-        #Child's Information
+        cI9 = childInfo9.get()
+        if cI9 == '':
+            cI9 = None
+
+        cI10 = childInfo10.get()
+        if cI10 == '':
+            cI10 = None
+        else:
+            cI10 = int(cI10)
+
+        cI11 = childInfo11.get()
+        if cI11 == '':
+            cI11 = None
+
+        cI12 = childInfo12.get()
+        if cI12 == '':
+            cI12 = None
+
+        cI13 = childInfo13.get()
+        if cI13 == '':
+            cI13 = None
+
+        cI14 = childInfo14.get()
+        if cI14 == 0:
+            cI14 = None
+        elif cI14 == 2:
+            cI14 = 0
+
+        cI15 = childInfo15.get()
+        if cI15 == '':
+            cI15 = None
+
+        cI16 = childInfo16.get()
+        if cI16 == '':
+            cI16 = None
+
+        cI17 = childInfo17.get()
+        if cI17 == '':
+            cI17 = None
+
+        cI18 = childInfo18.get()
+        if cI18 == '':
+            cI18 = None
+
+        cI19 = childInfo19.get()
+        if cI19 == '':
+            cI19 = None
+
+        cI20 = childInfo20.get()
+        if cI20 == '':
+            cI20 = None
+
+        cI21 = childInfo21.get()
+        if cI21 == 0:
+            cI21 = None
+        elif cI21 == 2:
+            cI21 = 0
+
+        cI22 = childInfo22.get()
+        if cI22 == 0:
+            cI22 = None
+        elif cI22 == 2:
+            cI22 = 0
+
+        cI23 = childInfo23.get()
+        if cI23 == 0:
+            cI23 = None
+        elif cI23 == 2:
+            cI23 = 0
+
+        cI24 = childInfo24.get()
+        if cI24 == 0:
+            cI24 = None
+        elif cI24 == 2:
+            cI24 = 0
+
+        cI25 = childInfo25.get()
+        if cI25 == 0:
+            cI25 = None
+        elif cI25 == 2:
+            cI25 = 0
+
+        cI26 = childInfo26.get()
+        if cI26 == 0:
+            cI26 = None
+        elif cI26 == 2:
+            cI26 = 0
+
+        cI27 = childInfo27.get()
+        if cI27 == 0:
+            cI27 = None
+        elif cI27 == 2:
+            cI27 = 0
+
+        cI28 = childInfo28.get()
+        if cI28 == '':
+            cI28 = None
+
+        cI29 = childInfo29.get()
+        if cI29 == '':
+            cI29 = None
+
+#cI7 is a date, figure out how to make sure its ok
+        #Insert into database
+        try:
+            curr.execute("""DELETE FROM Childs_Information WHERE ID = 2;""")
+            db.commit()
+
+            curr.execute("""INSERT INTO Childs_Information VALUES 
+                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
+                         (id, date, cI0, cI1, cI2, cI3, cI4, cI5, cI6, cI7, cI8, cI9, cI10, cI11, cI12, cI13, cI14, cI15, cI16,
+                             cI17, cI18, cI19, cI20, cI21, cI22, cI23, cI24, cI25, cI26, cI27, cI28, cI29,))
+
+        except (MySQLdb.IntegrityError) as e:
+            success = 0
+            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+        db.commit()
+
+
+#Parent/ Guardian's Information
         #adapt for database
- #       aware = childInfo14.get()
- #       if childInfo14.get() == 0:
-#            print 'hi'
-#            childInfo14.set(None)
-#        elif childInfo14.get() == 2:
-#            childInfo14.set(0)
-            
- #       try:
-#            curr.execute("""INSERT INTO Childs_Information VALUES
-#            (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s );""",
-#                         (id, date, childInfo0.get(), childInfo1.get(), childInfo2.get(), childInfo3.get(),
-#                          childInfo4.get(), childInfo5.get(), int(childInfo6.get()), childInfo7.get(), childInfo8.get(),
-#                          childInfo9.get(), int(childInfo10.get()), childInfo11.get(), childInfo12.get(), childInfo13.get(),
-#                          childInfo14.get(), childInfo15.get(), childInfo16.get(), childInfo17.get(), childInfo18.get(),
-#                          childInfo19.get(), childInfo20.get(), childInfo21.get(), childInfo22.get(), childInfo23.get(),
-#                          childInfo24.get(), childInfo25.get(), childInfo26.get(), childInfo27.get(), childInfo28.get(),
-#                          childInfo29.get()))
 
-#        except (MySQLdb.IntegrityError) as e:
-#            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-#        db.commit()
+        pI0 = parentInfo0.get()
+        if pI0 == '':
+            pI0 = None
+
+        pI1 = parentInfo1.get()
+        if pI1 == '':
+            pI1 = None
+
+        pI2 = parentInfo2.get()
+        if pI2 == '':
+            pI2 = None
+
+        pI3 = parentInfo3.get()
+        if pI3 == '':
+            pI3 = None
+        else:
+            pI3 = int(pI3)
+
+        pI4 = parentInfo4.get()
+        if pI4 == '':
+            pI4 = None
+
+        pI5 = parentInfo5.get()
+        if pI5 == '':
+            pI5 = None
+
+        pI6 = parentInfo6.get()
+        if pI6 == '':
+            pI6 = None
+
+        pI7 = parentInfo7.get()
+        if pI7 == '':
+            pI7 = None
+
+        pI8 = parentInfo8.get()
+        if pI8 == '':
+            pI8 = None
+
+        pI9 = parentInfo9.get()
+        if pI9 == '':
+            pI9 = None
+
+        pI10 = parentInfo10.get()
+        if pI10 == '':
+            pI10 = None
+
+        pI11 = parentInfo11.get()
+        if pI11 == '':
+            pI11 = None
+
+        pI12 = parentInfo12.get()
+        if pI12 == '':
+            pI12 = None
+
+        pI13 = parentInfo13.get()
+        if pI13 == '':
+            pI13 = None
+        else:
+            pI13 = int(pI3)
+
+        pI14 = parentInfo14.get()
+        if pI14 == '':
+            pI14 = None
+
+        pI15 = parentInfo15.get()
+        if pI15 == '':
+            pI15 = None
+        
+        #Insert into database
+        try:
+            curr.execute("""DELETE FROM Parent_Guardian_Information WHERE ID = 2;""")
+            db.commit()
+
+            curr.execute("""INSERT INTO Parent_Guardian_Information VALUES 
+                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
+                         (id, date, pI0, pI1, pI2, pI3, pI4, pI5, pI6, pI7, pI8, pI9, pI10, pI11,
+                             pI12, pI13, pI14, pI15,))
+
+        except (MySQLdb.IntegrityError) as e:
+            success = 0
+            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+        db.commit()
+
+
+#Absent Parent's Information
+        #adapt for database
+
+        abs0 = absParentInfo0.get()
+        if abs0 == '':
+            abs0 = None
+
+        abs1 = absParentInfo1.get()
+        if abs1 == '':
+            abs1 = None            
+
+        abs2 = absParentInfo2.get()
+        if abs2 == '':
+            abs2 = None  
+
+        abs3 = absParentInfo3.get()
+        if abs3 == '':
+            abs3 = None
+
+        abs4 = absParentInfo4.get()
+        if abs4 == '':
+            abs4 = None  
+
+        abs5 = absParentInfo5.get()
+        if abs5 == '':
+            abs5 = None  
+
+        abs6 = absParentInfo6.get()
+        if abs6 == '':
+            abs6 = None
+        else:
+            abs6 = int(abs6) 
+
+        abs7 = absParentInfo7.get()
+        if abs7 == '':
+            abs7 = None  
+
+        #Insert into database
+        try:
+            curr.execute("""DELETE FROM Absent_Parent_Information WHERE ID = 2;""")
+            db.commit()
+
+            curr.execute("""INSERT INTO Absent_Parent_Information VALUES
+                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
+                             (id, date, abs0, abs1, abs2, abs3, abs4, abs5, abs6, abs7,))
+
+        except (MySQLdb.IntegrityError) as e:
+            success = 0
+            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+        db.commit()
+
+
+#Household Information
+        #adapt for database
+
+        #person 1
+        house10 = houseInfo10.get()
+        if house10 != '':
+
+            house11 = houseInfo11.get()
+            if house11 == '':
+                house11 = None  
+            
+            house12 = houseInfo12.get()
+            if house12 == '':
+                house12 = None  
+            
+            house13 = houseInfo13.get()
+            if house13 == '':
+                house13 = None
+            else:
+                house13 = int(house13)
+            
+            house14 = houseInfo14.get()
+            if house14 == '':
+                house14 = None 
+
+            try:
+                count = 1
+                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 1;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Household_Information VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                 (id, date, count, house10, house11, house12, house13, house14,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+            db.commit()
+
+
+        #person 2
+        house20 = houseInfo20.get()
+        if house20 != '':
+
+            house21 = houseInfo21.get()
+            if house21 == '':
+                house21 = None  
+            
+            house22 = houseInfo22.get()
+            if house22 == '':
+                house22 = None  
+            
+            house23 = houseInfo23.get()
+            if house23 == '':
+                house23 = None
+            else:
+                house23 = int(house23)
+            
+            house24 = houseInfo24.get()
+            if house24 == '':
+                house24 = None 
+
+            try:
+                count = 2
+                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 2;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Household_Information VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                 (id, date, count, house20, house21, house22, house23, house24,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+            db.commit()
+
+        #person 3
+        house30 = houseInfo30.get()
+        if house30 != '':
+
+            house31 = houseInfo31.get()
+            if house31 == '':
+                house31 = None  
+            
+            house32 = houseInfo32.get()
+            if house32 == '':
+                house32 = None  
+            
+            house33 = houseInfo33.get()
+            if house33 == '':
+                house33 = None
+            else:
+                house33 = int(house33)
+            
+            house34 = houseInfo34.get()
+            if house34 == '':
+                house34 = None 
+
+            try:
+                count = 3
+                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 3;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Household_Information VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                 (id, date, count, house30, house31, house32, house33, house34,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+            db.commit()
+
+
+        #person 4
+        house40 = houseInfo40.get()
+        if house40 != '':
+
+            house41 = houseInfo41.get()
+            if house41 == '':
+                house41 = None  
+            
+            house42 = houseInfo42.get()
+            if house42 == '':
+                house42 = None  
+            
+            house43 = houseInfo43.get()
+            if house43 == '':
+                house43 = None
+            else:
+                house43 = int(house43)
+            
+            house44 = houseInfo44.get()
+            if house44 == '':
+                house44 = None 
+
+            try:
+                count = 4
+                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 4;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Household_Information VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                 (id, date, count, house40, house41, house42, house43, house44,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+            db.commit()
+
+
+        #person 5
+        house50 = houseInfo50.get()
+        if house50 != '':
+
+            house51 = houseInfo51.get()
+            if house51 == '':
+                house51 = None  
+            
+            house52 = houseInfo52.get()
+            if house52 == '':
+                house52 = None  
+            
+            house53 = houseInfo53.get()
+            if house53 == '':
+                house53 = None
+            else:
+                house53 = int(house33)
+            
+            house54 = houseInfo54.get()
+            if house54 == '':
+                house54 = None 
+
+            try:
+                count = 5
+                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 5;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Household_Information VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                 (id, date, count, house50, house51, house52, house53, house54,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+            db.commit()
+
+
+        #person 6
+        house60 = houseInfo60.get()
+        if house60 != '':
+
+            house61 = houseInfo61.get()
+            if house61 == '':
+                house61 = None  
+            
+            house62 = houseInfo62.get()
+            if house62 == '':
+                house62 = None  
+            
+            house63 = houseInfo63.get()
+            if house63 == '':
+                house63 = None
+            else:
+                house63 = int(house63)
+            
+            house64 = houseInfo64.get()
+            if house64 == '':
+                house64 = None 
+
+            try:
+                count = 6
+                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 6;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Household_Information VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                 (id, date, count, house60, house61, house62, house63, house64,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+            db.commit()
+
+#Family Annual Income Info
+        #adapt for database
+        
+        income = famIncome0.get()
+        if income == '':
+            income = None
+
+        try:
+            curr.execute("""DELETE FROM Fam_Annual_Income WHERE ID = 2;""")
+            db.commit()
+
+            curr.execute("""INSERT INTO Fam_Annual_Income VALUES
+                (%s, %s, %s);""",
+                (id, date, income,))
+
+        except (MySQLdb.IntegrityError) as e:
+            success = 0
+            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+        db.commit()
+
+#Source of Family Income
+        #adapt for database
+
+        source0 = famIncome1.get()
+        if source0 == '':
+            source0 = None
+
+        source1 = famIncome2.get()
+        if source1 == '':
+            source1 = None
+
+        try:
+            curr.execute("""DELETE FROM Source_Fam_Income WHERE ID = 2;""")
+            db.commit()
+
+            curr.execute("""INSERT INTO Source_Fam_Income VALUES
+                (%s, %s, %s, %s);""",
+                (id, date, source0, source1,))
+
+        except (MySQLdb.IntegrityError) as e:
+            success = 0
+            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+        db.commit()
+
+#In Case of Emergency Contact
+        #adapt for database
+
+        emergency0 = emergencyInfo0.get()
+        if emergency0 == '':
+            emergency0 = None
+
+        emergency1 = emergencyInfo1.get()
+        if emergency1 == '':
+            emergency1 = None
+
+        emergency2 = emergencyInfo2.get()
+        if emergency2 == '':
+            emergency2 = None
+
+        emergency3 = emergencyInfo3.get()
+        if emergency3 == '':
+            emergency3 = None
+
+        emergency4 = emergencyInfo4.get()
+        if emergency4 == '':
+            emergency4 = None
+
+        emergency5 = emergencyInfo5.get()
+        if emergency5 == '':
+            emergency5 = None
+
+        emergency6 = emergencyInfo6.get()
+        if emergency6 == '':
+            emergency6 = None
+        else:
+            emergency6 = int(emergency6)
+
+        emergency7 = emergencyInfo7.get()
+        if emergency7 == '':
+            emergency7 = None
+
+        emergency8 = emergencyInfo8.get()
+        if emergency8 == '':
+            emergency8 = None
+
+        emergency9 = emergencyInfo9.get()
+        if emergency9 == '':
+            emergency9 = None
+
+        try:
+            curr.execute("""DELETE FROM ChildApp_Emergency_Contact WHERE ID = 2;""")
+            db.commit()
+
+            curr.execute("""INSERT INTO ChildApp_Emergency_Contact VALUES
+                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
+                (id, date, emergency0, emergency1, emergency2, emergency3, emergency4, emergency5, emergency6,
+                     emergency7, emergency8, emergency9,))
+
+        except (MySQLdb.IntegrityError) as e:
+            success = 0
+            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+        db.commit()
+
+#statements of understanding
+        #adapt for database
+
+        s0 = statement0.get()
+        if s0 == 0:
+            s0 = None
+        elif s0 == 2:
+            s0 = 0
+
+        s1 = statement1.get()
+        if s1 == 0:
+            s1 = None
+        elif s1 == 2:
+            s1 = 0
+
+        s2 = statement2.get()
+        if s2 == 0:
+            s2 = None
+        elif s2 == 2:
+            s2 = 0
+
+        s3 = statement3.get()
+        if s3 == 0:
+            s3 = None
+        elif s3 == 2:
+            s3 = 0
+
+        s4 = statement4.get()
+        if s4 == 0:
+            s4 = None
+        elif s4 == 2:
+            s4 = 0
+
+        s5 = statement5.get()
+        if s5 == 0:
+            s5 = None
+        elif s5 == 2:
+            s5 = 0
+
+        s6 = statement6.get()
+        if s6 == 0:
+            s6 = None
+        elif s6 == 2:
+            s6 = 0
+
+        try:
+
+            curr.execute("""INSERT INTO Statement_Of_Understanding VALUES
+                (%s, %s, %s, %s, %s, %s, %s, %s, %s);""",
+                (id, date, s0, s1, s2, s3, s4, s5, s6,))
+
+        except (MySQLdb.IntegrityError) as e:
+            success = 0
+            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+        db.commit()
+
+
+        if success:
+            tkMessageBox.showinfo("New Profile", "Submission Sucessful!")
 
         #Close Database Connection
         curr.close()
@@ -1373,3 +2119,5 @@ if __name__ == "__main__":
     master=tk.Tk()
     Example(master).pack(side="top", fill="both", expand=True)
     master.mainloop()
+
+
