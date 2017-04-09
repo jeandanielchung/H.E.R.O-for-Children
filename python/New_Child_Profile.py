@@ -631,6 +631,11 @@ class Example(tk.Frame):
         labelParentInfoSection.grid(row = r, column = 0)
         labelParentInfoSection.config(font=("Helvetica", 20))
 
+        #list all individuals living in the household
+        label = Label(self.ChildInfoSectionframe, text = "\nAll Individuals Living in the Household")
+        r = r+1
+        label.grid(row = r, column = 0)
+
     #person1
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = '\nPerson 1')
@@ -690,10 +695,10 @@ class Example(tk.Frame):
         #Name2
         label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
         global houseInfo20
-        houseInfo10 = Entry(self.ChildInfoSectionframe)
+        houseInfo20 = Entry(self.ChildInfoSectionframe)
 
         r = r+1
-        houseInfo10.grid(row = r, column = 1)
+        houseInfo20.grid(row = r, column = 1)
         label.grid(row = r, column = 0)        
 
         #Relationship to Child2
@@ -1001,7 +1006,298 @@ class Example(tk.Frame):
         emergencyInfo2.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
+        #Home Address
+        label = Label(self.ChildInfoSectionframe, text = "\nHome Address ....................................................................................... ")
+        global emergencyInfo3
+        emergencyInfo3 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        emergencyInfo3.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #City
+        label = Label(self.ChildInfoSectionframe, text = "\nCity ...................................................................................................... ")
+        global emergencyInfo4
+        emergencyInfo4 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        emergencyInfo4.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #State
+        label = Label(self.ChildInfoSectionframe, text = "\nState ..................................................................................................... ")
+        global emergencyInfo5
+        emergencyInfo5 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        emergencyInfo5.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Zip
+        label = Label(self.ChildInfoSectionframe, text = "\nZip ........................................................................................................ ")
+        global emergencyInfo6
+        emergencyInfo6 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        emergencyInfo6.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Home Phone Number
+        label = Label(self.ChildInfoSectionframe, text = "\nHome Phone Number ............................................................................. ")
+        global emergencyInfo7
+        emergencyInfo7 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        emergencyInfo7.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Cell Phone Number
+        label = Label(self.ChildInfoSectionframe, text = "\nCell Phone Number ............................................................................... ")
+        global emergencyInfo8
+        emergencyInfo8 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        emergencyInfo8.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+        #Alternate Phone Number
+        label = Label(self.ChildInfoSectionframe, text = "\nAlternate Phone Number ....................................................................... ")
+        global emergencyInfo9
+        emergencyInfo9 = Entry(self.ChildInfoSectionframe)
+
+        r = r+1
+        emergencyInfo9.grid(row = r, column = 1)
+        label.grid(row = r, column = 0)
+
+#H.E.R.O. Programs
+        #header               
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nH.E.R.O. FOR CHILDREN PROGRAMS\n")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+    #Program(s) you wish your child to participate in
+        label = Label(self.ChildInfoSectionframe, text = "Program(s) you wish your child to participate in .................................... ")
+        r = r+1
+        label.grid(row = r, column = 0)
+
+        #Super HEROes Program
+        global programs0
+        programs0 = IntVar()
+        Checkbutton(self.ChildInfoSectionframe, text="Super HEROes Program", variable = programs0).grid(row = r,  column = 1, sticky = W)
+
+        #Bright HEROs Program
+        global programs1
+        programs1 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Bright HEROs Program", variable = programs1).grid(row = r,  column = 1, sticky = W)
+
+        #Camp High Five
+        global programs2
+        programs2 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Camp High Five", variable = programs2).grid(row = r,  column = 1, sticky = W)
+
+        #Holiday of HEROs
+        global programs3
+        programs3 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Holiday of HEROs", variable = programs3).grid(row = r,  column = 1, sticky = W)
+
+        #Transition to Adulthood
+        global programs4
+        programs4 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Transition to Adulthood", variable = programs4).grid(row = r,  column = 1, sticky = W)
+
+    #Program(s) you would be interested in your child to participating in
+        label = Label(self.ChildInfoSectionframe, text = "\nProgram(s) you would be interested in your child to participating in ...... ")
+        r = r+1
+        label.grid(row = r, column = 0)
+
+        #Healthy HEROs (health curriculum)
+        global programs5
+        programs5 = IntVar()
+        Checkbutton(self.ChildInfoSectionframe, text="Healthy HEROs", variable = programs5).grid(row = r,  column = 1, sticky = SW)
+
+        #Career Development/Job Readiness
+        global programs6
+        programs6 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Career Development/Job Readiness", variable = programs6).grid(row = r,  column = 1, sticky = W)
+
+        #Other
+        global programs7
+        programs7 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Other", variable = programs7).grid(row = r,  column = 1, sticky = W)
+
+        global programs8
+        programs8 = Entry(self.ChildInfoSectionframe, width = 19)
+        programs8.grid(row = r, column = 1, sticky = E)
+
+#Referal Needs
+        #header
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nREFERRAL NEEDS")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+    #Referal
+        label = Label(self.ChildInfoSectionframe, text = "\nReferal Needs ....................................................................................... ")
+        r = r+1
+        label.grid(row = r, column = 0)
+
+        #Food
+        global referal0
+        referal0 = IntVar()
+        Checkbutton(self.ChildInfoSectionframe, text="Food", variable = referal0).grid(row = r,  column = 1, sticky = SW)
+
+        #Transitional Housing/Shelter
+        global referal1
+        referal1 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Transitional Housing/Shelter", variable = referal1).grid(row = r,  column = 1, sticky = W)
+
+        #Rent/Utilities Assistance
+        global referal2
+        referal2 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Rent/Utilities Assistance", variable = referal2).grid(row = r,  column = 1, sticky = W)
+
+        #Clothing/Furniture
+        global referal3
+        referal3 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Clothing/Furniture", variable = referal3).grid(row = r,  column = 1, sticky = W)
+
+        #Financial/Public Assistance
+        global referal4
+        referal4 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Financial/Public Assistance", variable = referal4).grid(row = r,  column = 1, sticky = W)
+
+        #Other
+        global referal5
+        referal5 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Other", variable = referal5).grid(row = r,  column = 1, sticky = W)
         
+        global referal6
+        referal6 = Entry(self.ChildInfoSectionframe, width = 19)
+        referal6.grid(row = r, column = 1, sticky = E)
+
+#Statement of Understanding
+        #header
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nSTATEMENT OF UNDERSTANDING")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+        #one
+        label = Label(self.ChildInfoSectionframe, text = "Statement 1 ........................................................................................... ")
+        global statement0
+        statement0 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement0, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement0, value=2)
+
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #two
+        label = Label(self.ChildInfoSectionframe, text = "Statement 2 .......................................................................................... ")
+        global statement1
+        statement1 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement1, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement1, value=2)
+
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #three
+        label = Label(self.ChildInfoSectionframe, text = "Statement 3 .......................................................................................... ")
+        global statement2
+        statement2 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement2, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement2, value=2)
+
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #four
+        label = Label(self.ChildInfoSectionframe, text = "Statement 4 .......................................................................................... ")
+        global statement3
+        statement3 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement3, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement3, value=2)
+
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #five
+        label = Label(self.ChildInfoSectionframe, text = "Statement 5 .......................................................................................... ")
+        global statement4
+        statement4 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement4, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement4, value=2)
+
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #six
+        label = Label(self.ChildInfoSectionframe, text = "Statement 6 .......................................................................................... ")
+        global statement5
+        statement5 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement5, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement5, value=2)
+
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #seven
+        label = Label(self.ChildInfoSectionframe, text = "Statement 7 .......................................................................................... ")
+        global statement6
+        statement6 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement6, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement6, value=2)
+
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+#Signature
+        #header
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nSIGNATURE")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+        #signature completed
+        label = Label(self.ChildInfoSectionframe, text = "\nSignature .............................................................................................. ")
+        global signature
+        signature = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = signature, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = signature, value=2)
+
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+
 
 #Submit Button
         r = r+1
