@@ -1118,7 +1118,7 @@ class Example(tk.Frame):
         #Healthy HEROs (health curriculum)
         global programs5
         programs5 = IntVar()
-        Checkbutton(self.ChildInfoSectionframe, text="Transition to Adulthood", variable = programs5).grid(row = r,  column = 1, sticky = SW)
+        Checkbutton(self.ChildInfoSectionframe, text="Healthy HEROs", variable = programs5).grid(row = r,  column = 1, sticky = SW)
 
         #Career Development/Job Readiness
         global programs6
@@ -1290,8 +1290,7 @@ class Example(tk.Frame):
         global signature
         signature = IntVar()
         Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = signature, value=1)
-        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = signature
-                         , value=2)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = signature, value=2)
 
         r = r+1
         Yes.grid(row = r, column = 1, sticky = 'w')

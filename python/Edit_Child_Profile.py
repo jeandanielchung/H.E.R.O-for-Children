@@ -559,7 +559,7 @@ class Example(tk.Frame):
         
         #Developmental_Disability
         r = r+1
-        label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with a learning disability? .................................................... ')
+        label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with a developmental disability? .......................................... ')
 
         curr.execute("SELECT Developmental_Disability FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
@@ -585,7 +585,7 @@ class Example(tk.Frame):
         
         #Mental_Health_Issues
         r = r+1
-        label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with a learning disability? .................................................... ')
+        label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with any mental health issues? ............................................. ')
 
         curr.execute("SELECT Mental_Health_Issues FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
@@ -611,7 +611,7 @@ class Example(tk.Frame):
         
         #Other_Medical_Condition
         r = r+1
-        label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with a learning disability? .................................................... ')
+        label = Label(self.ChildInfoSectionframe, text = 'Diagnosed or suffered from any other medical condition? ..................... ')
 
         curr.execute("SELECT Other_Medical_Condition FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
@@ -637,7 +637,7 @@ class Example(tk.Frame):
         
         #Victim_of_Abuse
         r = r+1
-        label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with a learning disability? .................................................... ')
+        label = Label(self.ChildInfoSectionframe, text = 'A victim of sexual abuse, physical or emotional abuse? ......................... ')
 
         curr.execute("SELECT Victim_of_Abuse FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
@@ -663,7 +663,7 @@ class Example(tk.Frame):
         
         #Criminal_Justice_System
         r = r+1
-        label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with a learning disability? .................................................... ')
+        label = Label(self.ChildInfoSectionframe, text = 'Part of the criminal justice system? ...................................................... ')
 
         curr.execute("SELECT Criminal_Justice_System FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
@@ -2201,11 +2201,20 @@ class Example(tk.Frame):
         label = Label(self.ChildInfoSectionframe, text = "Program(s) you wish your child to participate in .................................... ")
         r = r+1
         label.grid(row = r, column = 0)
+            
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate.grid(row = r, column = 2)
+        
+        curr.execute("SELECT HERO_Programs FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        var = curr.fetchall()[0][0]
 
         #Super HEROes Program
         global programs0
         programs0 = IntVar()
         Checkbutton(self.ChildInfoSectionframe, text="Super HEROes Program", variable = programs0).grid(row = r,  column = 1, sticky = W)
+
+        if 'Super HEROes Program' in var:
+            programs0.set(1)
 
         #Bright HEROs Program
         global programs1
@@ -2213,25 +2222,355 @@ class Example(tk.Frame):
         r = r+1
         Checkbutton(self.ChildInfoSectionframe, text="Bright HEROs Program", variable = programs1).grid(row = r,  column = 1, sticky = W)
 
+        if 'Bright HEROs Program' in var:
+            programs1.set(1)
+            
         #Camp High Five
         global programs2
         programs2 = IntVar()
         r = r+1
         Checkbutton(self.ChildInfoSectionframe, text="Camp High Five", variable = programs2).grid(row = r,  column = 1, sticky = W)
 
+        if 'Camp High Five' in var:
+            programs2.set(1)
+            
         #Holiday of HEROs
         global programs3
         programs3 = IntVar()
         r = r+1
         Checkbutton(self.ChildInfoSectionframe, text="Holiday of HEROs", variable = programs3).grid(row = r,  column = 1, sticky = W)
 
+        if 'Holiday of HEROs' in var:
+            programs3.set(1)
+            
         #Transition to Adulthood
         global programs4
         programs4 = IntVar()
         r = r+1
         Checkbutton(self.ChildInfoSectionframe, text="Transition to Adulthood", variable = programs4).grid(row = r,  column = 1, sticky = W)
 
+        if 'Transition to Adulthood' in var:
+            programs4.set(1)
 
+
+    #Program(s) you would be interested in your child to participating in
+        label = Label(self.ChildInfoSectionframe, text = "\nProgram(s) you would be interested in your child to participating in ...... ")
+        r = r+1
+        label.grid(row = r, column = 0)
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate.grid(row = r, column = 2)
+        
+        curr.execute("SELECT Future_Programs FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        var = curr.fetchall()[0][0]
+        
+        #Healthy HEROs (health curriculum)
+        global programs5
+        programs5 = IntVar()
+        Checkbutton(self.ChildInfoSectionframe, text="Healthy HEROs", variable = programs5).grid(row = r,  column = 1, sticky = SW)
+
+        if 'Healthy HEROs' in var:
+            programs5.set(1)
+
+        #Career Development/Job Readiness
+        global programs6
+        programs6 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Career Development/Job Readiness", variable = programs6).grid(row = r,  column = 1, sticky = W)
+
+        if 'Career Development/Job Readiness' in var:
+            programs6.set(1)
+            
+        #Other
+        global programs7
+        programs7 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Other", variable = programs7).grid(row = r,  column = 1, sticky = W)
+
+        if 'Other' in var:
+            programs7.set(1)
+
+        #if other
+        global programs8
+        programs8 = Entry(self.ChildInfoSectionframe, width = 19)
+        programs8.grid(row = r, column = 1, sticky = E)
+
+        curr.execute("SELECT Future_Other FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        if val is not None:
+            programs8.insert(0, val)
+        else:
+            programs8.insert(0, 'Unanswered')
+            
+#Referal Needs
+        #header
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nREFERRAL NEEDS")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+    #Referal
+        label = Label(self.ChildInfoSectionframe, text = "\nReferal Needs ....................................................................................... ")
+        r = r+1
+        label.grid(row = r, column = 0)
+
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate.grid(row = r, column = 2)
+        
+        curr.execute("SELECT Referral FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        var = curr.fetchall()[0][0]
+        
+        #Food
+        global referal0
+        referal0 = IntVar()
+        Checkbutton(self.ChildInfoSectionframe, text="Food", variable = referal0).grid(row = r,  column = 1, sticky = SW)
+
+        if 'Healthy HEROs' in var:
+            referal0.set(1)
+
+        #Transitional Housing/Shelter
+        global referal1
+        referal1 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Transitional Housing/Shelter", variable = referal1).grid(row = r,  column = 1, sticky = W)
+
+        if 'Transitional Housing/Shelter' in var:
+            referal1.set(1)
+
+        #Rent/Utilities Assistance
+        global referal2
+        referal2 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Rent/Utilities Assistance", variable = referal2).grid(row = r,  column = 1, sticky = W)
+
+        if 'Rent/Utilities Assistance' in var:
+            referal2.set(1)
+
+        #Clothing/Furniture
+        global referal3
+        referal3 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Clothing/Furniture", variable = referal3).grid(row = r,  column = 1, sticky = W)
+
+        if 'Clothing/Furniture' in var:
+            referal3.set(1)
+
+        #Financial/Public Assistance
+        global referal4
+        referal4 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Financial/Public Assistance", variable = referal4).grid(row = r,  column = 1, sticky = W)
+
+        if 'Financial/Public Assistance' in var:
+            referal4.set(1)
+
+        #Other
+        global referal5
+        referal5 = IntVar()
+        r = r+1
+        Checkbutton(self.ChildInfoSectionframe, text="Other", variable = referal5).grid(row = r,  column = 1, sticky = W)
+
+        if 'Other' in var:
+            referal5.set(1)
+
+        #if other
+        global referal6
+        referal6 = Entry(self.ChildInfoSectionframe, width = 19)
+        referal6.grid(row = r, column = 1, sticky = E)
+
+        curr.execute("SELECT Referral_Other FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        if val is not None:
+            referal6.insert(0, val)
+        else:
+            referal6.insert(0, 'Unanswered')
+
+#Statement of Understanding
+        #header
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nSTATEMENT OF UNDERSTANDING")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+       
+        #one
+        label = Label(self.ChildInfoSectionframe, text = "Statement 1 ........................................................................................... ")
+        curr.execute("SELECT Statement_One FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        global statement0
+        statement0 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement0, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement0, value=2)
+
+        if val is not None:
+            if val is 0:
+                statement0.set(2)
+            else:
+                statement0.set(1)
+
+        r = r+1
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate.grid(row = r, column = 2)
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #two
+        label = Label(self.ChildInfoSectionframe, text = "Statement 2 .......................................................................................... ")
+        curr.execute("SELECT Statement_Two FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        global statement1
+        statement1 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement1, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement1, value=2)
+
+        if val is not None:
+            if val is 0:
+                statement1.set(2)
+            else:
+                statement1.set(1)
+                
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #three
+        label = Label(self.ChildInfoSectionframe, text = "Statement 3 .......................................................................................... ")
+        curr.execute("SELECT Statement_Three FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        global statement2
+        statement2 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement2, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement2, value=2)
+
+        if val is not None:
+            if val is 0:
+                statement2.set(2)
+            else:
+                statement2.set(1)
+
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #four
+        label = Label(self.ChildInfoSectionframe, text = "Statement 4 .......................................................................................... ")
+        curr.execute("SELECT Statement_Four FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        global statement3
+        statement3 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement3, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement3, value=2)
+
+        if val is not None:
+            if val is 0:
+                statement3.set(2)
+            else:
+                statement3.set(1)
+                
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #five
+        label = Label(self.ChildInfoSectionframe, text = "Statement 5 .......................................................................................... ")
+        curr.execute("SELECT Statement_Five FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        global statement4
+        statement4 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement4, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement4, value=2)
+
+        if val is not None:
+            if val is 0:
+                statement4.set(2)
+            else:
+                statement4.set(1)
+                
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #six
+        label = Label(self.ChildInfoSectionframe, text = "Statement 6 .......................................................................................... ")
+        curr.execute("SELECT Statement_Six FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        global statement5
+        statement5 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement5, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement5, value=2)
+
+        if val is not None:
+            if val is 0:
+                statement5.set(2)
+            else:
+                statement5.set(1)
+                
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+        #seven
+        label = Label(self.ChildInfoSectionframe, text = "Statement 7 .......................................................................................... ")
+        curr.execute("SELECT Statement_Seven FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+
+        global statement6
+        statement6 = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = statement6, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = statement6, value=2)
+
+        if val is not None:
+            if val is 0:
+                statement6.set(2)
+            else:
+                statement6.set(1)
+        r = r+1
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
+
+ #Signature
+        #header
+        labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nSIGNATURE")
+        r = r+1
+        labelParentInfoSection.grid(row = r, column = 0)
+        labelParentInfoSection.config(font=("Helvetica", 20))
+
+        #signature completed
+        label = Label(self.ChildInfoSectionframe, text = "\nSignature .............................................................................................. ")
+        curr.execute("SELECT Statement_Seven FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        val = curr.fetchall()[0][0]
+        
+        global signature
+        signature = IntVar()
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = signature, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = signature, value=2)
+
+        if val is not None:
+            if val is 0:
+                signature.set(2)
+            else:
+                signature.set(1)
+
+        r = r+1
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate.grid(row = r, column = 2)
+        Yes.grid(row = r, column = 1, sticky = 'w')
+        No.grid(row = r, column = 1, sticky = 'e')
+        label.grid(row = r, column = 0)
 
 
 #Close Database Connection
