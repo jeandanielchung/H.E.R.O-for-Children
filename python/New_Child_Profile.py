@@ -1321,19 +1321,44 @@ class Example(tk.Frame):
         curr = db.cursor()
 
         #TODO
-            #handle empty string inputs....
-            #initial thought = check all of them for == '' right here. Then if true replace with NULL
-                #inefficient but would work
-            #or just let it be an empty string? idk yet
+            #handle empty string inputs just let it be an empty string
 
-        #Execute
-        try:
-            curr.execute("""INSERT INTO ChildApp_Emergency_Contact VALUES
-            (%s, %s, %s, 'Smith', 'Grandfather', '318 Goss Street', 'Farmerville', 'LA', '38234', 3188901234, 3185678901, 3182456789);""", (id, date, firstName.get(),))
-
-        except (MySQLdb.IntegrityError) as e:
-            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+        j = None
+        curr.execute("INSERT INTO ChildApp_Emergency_Contact VALUES (2,'2016-12-12', 'Ted', 'Lamprich', 'Grandfather', %s, 'Farmerville', 'LA', '38234', 3188901234, 3185678901, 3182456789);", (j,))
         db.commit()
+
+        curr.execute("select Address_Street from ChildApp_Emergency_Contact where id = 2;")
+        a = curr.fetchall()[0][0]
+        print a
+        if a is None:
+            print 'yes'
+        else:
+            print 'no'
+
+            
+        #Child's Information
+        #adapt for database
+ #       aware = childInfo14.get()
+ #       if childInfo14.get() == 0:
+#            print 'hi'
+#            childInfo14.set(None)
+#        elif childInfo14.get() == 2:
+#            childInfo14.set(0)
+            
+ #       try:
+#            curr.execute("""INSERT INTO Childs_Information VALUES
+#            (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s );""",
+#                         (id, date, childInfo0.get(), childInfo1.get(), childInfo2.get(), childInfo3.get(),
+#                          childInfo4.get(), childInfo5.get(), int(childInfo6.get()), childInfo7.get(), childInfo8.get(),
+#                          childInfo9.get(), int(childInfo10.get()), childInfo11.get(), childInfo12.get(), childInfo13.get(),
+#                          childInfo14.get(), childInfo15.get(), childInfo16.get(), childInfo17.get(), childInfo18.get(),
+#                          childInfo19.get(), childInfo20.get(), childInfo21.get(), childInfo22.get(), childInfo23.get(),
+#                          childInfo24.get(), childInfo25.get(), childInfo26.get(), childInfo27.get(), childInfo28.get(),
+#                          childInfo29.get()))
+
+#        except (MySQLdb.IntegrityError) as e:
+#            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+#        db.commit()
 
         #Close Database Connection
         curr.close()
