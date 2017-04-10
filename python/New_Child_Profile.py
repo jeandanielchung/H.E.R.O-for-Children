@@ -1321,10 +1321,11 @@ class Example(tk.Frame):
         curr = db.cursor()
 
         success = 1
+        goodData = 1
 
+#adapt for database
 
 #Child App
-        #adapt for database
         
         #wish
         programsA = ''
@@ -1408,21 +1409,8 @@ class Example(tk.Frame):
             sig = None
         elif sig == 2:
             sig = 0
-
-        try:
-
-            curr.execute("""INSERT INTO Child_Application VALUES (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                (id, date, sig, programsC, referalOther, programsB, programsOther, programsA,))
-
-        except (MySQLdb.IntegrityError) as e:
-            success = 0
-            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-        db.commit()
-
-
    
 #Child's Information
-        #adapt to database
 
         cI0 = childInfo0.get()
         if cI0 == '':
@@ -1449,10 +1437,15 @@ class Example(tk.Frame):
             cI5 = None
 
         cI6 = childInfo6.get()
-        if cI6 == '':
-            cI6 = None
+        if cI6 != '':
+            if self.is_number(cI6):
+                cI6 = int(cI6)
+            else:
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Child's Information\n\nZip code must be only numbers.")
+                goodData = 0
         else:
-            cI6 = int(cI6)
+            cI6 = None
+
 
         cI7 = childInfo7.get()
         if cI7 == '':
@@ -1467,13 +1460,21 @@ class Example(tk.Frame):
             cI9 = None
 
         cI10 = childInfo10.get()
-        if cI10 == '':
-            cI10 = None
+        if cI10 != '':
+            if self.is_number(cI10):
+                cI10 = int(cI10)
+            else:
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Child's Information\n\nAge must be only numbers.")
+                goodData = 0
         else:
-            cI10 = int(cI10)
+            cI10 = None
 
         cI11 = childInfo11.get()
-        if cI11 == '':
+        if cI11 != '':
+            if not self.is_date(cI11):
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Child's Information\n\nDate must be if YYYY-MM-DD format\nAnd must be a real date.")
+                goodData = 0
+        else:
             cI11 = None
 
         cI12 = childInfo12.get()
@@ -1564,22 +1565,8 @@ class Example(tk.Frame):
         if cI29 == '':
             cI29 = None
 
+#TODO:
 #cI7 is a date, figure out how to make sure its ok
-        #Insert into database
-        try:
-            curr.execute("""DELETE FROM Childs_Information WHERE ID = 2;""")
-            db.commit()
-
-            curr.execute("""INSERT INTO Childs_Information VALUES 
-                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
-                         (id, date, cI0, cI1, cI2, cI3, cI4, cI5, cI6, cI7, cI8, cI9, cI10, cI11, cI12, cI13, cI14, cI15, cI16,
-                             cI17, cI18, cI19, cI20, cI21, cI22, cI23, cI24, cI25, cI26, cI27, cI28, cI29,))
-
-        except (MySQLdb.IntegrityError) as e:
-            success = 0
-            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-        db.commit()
-
 
 #Parent/ Guardian's Information
         #adapt for database
@@ -1597,10 +1584,14 @@ class Example(tk.Frame):
             pI2 = None
 
         pI3 = parentInfo3.get()
-        if pI3 == '':
-            pI3 = None
+        if pI3 != '':
+            if self.is_number(pI3):
+                pI3 = int(pI3)
+            else:
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Parent/Guardian Information\n\nAge must be only numbers.")
+                goodData = 0
         else:
-            pI3 = int(pI3)
+            pI3 = None
 
         pI4 = parentInfo4.get()
         if pI4 == '':
@@ -1639,10 +1630,14 @@ class Example(tk.Frame):
             pI12 = None
 
         pI13 = parentInfo13.get()
-        if pI13 == '':
-            pI13 = None
+        if pI13 != '':
+            if self.is_number(pI13):
+                pI13 = int(pI13)
+            else:
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Parent/Guardian Information\n\nZip must be only numbers.")
+                goodData = 0
         else:
-            pI13 = int(pI3)
+            pI13 = None
 
         pI14 = parentInfo14.get()
         if pI14 == '':
@@ -1652,21 +1647,6 @@ class Example(tk.Frame):
         if pI15 == '':
             pI15 = None
         
-        #Insert into database
-        try:
-            curr.execute("""DELETE FROM Parent_Guardian_Information WHERE ID = 2;""")
-            db.commit()
-
-            curr.execute("""INSERT INTO Parent_Guardian_Information VALUES 
-                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
-                         (id, date, pI0, pI1, pI2, pI3, pI4, pI5, pI6, pI7, pI8, pI9, pI10, pI11,
-                             pI12, pI13, pI14, pI15,))
-
-        except (MySQLdb.IntegrityError) as e:
-            success = 0
-            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-        db.commit()
-
 
 #Absent Parent's Information
         #adapt for database
@@ -1696,36 +1676,33 @@ class Example(tk.Frame):
             abs5 = None  
 
         abs6 = absParentInfo6.get()
-        if abs6 == '':
-            abs6 = None
+        if abs6 != '':
+            if self.is_number(abs6):
+                abs6 = int(abs6)
+            else:
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Absent Parent Information\n\nZip must be only numbers.")
+                goodData = 0
         else:
-            abs6 = int(abs6) 
+            abs6 = None
 
         abs7 = absParentInfo7.get()
         if abs7 == '':
             abs7 = None  
 
-        #Insert into database
-        try:
-            curr.execute("""DELETE FROM Absent_Parent_Information WHERE ID = 2;""")
-            db.commit()
-
-            curr.execute("""INSERT INTO Absent_Parent_Information VALUES
-                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
-                             (id, date, abs0, abs1, abs2, abs3, abs4, abs5, abs6, abs7,))
-
-        except (MySQLdb.IntegrityError) as e:
-            success = 0
-            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-        db.commit()
-
 
 #Household Information
         #adapt for database
+        person1 = 0
+        person2 = 0
+        person3 = 0
+        person4 = 0
+        person5 = 0
+        person6 = 0
 
         #person 1
         house10 = houseInfo10.get()
         if house10 != '':
+            person1 = 1
 
             house11 = houseInfo11.get()
             if house11 == '':
@@ -1736,33 +1713,23 @@ class Example(tk.Frame):
                 house12 = None  
             
             house13 = houseInfo13.get()
-            if house13 == '':
-                house13 = None
+            if house13 != '':
+                if self.is_number(house13):
+                    house13 = int(house13)
+                else:
+                    tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Household Information\n\nAge must be only numbers.")
+                    goodData = 0
             else:
-                house13 = int(house13)
+                house13 = None
             
             house14 = houseInfo14.get()
             if house14 == '':
                 house14 = None 
 
-            try:
-                count = 1
-                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 1;""")
-                db.commit()
-
-                curr.execute("""INSERT INTO Household_Information VALUES
-                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                 (id, date, count, house10, house11, house12, house13, house14,))
-
-            except (MySQLdb.IntegrityError) as e:
-                success = 0
-                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-            db.commit()
-
-
         #person 2
         house20 = houseInfo20.get()
         if house20 != '':
+            person2 = 1
 
             house21 = houseInfo21.get()
             if house21 == '':
@@ -1773,32 +1740,23 @@ class Example(tk.Frame):
                 house22 = None  
             
             house23 = houseInfo23.get()
-            if house23 == '':
-                house23 = None
+            if house23 != '':
+                if self.is_number(house23):
+                    house23 = int(house23)
+                else:
+                    tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Household Information\n\nAge must be only numbers.")
+                    goodData = 0
             else:
-                house23 = int(house23)
+                house23 = None
             
             house24 = houseInfo24.get()
             if house24 == '':
                 house24 = None 
 
-            try:
-                count = 2
-                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 2;""")
-                db.commit()
-
-                curr.execute("""INSERT INTO Household_Information VALUES
-                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                 (id, date, count, house20, house21, house22, house23, house24,))
-
-            except (MySQLdb.IntegrityError) as e:
-                success = 0
-                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-            db.commit()
-
         #person 3
         house30 = houseInfo30.get()
         if house30 != '':
+            person3 = 1
 
             house31 = houseInfo31.get()
             if house31 == '':
@@ -1809,33 +1767,23 @@ class Example(tk.Frame):
                 house32 = None  
             
             house33 = houseInfo33.get()
-            if house33 == '':
-                house33 = None
+            if house33 != '':
+                if self.is_number(house33):
+                    house33 = int(house33)
+                else:
+                    tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Household Information\n\nAge must be only numbers.")
+                    goodData = 0
             else:
-                house33 = int(house33)
+                house33 = None
             
             house34 = houseInfo34.get()
             if house34 == '':
                 house34 = None 
 
-            try:
-                count = 3
-                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 3;""")
-                db.commit()
-
-                curr.execute("""INSERT INTO Household_Information VALUES
-                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                 (id, date, count, house30, house31, house32, house33, house34,))
-
-            except (MySQLdb.IntegrityError) as e:
-                success = 0
-                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-            db.commit()
-
-
         #person 4
         house40 = houseInfo40.get()
         if house40 != '':
+            person4 = 1
 
             house41 = houseInfo41.get()
             if house41 == '':
@@ -1846,33 +1794,23 @@ class Example(tk.Frame):
                 house42 = None  
             
             house43 = houseInfo43.get()
-            if house43 == '':
-                house43 = None
+            if house43 != '':
+                if self.is_number(house43):
+                    house43 = int(house43)
+                else:
+                    tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Household Information\n\nAge must be only numbers.")
+                    goodData = 0
             else:
-                house43 = int(house43)
+                house43 = None
             
             house44 = houseInfo44.get()
             if house44 == '':
                 house44 = None 
 
-            try:
-                count = 4
-                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 4;""")
-                db.commit()
-
-                curr.execute("""INSERT INTO Household_Information VALUES
-                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                 (id, date, count, house40, house41, house42, house43, house44,))
-
-            except (MySQLdb.IntegrityError) as e:
-                success = 0
-                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-            db.commit()
-
-
         #person 5
         house50 = houseInfo50.get()
         if house50 != '':
+            person5 = 1
 
             house51 = houseInfo51.get()
             if house51 == '':
@@ -1883,33 +1821,23 @@ class Example(tk.Frame):
                 house52 = None  
             
             house53 = houseInfo53.get()
-            if house53 == '':
-                house53 = None
+            if house53 != '':
+                if self.is_number(house53):
+                    house53 = int(house53)
+                else:
+                    tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Household Information\n\nAge must be only numbers.")
+                    goodData = 0
             else:
-                house53 = int(house33)
+                house53 = None
             
             house54 = houseInfo54.get()
             if house54 == '':
                 house54 = None 
 
-            try:
-                count = 5
-                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 5;""")
-                db.commit()
-
-                curr.execute("""INSERT INTO Household_Information VALUES
-                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                 (id, date, count, house50, house51, house52, house53, house54,))
-
-            except (MySQLdb.IntegrityError) as e:
-                success = 0
-                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-            db.commit()
-
-
         #person 6
         house60 = houseInfo60.get()
         if house60 != '':
+            person6 = 1
 
             house61 = houseInfo61.get()
             if house61 == '':
@@ -1920,28 +1848,18 @@ class Example(tk.Frame):
                 house62 = None  
             
             house63 = houseInfo63.get()
-            if house63 == '':
-                house63 = None
+            if house63 != '':
+                if self.is_number(house63):
+                    house63 = int(house63)
+                else:
+                    tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in Household Information\n\nAge must be only numbers.")
+                    goodData = 0
             else:
-                house63 = int(house63)
+                house63 = None
             
             house64 = houseInfo64.get()
             if house64 == '':
                 house64 = None 
-
-            try:
-                count = 6
-                curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 6;""")
-                db.commit()
-
-                curr.execute("""INSERT INTO Household_Information VALUES
-                    (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                 (id, date, count, house60, house61, house62, house63, house64,))
-
-            except (MySQLdb.IntegrityError) as e:
-                success = 0
-                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-            db.commit()
 
 #Family Annual Income Info
         #adapt for database
@@ -1949,19 +1867,6 @@ class Example(tk.Frame):
         income = famIncome0.get()
         if income == '':
             income = None
-
-        try:
-            curr.execute("""DELETE FROM Fam_Annual_Income WHERE ID = 2;""")
-            db.commit()
-
-            curr.execute("""INSERT INTO Fam_Annual_Income VALUES
-                (%s, %s, %s);""",
-                (id, date, income,))
-
-        except (MySQLdb.IntegrityError) as e:
-            success = 0
-            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-        db.commit()
 
 #Source of Family Income
         #adapt for database
@@ -1973,19 +1878,6 @@ class Example(tk.Frame):
         source1 = famIncome2.get()
         if source1 == '':
             source1 = None
-
-        try:
-            curr.execute("""DELETE FROM Source_Fam_Income WHERE ID = 2;""")
-            db.commit()
-
-            curr.execute("""INSERT INTO Source_Fam_Income VALUES
-                (%s, %s, %s, %s);""",
-                (id, date, source0, source1,))
-
-        except (MySQLdb.IntegrityError) as e:
-            success = 0
-            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-        db.commit()
 
 #In Case of Emergency Contact
         #adapt for database
@@ -2015,10 +1907,14 @@ class Example(tk.Frame):
             emergency5 = None
 
         emergency6 = emergencyInfo6.get()
-        if emergency6 == '':
-            emergency6 = None
+        if emergency6 != '':
+            if self.is_number(emergency6):
+                emergency6 = int(emergency6)
+            else:
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nIncompatible entry in In Case of Emergency Contact\n\nZip must be only numbers.")
+                goodData = 0
         else:
-            emergency6 = int(emergency6)
+            emergency6 = None
 
         emergency7 = emergencyInfo7.get()
         if emergency7 == '':
@@ -2031,20 +1927,6 @@ class Example(tk.Frame):
         emergency9 = emergencyInfo9.get()
         if emergency9 == '':
             emergency9 = None
-
-        try:
-            curr.execute("""DELETE FROM ChildApp_Emergency_Contact WHERE ID = 2;""")
-            db.commit()
-
-            curr.execute("""INSERT INTO ChildApp_Emergency_Contact VALUES
-                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
-                (id, date, emergency0, emergency1, emergency2, emergency3, emergency4, emergency5, emergency6,
-                     emergency7, emergency8, emergency9,))
-
-        except (MySQLdb.IntegrityError) as e:
-            success = 0
-            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-        db.commit()
 
 #statements of understanding
         #adapt for database
@@ -2091,25 +1973,215 @@ class Example(tk.Frame):
         elif s6 == 2:
             s6 = 0
 
-        try:
 
-            curr.execute("""INSERT INTO Statement_Of_Understanding VALUES
-                (%s, %s, %s, %s, %s, %s, %s, %s, %s);""",
-                (id, date, s0, s1, s2, s3, s4, s5, s6,))
+#Insert into DB
+        if goodData:
+            try:
+                curr.execute("""DELETE FROM Child_Application WHERE ID = 2;""")
+                db.commit()
 
-        except (MySQLdb.IntegrityError) as e:
-            success = 0
-            tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
-        db.commit()
+                curr.execute("""INSERT INTO Child_Application VALUES (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                    (id, date, sig, programsC, referalOther, programsB, programsOther, programsA,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+
+            try:
+                curr.execute("""DELETE FROM Childs_Information WHERE ID = 2;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Childs_Information VALUES 
+                    (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
+                             (id, date, cI0, cI1, cI2, cI3, cI4, cI5, cI6, cI7, cI8, cI9, cI10, cI11, cI12, cI13, cI14, cI15, cI16,
+                                 cI17, cI18, cI19, cI20, cI21, cI22, cI23, cI24, cI25, cI26, cI27, cI28, cI29,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+
+            try:
+                curr.execute("""DELETE FROM Parent_Guardian_Information WHERE ID = 2;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Parent_Guardian_Information VALUES 
+                    (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
+                             (id, date, pI0, pI1, pI2, pI3, pI4, pI5, pI6, pI7, pI8, pI9, pI10, pI11,
+                                 pI12, pI13, pI14, pI15,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+
+            try:
+                curr.execute("""DELETE FROM Absent_Parent_Information WHERE ID = 2;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Absent_Parent_Information VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
+                                 (id, date, abs0, abs1, abs2, abs3, abs4, abs5, abs6, abs7,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+
+            if person1:
+                try:
+                    count = 1
+                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 1;""")
+                    db.commit()
+
+                    curr.execute("""INSERT INTO Household_Information VALUES
+                        (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                     (id, date, count, house10, house11, house12, house13, house14,))
+
+                except (MySQLdb.IntegrityError) as e:
+                    success = 0
+
+            if person2:
+                try:
+                    count = 2
+                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 2;""")
+                    db.commit()
+
+                    curr.execute("""INSERT INTO Household_Information VALUES
+                        (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                     (id, date, count, house20, house21, house22, house23, house24,))
+
+                except (MySQLdb.IntegrityError) as e:
+                    success = 0
+
+            if person3:
+                try:
+                    count = 3
+                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 3;""")
+                    db.commit()
+
+                    curr.execute("""INSERT INTO Household_Information VALUES
+                        (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                     (id, date, count, house30, house31, house32, house33, house34,))
+
+                except (MySQLdb.IntegrityError) as e:
+                    success = 0
+
+            if person4:
+                try:
+                    count = 4
+                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 4;""")
+                    db.commit()
+
+                    curr.execute("""INSERT INTO Household_Information VALUES
+                        (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                     (id, date, count, house40, house41, house42, house43, house44,))
+
+                except (MySQLdb.IntegrityError) as e:
+                    success = 0
+
+            if person5:
+                try:
+                    count = 5
+                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 5;""")
+                    db.commit()
+
+                    curr.execute("""INSERT INTO Household_Information VALUES
+                        (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                     (id, date, count, house50, house51, house52, house53, house54,))
+
+                except (MySQLdb.IntegrityError) as e:
+                    success = 0
+
+            if person6:
+                try:
+                    count = 6
+                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 6;""")
+                    db.commit()
+
+                    curr.execute("""INSERT INTO Household_Information VALUES
+                        (%s, %s, %s, %s, %s, %s, %s, %s);""",
+                                     (id, date, count, house60, house61, house62, house63, house64,))
+
+                except (MySQLdb.IntegrityError) as e:
+                    success = 0
+
+            try:
+                curr.execute("""DELETE FROM Fam_Annual_Income WHERE ID = 2;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Fam_Annual_Income VALUES
+                    (%s, %s, %s);""",
+                    (id, date, income,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+
+            try:
+                curr.execute("""DELETE FROM Source_Fam_Income WHERE ID = 2;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO Source_Fam_Income VALUES
+                    (%s, %s, %s, %s);""",
+                    (id, date, source0, source1,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+
+            try:
+                curr.execute("""DELETE FROM ChildApp_Emergency_Contact WHERE ID = 2;""")
+                db.commit()
+
+                curr.execute("""INSERT INTO ChildApp_Emergency_Contact VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
+                    (id, date, emergency0, emergency1, emergency2, emergency3, emergency4, emergency5, emergency6,
+                         emergency7, emergency8, emergency9,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+
+            try:
+                curr.execute("""INSERT INTO Statement_Of_Understanding VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s, %s);""",
+                    (id, date, s0, s1, s2, s3, s4, s5, s6,))
+
+            except (MySQLdb.IntegrityError) as e:
+                success = 0
+            
+
+            db.commit()
+
+            if success:
+                tkMessageBox.showinfo("New Profile", "Submission Sucessful!")
+            else:
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
 
 
-        if success:
-            tkMessageBox.showinfo("New Profile", "Submission Sucessful!")
+
 
         #Close Database Connection
         curr.close()
         db.close()
 
+    #check string entry is a number
+    def is_number(self, s):
+        try:
+            int(s)
+            return True
+        except ValueError:
+            return False
+
+    #check string entry is a date (YYYY-MM-DD)
+    def is_date(self, s):
+        if len(s) != 10:
+            return False
+        if (s[4] != s[7]) or (s[4] != '-') or (not self.is_number(s[0:4])) or (not self.is_number(s[5:7])) or (not self.is_number(s[-2:])):
+            return False
+        if (1 > int(s[0:4])) or (1 > int(s[5:7])) or (int(s[5:7]) > 12) or (1 > int(s[-2:])):
+            return False
+        if int(s[5:7]) == 02:
+            if (int(s[-2:]) > 29):
+                return False
+        elif (int(s[5:7]) == 04) or (int(s[5:7]) == 06) or (int(s[5:7]) == 9) or (int(s[5:7]) == 11):
+            if (int(s[-2:]) > 30): 
+                return False
+        elif int(s[-2:]) > 31:
+            return False
+
+        return True
 
     def onFrameConfigure(self, event):
         '''Reset the scroll region to encompass the inner frame'''

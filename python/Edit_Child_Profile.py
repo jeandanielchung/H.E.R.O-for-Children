@@ -2608,6 +2608,7 @@ class Example(tk.Frame):
             showinfo('No', 'Delete has been cancelled')
 
 
+#Child Info
     def updatechildInfo0(self):
 
         #Open Database Connection
@@ -2621,15 +2622,9 @@ class Example(tk.Frame):
         else:
             curr.execute("UPDATE Childs_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
         db.commit()
-            
-        #TODO:
-            #update with error handling
-        #check & feedback
-        curr.execute("SELECT Name_First FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        if curr.fetchall()[0][0] == newVal:
-            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-        else:
-            tkMessageBox.showinfo("Edit Profile", "Update Unsuccessful.")
+        
+        #feedback    
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         curr.close()
@@ -2648,15 +2643,9 @@ class Example(tk.Frame):
         else:
             curr.execute("UPDATE Childs_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
         db.commit()
-            
-        #TODO:
-            #update with error handling
-        #check & feedback
-        curr.execute("SELECT Name_Last FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        if curr.fetchall()[0][0] == newVal:
-            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-        else:
-            tkMessageBox.showinfo("Edit Profile", "Update Unsuccessful.")
+        
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         curr.close()
@@ -2676,14 +2665,8 @@ class Example(tk.Frame):
             curr.execute("UPDATE Childs_Information SET Name_Nickname = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
         db.commit()
             
-        #TODO:
-            #update with error handling
-        #check & feedback
-        curr.execute("SELECT Name_Nickname FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        if curr.fetchall()[0][0] == newVal:
-            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-        else:
-            tkMessageBox.showinfo("Edit Profile", "Update Unsuccessful.")
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         curr.close()
@@ -2703,19 +2686,79 @@ class Example(tk.Frame):
             curr.execute("UPDATE Childs_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
         db.commit()
             
-        #TODO:
-            #update with error handling
-        #check & feedback
-        curr.execute("SELECT Address_Street FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        if curr.fetchall()[0][0] == newVal:
-            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-        else:
-            tkMessageBox.showinfo("Edit Profile", "Update Unsuccessful.")
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         curr.close()
         db.close()
-        
+
+    def updatechildInfo4(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo3.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo5(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo3.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Address_County = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET Address_County = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo6(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo3.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+
+
+
     def onFrameConfigure(self, event):
         '''Reset the scroll region to encompass the inner frame'''
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
