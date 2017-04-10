@@ -33,15 +33,15 @@ CREATE TABLE Child_Application (
 	Date_Submitted DATE,
 
 	Signature TINYINT(1),
-	
+
 	Referral SET('Food','Transitional Housing/Shelter',
 		'Rent/Utilities Assistance', 'Clothing/Furniture', 'Financial/Public Assistance', 'Other') DEFAULT NULL,
 	Referral_Other VARCHAR(30),
-	
+
 	Future_Programs SET('Healthy HEROs', 'Career Development/Job Readiness', 'Other'),
 	Future_Other VARCHAR(30),
-	
-	HERO_Programs SET('Super HEROes Program', 'Bright HEROs Program', 
+
+	HERO_Programs SET('Super HEROes Program', 'Bright HEROs Program',
 		'Camp High Five', 'Holiday of HEROs', 'Transition to Adulthood'),
 
 	PRIMARY KEY (ID, Date_Submitted),
@@ -59,19 +59,19 @@ CREATE TABLE Childs_Information (
   Name_First VARCHAR(30),
   Name_Last VARCHAR(30),
   Name_Nickname VARCHAR(30),
-  
+
   Address_Street VARCHAR(50),
   Address_City VARCHAR(30),
   Address_County VARCHAR(30),
   Address_Zip INT,
-  
-  Home_Phone INT,
-  Guardian_Phone INT,
+
+  Home_Phone BIGINT,
+  Guardian_Phone BIGINT,
   Guardian_Email VARCHAR(70),
-  
+
   Birthday DATE,
   Gender ENUM('Male','Female'),
-  
+
   HIV_Status ENUM('HIV Positive','HIV Negative'),
   Aware TINYINT(1),
   Why VARCHAR(100),
@@ -122,7 +122,7 @@ CREATE TABLE Parent_Guardian_Information (
   Address_State CHAR(2),
   Address_Zip INT,
 
-  WorkPhone INT,
+  WorkPhone BIGINT,
   Email VARCHAR(70),
 
   PRIMARY KEY(ID, Date_Submitted),
@@ -138,7 +138,7 @@ CREATE TABLE Absent_Parent_Information (
 
   Name_First VARCHAR(30),
   Name_Last VARCHAR(30),
-  Telephone INT,
+  Telephone BIGINT,
 
   Address_Street VARCHAR(50),
   Address_City VARCHAR(30),
@@ -219,9 +219,9 @@ CREATE TABLE ChildApp_Emergency_Contact (
   Address_State CHAR(2),
   Address_Zip INT,
 
-  Phone_Home INT,
-  Phone_Cell INT,
-  Phone_Alt INT,
+  Phone_Home BIGINT,
+  Phone_Cell BIGINT,
+  Phone_Alt BIGINT,
 
   PRIMARY KEY(ID, Date_Submitted),
   FOREIGN KEY(ID, Date_Submitted) REFERENCES Child_Application(ID, Date_Submitted) ON DELETE CASCADE );
@@ -287,7 +287,7 @@ CREATE TABLE Demographic_Information (
   Middle_Initial CHAR(1),
 
   Date_Of_Birth DATE,
-  Age INT, 
+  Age INT,
   Gender ENUM('Male', 'Female'),
   Race VARCHAR(20),
   Primary_Language VARCHAR(20),
@@ -320,7 +320,7 @@ CREATE TABLE Demographic_Contacts (
   Type ENUM('Cell', 'Home', 'Work'),
   Name VARCHAR(60),
   Time_Preference SET('Day', 'Evening'),
-  Phone_Number INT,
+  Phone_Number BIGINT,
 
   PRIMARY KEY (ID, Date_Submitted, Type),
   FOREIGN KEY (ID, Date_Submitted) REFERENCES Parent(ID, Date_Submitted) ON DELETE CASCADE );
@@ -337,8 +337,8 @@ CREATE TABLE Parent_Emergency_Contact (
 
   Name VARCHAR(60),
   Relationship VARCHAR(100),
-  Daytime_Phone INT,
-  Evening_Phone INT,
+  Daytime_Phone BIGINT,
+  Evening_Phone BIGINT,
   PRIMARY KEY (ID, Date_Submitted, Name),
   FOREIGN KEY (ID, Date_Submitted) REFERENCES Parent (ID, Date_Submitted) ON DELETE CASCADE );
 
@@ -367,9 +367,9 @@ CREATE TABLE Medical_Provider_Information (
   Date_Submitted DATE,
 
   Medical_Provider_Name VARCHAR(50),
-  Phone_Office INT,
+  Phone_Office BIGINT,
   Pharmacy_Name VARCHAR(50),
-  Phone_Pharmacy INT,
+  Phone_Pharmacy BIGINT,
 
   PRIMARY KEY(ID, Date_Submitted),
   FOREIGN KEY(ID, Date_Submitted) REFERENCES Parent(ID, Date_Submitted) ON DELETE CASCADE );
@@ -394,8 +394,8 @@ CREATE TABLE Medical_Information(
 #Child -> Camp app -> Parent -> Allergies
 
 CREATE TABLE Allergies (
-	ID MEDIUMINT NOT NULL, 
-	Date_Submitted DATE, 
+	ID MEDIUMINT NOT NULL,
+	Date_Submitted DATE,
 
 	Med_Allergy VARCHAR(20),
 	Med_Reaction VARCHAR(100),
@@ -403,7 +403,7 @@ CREATE TABLE Allergies (
 	Food_Reaction VARCHAR(100),
 	Env_Allergy VARCHAR(20),
 	Env_Reaction VARCHAR(100),
-	
+
 	EpiPen TINYINT(1),
 
 	PRIMARY KEY (ID, Date_Submitted),
@@ -458,17 +458,17 @@ CREATE TABLE General_Health(
 #Child -> Camp app -> Parent -> Pyschosocial and Behavioral Information
 
 CREATE TABLE Pyschosocial_and_Behavioral_info (
-	ID MEDIUMINT NOT NULL, 
+	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
-	
+
 	Camper_Knows TINYINT(1),
 	Time_Camper_Known ENUM('less than 6 months', 'less than 1 year', 'a few years', 'always'),
-	Camper_Experiences SET('Anxiety', 'Fear of dark', 'Homesickness', 'Sleeps with night light', 'Fights easily', 
+	Camper_Experiences SET('Anxiety', 'Fear of dark', 'Homesickness', 'Sleeps with night light', 'Fights easily',
 		'School suspension due to behavior', 'Bedwetting', 'Sleeps with comfort item', 'Hyperactivity or problems with attention',
 		'History of trauma or sexual abuse'),
 	Med_Hyper_AttentionProb TINYINT(1),
 	Explanation VARCHAR(600),
-	Camper_Interests SET('Reading', 'Music', 'Swimming', 'Dance', 'Sports', 'Arts/Crafts', 'Fishing', 'Boating', 
+	Camper_Interests SET('Reading', 'Music', 'Swimming', 'Dance', 'Sports', 'Arts/Crafts', 'Fishing', 'Boating',
 		'Archery', 'Golf', 'Bicycling', 'Animals', 'Nature'),
 	Recent_Major_Events VARCHAR(500),
 
@@ -494,13 +494,13 @@ CREATE TABLE Parent_Medications (
 #Child -> Camp app -> Parent -> Camp high five release forms signed
 
 CREATE TABLE Release_Forms_Signed (
-	ID MEDIUMINT NOT NULL, 
-	Date_Submitted DATE, 
+	ID MEDIUMINT NOT NULL,
+	Date_Submitted DATE,
 
-	Parent_Camper_Contract TINYINT(1), 
-	Partcipation_Consent_Liability_Release TINYINT(1), 
+	Parent_Camper_Contract TINYINT(1),
+	Partcipation_Consent_Liability_Release TINYINT(1),
 	Media_Release TINYINT(1),
-	Camper_HIV_Education TINYINT(1), 
+	Camper_HIV_Education TINYINT(1),
 	Camp_Twin_Lakes_Rules TINYINT(1),
 	Parental_Consent_and_Release TINYINT(1),
 
@@ -547,8 +547,8 @@ DROP TABLE IF EXISTS Curr_Diagnosis;
 CREATE TABLE Med_Hist_Diagnosis (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
-	
-	Diagnosis VARCHAR(50),
+
+	Diagnosis VARCHAR(100),
 
 	PRIMARY KEY (ID, Date_Submitted, Diagnosis),
 	FOREIGN KEY (ID, Date_Submitted) REFERENCES Medical_Care_Provider(ID, Date_Submitted) ON DELETE CASCADE );
@@ -560,7 +560,7 @@ DROP TABLE IF EXISTS Allergies_Reactions;
 CREATE TABLE Med_Hist_Allergies (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
-	
+
 	Type ENUM('Food' , 'Medication', 'Environmental', 'Other'),
 	Allergy VARCHAR(30),
 	Reaction VARCHAR(250),
@@ -571,14 +571,14 @@ CREATE TABLE Med_Hist_Allergies (
 
 #Child ->  Camp app -> medical care provider -> physical exam date
 CREATE TABLE Physical_Exam (
-	ID MEDIUMINT NOT NULL, 
-	Date_Submitted DATE, 
+	ID MEDIUMINT NOT NULL,
+	Date_Submitted DATE,
 
-	Date_Completed DATE NOT NULL, 
+	Date_Completed DATE NOT NULL,
 	Height VARCHAR(7),	# format #' ##''
 	Weight INT,
 	Pulse INT,
-	Resperations INT, 
+	Resperations INT,
 	Blood_Pressure INT,
 	HEENT VARCHAR(100),
 	Skin VARCHAR(100),
@@ -586,14 +586,14 @@ CREATE TABLE Physical_Exam (
 	GU_GYN VARCHAR(100),
 	Pulmonary VARCHAR(100),
 	Glasses_HearingAids_PE VARCHAR(100),
-	Abdomen VARCHAR(100), 
-	Lymph_Nodes VARCHAR(100), 
+	Abdomen VARCHAR(100),
+	Lymph_Nodes VARCHAR(100),
 	Extremities VARCHAR(100),
 	Spine VARCHAR(100),
 	Miscellaneous VARCHAR(500),
 	Comments VARCHAR(500),
 
- 
+
  PRIMARY KEY (ID, Date_Submitted),
  FOREIGN KEY (ID, Date_Submitted) REFERENCES Medical_Care_Provider(ID, Date_Submitted) ON DELETE CASCADE );
 
@@ -622,7 +622,7 @@ CREATE TABLE Tuberculosis_Screening (
 
 	Type ENUM('Tuberculin Skin Test', 'Quantiferon Testing', 'Chest X-ray'),
 	Date_Screened Date,
-	Result VARCHAR(20),
+	Result VARCHAR(70),
 
 	PRIMARY KEY (ID, Date_Submitted, Type),
 	FOREIGN KEY (ID, Date_Submitted) REFERENCES Medical_Care_Provider(ID, Date_Submitted) ON DELETE CASCADE );
@@ -636,7 +636,7 @@ CREATE TABLE MedCareProvider_Medications (
   Medication_Name VARCHAR(100),
   Amount_Including_Dosage VARCHAR(100),
   Times_To_Give VARCHAR(100),
-  
+
   PRIMARY KEY (ID, Date_Submitted, Medication_Name),
   FOREIGN KEY (ID, Date_Submitted) REFERENCES Medical_Care_Provider(ID, Date_Submitted) ON DELETE CASCADE );
 
@@ -655,7 +655,7 @@ CREATE TABLE Medical_Provider_Verification_Statement (
   Address_City VARCHAR(30),
   Address_State CHAR(2),
   Address_Zip INT,
-  Phone INT,
+  Phone BIGINT,
   Emergency_Contact VARCHAR(50),
 
   PRIMARY KEY(ID, Date_Submitted),
@@ -678,11 +678,11 @@ CREATE TABLE HIV_Provider (
 
 #Child -> Camp App -> HIV Provider -> heath history
 CREATE TABLE Heatlh_History (
-	ID MEDIUMINT NOT NULL, 
+	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
 
-	Major_Surgical_History VARCHAR(500), 
-	Health_History SET('HIV', 'Hepatitis B', 'Hepatitis C', 'Poor growth', 'Bleeding disorders', 'Asthma', 
+	Major_Surgical_History VARCHAR(500),
+	Health_History SET('HIV', 'Hepatitis B', 'Hepatitis C', 'Poor growth', 'Bleeding disorders', 'Asthma',
 		'Pulmonary Disease', 'Chronic Cough', 'ADD or ADHD', 'Renal Disease', 'Sickle Cell disease', 'Congenital Heart Disease',
 		'Hypertension', 'Cryptosporidium', 'Chronic diarrhea', 'Seizures', 'Diabetes', 'Other'),
 	Other VARCHAR(20),
@@ -696,16 +696,16 @@ CREATE TABLE Heatlh_History (
 
 #Child -> Camp App ->HIV Provider -> Lab data
 CREATE TABLE Lab_Data (
-	ID MEDIUMINT NOT NULL, 
-	Date_Submitted DATE, 
+	ID MEDIUMINT NOT NULL,
+	Date_Submitted DATE,
 
-	Lab1_Date DATE, 
+	Lab1_Date DATE,
 	Lab1_WBC VARCHAR(6),
 	Lab1_HGB VARCHAR(4),
 	Lab1_HCT VARCHAR(3),
 	Lab1_Plt_Count VARCHAR(6),
 
-	Lab2_Date DATE, 
+	Lab2_Date DATE,
 	Lab2_CD4_Count VARCHAR(4),
 	Lab2_Viral_Load VARCHAR(5),
 
