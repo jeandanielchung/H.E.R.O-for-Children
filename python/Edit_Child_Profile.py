@@ -158,7 +158,7 @@ class Example(tk.Frame):
         else:
             childInfo4.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo4())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -178,7 +178,7 @@ class Example(tk.Frame):
         else:
             childInfo5.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo5())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -198,7 +198,7 @@ class Example(tk.Frame):
         else:
             childInfo6.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo6())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -218,7 +218,7 @@ class Example(tk.Frame):
         else:
             childInfo7.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo7())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -238,7 +238,7 @@ class Example(tk.Frame):
         else:
             childInfo8.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo8())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -258,7 +258,7 @@ class Example(tk.Frame):
         else:
             childInfo9.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo9())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -278,7 +278,7 @@ class Example(tk.Frame):
         else:
             childInfo10.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo10())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -298,7 +298,7 @@ class Example(tk.Frame):
         else:
             childInfo11.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo11())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -320,7 +320,7 @@ class Example(tk.Frame):
         if val is not None:
             childInfo12.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo12())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -342,7 +342,7 @@ class Example(tk.Frame):
         if val is not None:
             childInfo13.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo13())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -369,7 +369,7 @@ class Example(tk.Frame):
             else:
                 childInfo14.set(1)
  
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo14())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -390,7 +390,7 @@ class Example(tk.Frame):
         else:
             childInfo15.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo15())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -410,7 +410,7 @@ class Example(tk.Frame):
         else:
             childInfo16.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo16())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -430,7 +430,7 @@ class Example(tk.Frame):
         else:
             childInfo17.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo17())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -450,7 +450,7 @@ class Example(tk.Frame):
         else:
             childInfo18.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo18())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -473,7 +473,7 @@ class Example(tk.Frame):
         if val is not None:
             childInfo19.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo19())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -493,7 +493,7 @@ class Example(tk.Frame):
         else:
             childInfo20.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo20())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -523,7 +523,7 @@ class Example(tk.Frame):
             else:
                 childInfo21.set(1)
  
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo21())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -549,7 +549,7 @@ class Example(tk.Frame):
             else:
                 childInfo22.set(1)
  
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo22())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -575,7 +575,7 @@ class Example(tk.Frame):
             else:
                 childInfo23.set(1)
  
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo23())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -601,7 +601,7 @@ class Example(tk.Frame):
             else:
                 childInfo24.set(1)
  
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo24())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -627,7 +627,7 @@ class Example(tk.Frame):
             else:
                 childInfo25.set(1)
  
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo25())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -653,7 +653,7 @@ class Example(tk.Frame):
             else:
                 childInfo26.set(1)
  
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo26())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -679,7 +679,7 @@ class Example(tk.Frame):
             else:
                 childInfo27.set(1)
  
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo27())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -702,7 +702,7 @@ class Example(tk.Frame):
         if val is not None:
             childInfo28.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo28())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -722,7 +722,7 @@ class Example(tk.Frame):
         else:
             childInfo29.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo29())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -749,7 +749,7 @@ class Example(tk.Frame):
         else:
             parentInfo0.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo0())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -769,7 +769,7 @@ class Example(tk.Frame):
         else:
             parentInfo1.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo1())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -789,7 +789,7 @@ class Example(tk.Frame):
         else:
             parentInfo2.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo2())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -809,7 +809,7 @@ class Example(tk.Frame):
         else:
             parentInfo3.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo3())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -831,7 +831,7 @@ class Example(tk.Frame):
         if val is not None:
             parentInfo4.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo4())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -853,7 +853,7 @@ class Example(tk.Frame):
         if val is not None:
             parentInfo5.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo5())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -875,7 +875,7 @@ class Example(tk.Frame):
         if val is not None:
             parentInfo6.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo6())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -897,7 +897,7 @@ class Example(tk.Frame):
         if val is not None:
             parentInfo7.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo7())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -919,7 +919,7 @@ class Example(tk.Frame):
         if val is not None:
             parentInfo8.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo8())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -943,7 +943,7 @@ class Example(tk.Frame):
         else:
             parentInfo9.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo9())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -963,7 +963,7 @@ class Example(tk.Frame):
         else:
             parentInfo10.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo10())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -983,7 +983,7 @@ class Example(tk.Frame):
         else:
             parentInfo11.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo11())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -1003,7 +1003,7 @@ class Example(tk.Frame):
         else:
             parentInfo12.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo12())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -1023,7 +1023,7 @@ class Example(tk.Frame):
         else:
             parentInfo13.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo13())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -1043,7 +1043,7 @@ class Example(tk.Frame):
         else:
             parentInfo14.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo14())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -1063,7 +1063,7 @@ class Example(tk.Frame):
         else:
             parentInfo15.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateparentInfo15())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2700,7 +2700,7 @@ class Example(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo3.get()
+        newVal = childInfo4.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         else:
@@ -2721,7 +2721,7 @@ class Example(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo3.get()
+        newVal = childInfo5.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_County = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         else:
@@ -2742,11 +2742,34 @@ class Example(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo3.get()
+        newVal = childInfo6.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            db.commit()
+        elif (self.is_number(newVal)):
             curr.execute("UPDATE Childs_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nZip code must be only numbers.")
+
+            
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo7(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo7.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Home_Phone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET Home_Phone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
         db.commit()
             
         #feedback
@@ -2756,7 +2779,800 @@ class Example(tk.Frame):
         curr.close()
         db.close()
 
+    def updatechildInfo8(self):
 
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo8.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Guardian_Phone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET Guardian_Phone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo9(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo9.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Guardian_Email = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET Guardian_Email = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo10(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo10.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Age = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            db.commit()
+        elif (self.is_number(newVal)):
+            curr.execute("UPDATE Childs_Information SET Age = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nAge must be only numbers.")
+
+    def updatechildInfo11(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo11.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Birthday = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            db.commit()
+        elif (self.is_date(newVal)):
+            curr.execute("UPDATE Childs_Information SET Birthday = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nDate must be if YYYY-MM-DD format\nAnd must be a real date.")
+            
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo12(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo12.get()
+        curr.execute("UPDATE Childs_Information SET Gender = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo13(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo13.get()
+        curr.execute("UPDATE Childs_Information SET HIV_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo14(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo14.get()
+        if newVal != 0:
+            if newVal == 2:
+                newVal = 0
+            curr.execute("UPDATE Childs_Information SET Aware = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo15(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo15.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Why = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET Why = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo16(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo16.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Refferal_Source = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET Refferal_Source = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo17(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo17.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET School_attending = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET School_attending = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo18(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo18.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET School_grade_level = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET School_grade_level = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo19(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo19.get()
+        curr.execute("UPDATE Childs_Information SET Ethnicity = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo20(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo20.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Ethnicity_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET Ethnicity_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo21(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo21.get()
+        if newVal != 0:
+            if newVal == 2:
+                newVal = 0
+            curr.execute("UPDATE Childs_Information SET ADD_ADHD = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo22(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo22.get()
+        if newVal != 0:
+            if newVal == 2:
+                newVal = 0
+            curr.execute("UPDATE Childs_Information SET Learning_Disability = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo23(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo23.get()
+        if newVal != 0:
+            if newVal == 2:
+                newVal = 0
+            curr.execute("UPDATE Childs_Information SET Developmental_Disability = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo24(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo24.get()
+        if newVal != 0:
+            if newVal == 2:
+                newVal = 0
+            curr.execute("UPDATE Childs_Information SET Mental_Health_Issues = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo25(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo25.get()
+        if newVal != 0:
+            if newVal == 2:
+                newVal = 0
+            curr.execute("UPDATE Childs_Information SET Other_Medical_Condition = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo26(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo26.get()
+        if newVal != 0:
+            if newVal == 2:
+                newVal = 0
+            curr.execute("UPDATE Childs_Information SET Victim_of_Abuse = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo27(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo27.get()
+        if newVal != 0:
+            if newVal == 2:
+                newVal = 0
+            curr.execute("UPDATE Childs_Information SET Criminal_Justice_System = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo28(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo28.get()
+        curr.execute("UPDATE Childs_Information SET Legal_Custody = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatechildInfo29(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = childInfo29.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Childs_Information SET Custody_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Childs_Information SET Custody_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+#Parent Info
+
+    def updateparentInfo0(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo0.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Parent_Guardian_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo1(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo1.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Parent_Guardian_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo2(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo2.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET Relationship_to_Child = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Parent_Guardian_Information SET Relationship_to_Child = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo3(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo3.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET Age = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            db.commit()
+        elif (self.is_number(newVal)):
+            curr.execute("UPDATE Parent_Guardian_Information SET Age = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nAge code must be only numbers.")
+
+    def updateparentInfo4(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo4.get()
+        curr.execute("UPDATE Parent_Guardian_Information SET HIV_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo5(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo5.get()
+        curr.execute("UPDATE Parent_Guardian_Information SET Adoptive_Parent = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo6(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo6.get()
+        curr.execute("UPDATE Parent_Guardian_Information SET Marital_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo7(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo7.get()
+        curr.execute("UPDATE Parent_Guardian_Information SET Education_Completed = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo8(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo8.get()
+        curr.execute("UPDATE Parent_Guardian_Information SET Employment_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo9(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo9.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET Employment_Company_Name = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Parent_Guardian_Information SET Employment_Company_Name = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo10(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo10.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo11(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo11.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo12(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo12.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_State = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_State = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo13(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo13.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo14(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo14.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET WorkPhone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Parent_Guardian_Information SET WorkPhone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateparentInfo15(self):
+
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = parentInfo15.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE Parent_Guardian_Information SET Email = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Parent_Guardian_Information SET Email = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    #check string entry is a number
+    def is_number(self, s):
+        try:
+            int(s)
+            return True
+        except ValueError:
+            return False
+
+    #check string entry is a date (YYYY-MM-DD)
+    def is_date(self, s):
+        if len(s) != 10:
+            return False
+        if (s[4] != s[7]) or (s[4] != '-') or (not self.is_number(s[0:4])) or (not self.is_number(s[5:7])) or (not self.is_number(s[-2:])):
+            return False
+        if (1 > int(s[0:4])) or (1 > int(s[5:7])) or (int(s[5:7]) > 12) or (1 > int(s[-2:])):
+            return False
+        if int(s[5:7]) == 02:
+            if (int(s[-2:]) > 29):
+                return False
+        elif (int(s[5:7]) == 04) or (int(s[5:7]) == 06) or (int(s[5:7]) == 9) or (int(s[5:7]) == 11):
+            if (int(s[-2:]) > 30): 
+                return False
+        elif int(s[-2:]) > 31:
+            return False
+
+        return True
 
 
     def onFrameConfigure(self, event):
