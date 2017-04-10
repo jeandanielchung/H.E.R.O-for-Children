@@ -1,7 +1,16 @@
+import MySQLdb
 from Tkinter import *
 
 class AddUser:
     def __init__(self, master):
+
+        db = MySQLdb.connect(
+            host="localhost",
+            user="root",
+            passwd="yourMySQLPassword",
+            db="HERO")
+
+        curr = db.cursor()
 
         self.frame = Frame(master)
         self.frame.pack()
@@ -22,6 +31,9 @@ class AddUser:
 
         self.add = Button(self.frame, text="Add User").grid(row=6, column=3)
         self.back = Button(self.frame, text="Go Back").grid(row=6, column=0)
+
+        curr.close()
+        db.close()
 
 master = Tk()
 addUserPage = AddUser(master)
