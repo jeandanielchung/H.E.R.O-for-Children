@@ -1255,6 +1255,9 @@ class Example(tk.Frame):
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = '\nPerson 1')
         label.grid(row = r, column = 0, sticky = 'w')
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo(1))
+        buttonUpdate.grid(row = r, column = 2)
+
         person = 1
         
         #Name1
@@ -1271,10 +1274,7 @@ class Example(tk.Frame):
         else: 
             houseInfo10.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo0(1))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo10.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
         
@@ -1292,10 +1292,7 @@ class Example(tk.Frame):
         else: 
             houseInfo11.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo1(1))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo11.grid(row = r, column = 1)
         label.grid(row = r, column = 0)        
 
@@ -1306,19 +1303,17 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo12
-        houseInfo12 = Entry(self.ChildInfoSectionframe)
+        houseInfo12 = StringVar()
+        
+        choices = ['Male', 'Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo12, *choices)
 
-        if (val is ()) or (val[0][0] is None):
-            houseInfo12.insert(0, 'Unanswered')
-        else: 
-            houseInfo12.insert(0, val[0][0])
-
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo2(1))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo12.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo12.grid(row = r, column = 1)
-        label.grid(row = r, column = 0)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)    
 
         #Age1
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
@@ -1334,10 +1329,7 @@ class Example(tk.Frame):
         else: 
             houseInfo13.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo3(1))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo13.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
  
@@ -1348,24 +1340,25 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo14
-        houseInfo14 = Entry(self.ChildInfoSectionframe)
+        houseInfo14 = StringVar()
+        
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo14, *choices)
 
-        if (val is ()) or (val[0][0] is None):
-            houseInfo14.insert(0, 'Unanswered')
-        else: 
-            houseInfo14.insert(0, val[0][0])
-
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo4(1))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo14.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo14.grid(row = r, column = 1)
+        option.grid(row = r, column = 1, ipadx = 70)
         label.grid(row = r, column = 0)       
 
     #person2
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = '\nPerson 2')
         label.grid(row = r, column = 0, sticky = 'w')
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo(2))
+        buttonUpdate.grid(row = r, column = 2)
+
         person = 2
         
         #Name2
@@ -1382,10 +1375,7 @@ class Example(tk.Frame):
         else: 
             houseInfo20.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo0(2))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo20.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
         
@@ -1403,10 +1393,7 @@ class Example(tk.Frame):
         else: 
             houseInfo21.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo1(2))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo21.grid(row = r, column = 1)
         label.grid(row = r, column = 0)        
 
@@ -1417,19 +1404,17 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo22
-        houseInfo22 = Entry(self.ChildInfoSectionframe)
+        houseInfo22 = StringVar()
         
-        if (val is ()) or (val[0][0] is None):
-            houseInfo22.insert(0, 'Unanswered')
-        else: 
-            houseInfo22.insert(0, val[0][0])
+        choices = ['Male', 'Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo22, *choices)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo2(2))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo22.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo22.grid(row = r, column = 1)
-        label.grid(row = r, column = 0)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)    
 
         #Age2
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
@@ -1445,10 +1430,7 @@ class Example(tk.Frame):
         else: 
             houseInfo23.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo3(2))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo23.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
  
@@ -1459,24 +1441,26 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo24
-        houseInfo24 = Entry(self.ChildInfoSectionframe)
+        houseInfo24 = StringVar()
         
-        if (val is ()) or (val[0][0] is None):
-            houseInfo24.insert(0, 'Unanswered')
-        else: 
-            houseInfo24.insert(0, val[0][0])
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo24, *choices)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo4(2))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo24.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo24.grid(row = r, column = 1)
-        label.grid(row = r, column = 0)       
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)        
 
     #person3
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = '\nPerson 3')
         label.grid(row = r, column = 0, sticky = 'w')
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo(3))
+        buttonUpdate.grid(row = r, column = 2)
+
+
         person = 3
         
         #Name3
@@ -1493,10 +1477,7 @@ class Example(tk.Frame):
         else: 
             houseInfo30.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo0(3))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo30.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
         
@@ -1514,10 +1495,7 @@ class Example(tk.Frame):
         else: 
             houseInfo31.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo1(3))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo31.grid(row = r, column = 1)
         label.grid(row = r, column = 0)        
 
@@ -1528,19 +1506,17 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo32
-        houseInfo32 = Entry(self.ChildInfoSectionframe)
+        houseInfo32 = StringVar()
         
-        if (val is ()) or (val[0][0] is None):
-            houseInfo32.insert(0, 'Unanswered')
-        else: 
-            houseInfo32.insert(0, val[0][0])
+        choices = ['Male', 'Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo32, *choices)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo2(3))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo32.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo32.grid(row = r, column = 1)
-        label.grid(row = r, column = 0)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)   
 
         #Age3
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
@@ -1556,10 +1532,7 @@ class Example(tk.Frame):
         else: 
             houseInfo33.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo3(3))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo33.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
  
@@ -1570,25 +1543,26 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo34
-        houseInfo34 = Entry(self.ChildInfoSectionframe)
+        houseInfo34 = StringVar()
         
-        if (val is ()) or (val[0][0] is None):
-            houseInfo34.insert(0, 'Unanswered')
-        else: 
-            houseInfo34.insert(0, val[0][0])
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo34, *choices)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo4(3))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo34.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo34.grid(row = r, column = 1)
-        label.grid(row = r, column = 0)       
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)     
 
 
     #person4
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = '\nPerson 4')
         label.grid(row = r, column = 0, sticky = 'w')
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo(4))
+        buttonUpdate.grid(row = r, column = 2)
+
         person = 4
         
         #Name4
@@ -1605,10 +1579,7 @@ class Example(tk.Frame):
         else: 
             houseInfo40.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo0(4))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo40.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
         
@@ -1626,10 +1597,7 @@ class Example(tk.Frame):
         else: 
             houseInfo41.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo1(4))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo41.grid(row = r, column = 1)
         label.grid(row = r, column = 0)        
 
@@ -1640,19 +1608,17 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo42
-        houseInfo42 = Entry(self.ChildInfoSectionframe)
+        houseInfo42 = StringVar()
         
-        if (val is ()) or (val[0][0] is None):
-            houseInfo42.insert(0, 'Unanswered')
-        else: 
-            houseInfo42.insert(0, val[0][0])
+        choices = ['Male', 'Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo42, *choices)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo2(4))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo42.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo42.grid(row = r, column = 1)
-        label.grid(row = r, column = 0)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0) 
 
         #Age4
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
@@ -1668,10 +1634,7 @@ class Example(tk.Frame):
         else: 
             houseInfo43.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo3(4))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo43.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
  
@@ -1682,24 +1645,25 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo44
-        houseInfo44 = Entry(self.ChildInfoSectionframe)
+        houseInfo44 = StringVar()
         
-        if (val is ()) or (val[0][0] is None):
-            houseInfo44.insert(0, 'Unanswered')
-        else: 
-            houseInfo44.insert(0, val[0][0])
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo44, *choices)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo4(4))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo44.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo44.grid(row = r, column = 1)
-        label.grid(row = r, column = 0)       
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)         
 
     #person5
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = '\nPerson 5')
         label.grid(row = r, column = 0, sticky = 'w')
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo(5))
+        buttonUpdate.grid(row = r, column = 2)
+
         person = 5
         
         #Name5
@@ -1716,10 +1680,7 @@ class Example(tk.Frame):
         else: 
             houseInfo50.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo0(5))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo50.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
         
@@ -1737,10 +1698,7 @@ class Example(tk.Frame):
         else: 
             houseInfo51.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo1(5))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo51.grid(row = r, column = 1)
         label.grid(row = r, column = 0)        
 
@@ -1751,19 +1709,17 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo52
-        houseInfo52 = Entry(self.ChildInfoSectionframe)
+        houseInfo52 = StringVar()
         
-        if (val is ()) or (val[0][0] is None):
-            houseInfo52.insert(0, 'Unanswered')
-        else: 
-            houseInfo52.insert(0, val[0][0])
+        choices = ['Male', 'Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo52, *choices)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo2(5))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo52.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo52.grid(row = r, column = 1)
-        label.grid(row = r, column = 0)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0) 
 
         #Age5
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
@@ -1779,10 +1735,7 @@ class Example(tk.Frame):
         else: 
             houseInfo53.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo3(5))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo53.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
  
@@ -1793,26 +1746,27 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo54
-        houseInfo54 = Entry(self.ChildInfoSectionframe)
+        houseInfo54 = StringVar()
         
-        if (val is ()) or (val[0][0] is None):
-            houseInfo54.insert(0, 'Unanswered')
-        else: 
-            houseInfo54.insert(0, val[0][0])
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo54, *choices)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo4(5))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo54.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo54.grid(row = r, column = 1)
-        label.grid(row = r, column = 0) 
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
 
     #person6
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = '\nPerson 6')
         label.grid(row = r, column = 0, sticky = 'w')
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo(6))
+        buttonUpdate.grid(row = r, column = 2)
+
         person = 6
-        
+
         #Name6
         label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
 
@@ -1827,10 +1781,7 @@ class Example(tk.Frame):
         else: 
             houseInfo60.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo0(6))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo60.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
         
@@ -1848,10 +1799,7 @@ class Example(tk.Frame):
         else: 
             houseInfo61.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo1(6))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo61.grid(row = r, column = 1)
         label.grid(row = r, column = 0)        
 
@@ -1862,19 +1810,17 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo62
-        houseInfo62 = Entry(self.ChildInfoSectionframe)
+        houseInfo62 = StringVar()
         
-        if (val is ()) or (val[0][0] is None):
-            houseInfo62.insert(0, 'Unanswered')
-        else: 
-            houseInfo62.insert(0, val[0][0])
+        choices = ['Male', 'Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo62, *choices)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo2(6))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo62.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo62.grid(row = r, column = 1)
-        label.grid(row = r, column = 0)
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0) 
 
         #Age6
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
@@ -1890,10 +1836,7 @@ class Example(tk.Frame):
         else: 
             houseInfo63.insert(0, val[0][0])
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo3(6))
-
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
         houseInfo63.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
  
@@ -1904,19 +1847,17 @@ class Example(tk.Frame):
         val = curr.fetchall()
 
         global houseInfo64
-        houseInfo64 = Entry(self.ChildInfoSectionframe)
+        houseInfo64 = StringVar()
         
-        if (val is ()) or (val[0][0] is None):
-            houseInfo64.insert(0, 'Unanswered')
-        else: 
-            houseInfo64.insert(0, val[0][0])
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo64, *choices)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatehouseInfo4(6))
+        if (val is not ()) and (val[0][0] is not None):
+            houseInfo64.set(val[0][0])
 
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        houseInfo64.grid(row = r, column = 1)
-        label.grid(row = r, column = 0) 
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
 
 
         #Family Annual Income Info
@@ -1934,7 +1875,7 @@ class Example(tk.Frame):
         if val is not None:
             famIncome0.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatefamIncome0())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -1956,7 +1897,7 @@ class Example(tk.Frame):
         if val is not None:
             famIncome1.set(val)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatefamIncome1())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -1976,7 +1917,7 @@ class Example(tk.Frame):
         else:
             famIncome2.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatefamIncome2())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2003,7 +1944,7 @@ class Example(tk.Frame):
         else:
             emergencyInfo0.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateemergencyInfo0())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2023,7 +1964,7 @@ class Example(tk.Frame):
         else:
             emergencyInfo1.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateemergencyInfo1())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2043,7 +1984,7 @@ class Example(tk.Frame):
         else:
             emergencyInfo2.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateemergencyInfo2())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2063,7 +2004,7 @@ class Example(tk.Frame):
         else:
             emergencyInfo3.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateemergencyInfo3())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2083,7 +2024,7 @@ class Example(tk.Frame):
         else:
             emergencyInfo4.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateemergencyInfo4())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2103,7 +2044,7 @@ class Example(tk.Frame):
         else:
             emergencyInfo5.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateemergencyInfo5())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2123,7 +2064,7 @@ class Example(tk.Frame):
         else:
             emergencyInfo6.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateemergencyInfo6())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2143,7 +2084,7 @@ class Example(tk.Frame):
         else:
             emergencyInfo7.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateemergencyInfo7())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2163,7 +2104,7 @@ class Example(tk.Frame):
         else:
             emergencyInfo8.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateemergencyInfo8())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -2183,7 +2124,7 @@ class Example(tk.Frame):
         else:
             emergencyInfo9.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateemergencyInfo9())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -3721,9 +3662,8 @@ class Example(tk.Frame):
         db.close()
 
 #Household Info ************************************************************************************************************************
-#TODO
-#update a household info when one currently doesn't exist
-    def updatehouseInfo0(self, count):
+
+    def updatehouseInfo(self, count):
 
         #Open Database Connection
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
@@ -3731,88 +3671,99 @@ class Example(tk.Frame):
 
         #Execute
         if count == 1:
-            newVal = houseInfo10.get()
+            newVal0 = houseInfo10.get()
+            newVal1 = houseInfo11.get()
+            newVal2 = houseInfo12.get()
+            newVal3 = houseInfo13.get()
+            newVal4 = houseInfo14.get()
+
         elif count == 2:
-            newVal = houseInfo20.get()
+            newVal0 = houseInfo20.get()
+            newVal1 = houseInfo21.get()
+            newVal2 = houseInfo22.get()
+            newVal3 = houseInfo23.get()
+            newVal4 = houseInfo24.get()
+
         elif count == 3:
-            newVal = houseInfo30.get()
+            newVal0 = houseInfo30.get()
+            newVal1 = houseInfo31.get()
+            newVal2 = houseInfo32.get()
+            newVal3 = houseInfo33.get()
+            newVal4 = houseInfo34.get()
+
         elif count == 4:
-            newVal = houseInfo40.get()
+            newVal0 = houseInfo40.get()
+            newVal1 = houseInfo41.get()
+            newVal2 = houseInfo42.get()
+            newVal3 = houseInfo43.get()
+            newVal4 = houseInfo44.get()
+
         elif count == 5:
-            newVal = houseInfo50.get()
+            newVal0 = houseInfo50.get()
+            newVal1 = houseInfo51.get()
+            newVal2 = houseInfo52.get()
+            newVal3 = houseInfo53.get()
+            newVal4 = houseInfo54.get()
+
         elif count == 6:
-            newVal = houseInfo60.get()
+            newVal0 = houseInfo60.get()
+            newVal1 = houseInfo61.get()
+            newVal2 = houseInfo62.get()
+            newVal3 = houseInfo63.get()
+            newVal4 = houseInfo64.get()
 
-        print newVal
+        if (newVal0 == 'Unanswered') or (newVal0 == ''):
+            newVal0 = None
+        
+        if (newVal1 == 'Unanswered') or (newVal1 == ''):
+            newVal1 = None
 
-        if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Household_Information SET Name = NULL WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, count,))
-        else:
-            curr.execute("UPDATE Household_Information SET Name = %s WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (newVal, id, date, count,))
-        db.commit()
+        if newVal2 == '':
+            newVal2 = None
+
+        goodData = 1
+        if (newVal3 == 'Unanswered') or (newVal3 == ''):
+            newVal3 = None
+        elif (not self.is_number(newVal3)):
+            goodData = 0
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nAge must be only numbers.")
+            #stop input to database !!!!!!@#@@#!@
+
+        if newVal4 == '':
+            newVal4 = None
+
+
+        if goodData:
+            curr.execute("SELECT * FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, count,))
+            current = curr.fetchall()
+            if current is ():
+                curr.execute("""INSERT INTO Household_Information VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s);""", 
+                    (id, date, count, newVal0, newVal1, newVal2, newVal3, newVal4,))
+            else:
+                curr.execute("""UPDATE Household_Information 
+                    SET Name = %s, Relationship = %s, Sex = %s, Age = %s, HIV_Status = %s 
+                    WHERE ID = %s AND Date_Submitted = %s AND Count = %s;""", 
+                    (newVal0, newVal1, newVal2, newVal3, newVal4, id, date, count,))
+
+            db.commit()
             
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
+            #feedback
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        
         #Close Database Connection
         curr.close()
         db.close()
 
-    def updatehouseInfo1(self, count):
-
+    def updatefamIncome0(self):
         #Open Database Connection
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
 
         #Execute
-        if count == 1:
-            newVal = houseInfo11.get()
-        elif count == 2:
-            newVal = houseInfo21.get()
-        elif count == 3:
-            newVal = houseInfo31.get()
-        elif count == 4:
-            newVal = houseInfo41.get()
-        elif count == 5:
-            newVal = houseInfo51.get()
-        elif count == 6:
-            newVal = houseInfo61.get()
-
-        if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Household_Information SET Relationship = NULL WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, count,))
-        else:
-            curr.execute("UPDATE Household_Information SET Relationship = %s WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (newVal, id, date, count,))
-        db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
-        #Close Database Connection
-        curr.close()
-        db.close()
-
-    def updatehouseInfo2(self, count):
-
-        #Open Database Connection
-        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
-        curr = db.cursor()
-
-        #Execute
-        if count == 1:
-            newVal = houseInfo12.get()
-        elif count == 2:
-            newVal = houseInfo22.get()
-        elif count == 3:
-            newVal = houseInfo32.get()
-        elif count == 4:
-            newVal = houseInfo42.get()
-        elif count == 5:
-            newVal = houseInfo52.get()
-        elif count == 6:
-            newVal = houseInfo62.get()
-
+        newVal = famIncome0.get()
         if newVal != '':
-            curr.execute("UPDATE Household_Information SET Sex = %s WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (newVal, id, date, count,))
+            curr.execute("UPDATE Fam_Annual_Income SET Fam_Annual_Income = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
             db.commit()
             
         #feedback
@@ -3822,70 +3773,249 @@ class Example(tk.Frame):
         curr.close()
         db.close()
 
-    def updatehouseInfo3(self, count):
-
+    def updatefamIncome1(self):
         #Open Database Connection
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
 
         #Execute
-        if count == 1:
-            newVal = houseInfo13.get()
-        elif count == 2:
-            newVal = houseInfo23.get()
-        elif count == 3:
-            newVal = houseInfo33.get()
-        elif count == 4:
-            newVal = houseInfo43.get()
-        elif count == 5:
-            newVal = houseInfo53.get()
-        elif count == 6:
-            newVal = houseInfo63.get()
+        newVal = famIncome1.get()
+        if newVal != '':
+            curr.execute("UPDATE Source_Fam_Income SET Source_Fam_Income = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updatefamIncome2(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = famIncome2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Household_Information SET Age = NULL WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, count,))
+            curr.execute("UPDATE Source_Fam_Income SET Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Source_Fam_Income SET Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+#In Case of Emergency Contact ************************************************************************************************************************
+    def updateemergencyInfo0(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = emergencyInfo0.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close() 
+
+    def updateemergencyInfo1(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = emergencyInfo1.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close() 
+
+    def updateemergencyInfo2(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = emergencyInfo2.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Relationship_to_Child = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Relationship_to_Child = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close() 
+
+    def updateemergencyInfo3(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = emergencyInfo3.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close() 
+
+    def updateemergencyInfo4(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = emergencyInfo4.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close() 
+
+    def updateemergencyInfo5(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = emergencyInfo5.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_State = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_State = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close() 
+
+
+    def updateemergencyInfo6(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = emergencyInfo6.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
             db.commit()
         elif (self.is_number(newVal)):
-            curr.execute("UPDATE Household_Information SET Age = %s WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (newVal, id, date, count,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
             db.commit()
             tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
         else:
-            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nAge must be only numbers.")
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nZip code must be only numbers.")
+
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         curr.close()
-        db.close()
+        db.close() 
 
-    def updatehouseInfo4(self, count):
-
+    def updateemergencyInfo7(self):
         #Open Database Connection
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
 
         #Execute
-        if count == 1:
-            newVal = houseInfo14.get()
-        elif count == 2:
-            newVal = houseInfo24.get()
-        elif count == 3:
-            newVal = houseInfo34.get()
-        elif count == 4:
-            newVal = houseInfo44.get()
-        elif count == 5:
-            newVal = houseInfo54.get()
-        elif count == 6:
-            newVal = houseInfo64.get()
-
-        if newVal != '':
-            curr.execute("UPDATE Household_Information SET HIV_Status = %s WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (newVal, id, date, count,))
-            db.commit()
+        newVal = emergencyInfo7.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Home = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Home = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
             
         #feedback
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         curr.close()
-        db.close()
+        db.close() 
+
+    def updateemergencyInfo8(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = emergencyInfo8.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Cell = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Cell = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close() 
+
+    def updateemergencyInfo9(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = emergencyInfo9.get()
+        if (newVal == 'Unanswered') or (newVal == ''):
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Alt = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Alt = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close() 
 
 
     #check string entry is a number
