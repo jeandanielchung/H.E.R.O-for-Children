@@ -1,10 +1,10 @@
-#import MySQLdb
 from Tkinter import *
+import MySQLdb
 
 class ProfilePage:
     def __init__(self, master):
         # Connect to database
-        db = MySQLdb.connect(host="localhost", user="root", passwd="", db="HERO")
+        db = MySQLdb.connect(host="localhost", user="root", passwd="Darling", db="HERO")
         curr = db.cursor()
 
         # id and date
