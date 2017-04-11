@@ -28,14 +28,14 @@ class nameBirthEntryPage:
                 
                 db = MySQLdb.connect( host = "localhost",
                                       user="root",
-                                      passwd="Mr10371!",
+                                      passwd="Darling",
                                       db="HERO" )
                 curr = db.cursor()
 
                 #selects all instances of specified ID in child and camper applications
-                curr.execute("SELECT Name_First,Name_Last,Year(Date_Submitted) FROM Childs_Information WHERE ID = %s;",(ID))
+                curr.execute("SELECT Name_First,Name_Last,Year(Date_Submitted) FROM Childs_Information WHERE ID = %s;",(ID,))
                 childNameDate = curr.fetchall()
-                curr.execute("SELECT First_Name,Last_Name,Year(Date_Submitted) FROM Demographic_Information WHERE ID = %s;",(ID))
+                curr.execute("SELECT First_Name,Last_Name,Year(Date_Submitted) FROM Demographic_Information WHERE ID = %s;",(ID,))
                 camperNameDate = curr.fetchall()
 
 
@@ -72,9 +72,16 @@ class nameBirthEntryPage:
                         
                 elif program == 'Child Application':
                         for num in range(len(childNameDate)):
-                                name = Label(master, text = childNameDate[num][0]+' '+childNameDate[num][1])
-                                name.grid(row = 2 + num, column = 0)
-
+                                if (childNameDate[num][0] is not None) and (childNameDate[num][1] is not None):
+                                        name = Label(master, text = childNameDate[num][0]+' '+childNameDate[num][1])
+                                        name.grid(row = 2 + num, column = 0)
+                                elif childNameDate[num][0] is not None:
+                                        name = Label(master, text = childNameDate[num][0])
+                                        name.grid(row = 2 + num, column = 0)
+                                elif childNameDate[num][1] is not None:
+                                        name = Label(master, text = childNameDate[num][1])
+                                        name.grid(row = 2 + num, column = 0)
+                                
                                 prog = Label(master, text = "Child Application")
                                 prog.grid(row = 2 + num, column = 1)
 
@@ -86,8 +93,17 @@ class nameBirthEntryPage:
                         
                 else:
                         for num in range(len(camperNameDate)):
-                                name = Label(master, text = camperNameDate[num][0]+' '+camperNameDate[num][1])
-                                name.grid(row = 2 + num, column = 0)
+                                if (camperNameDate[num][0] is not None) and (camperNameDate[num][1] is not None):
+                                        name = Label(master, text = camperNameDate[num][0]+' '+camperNameDate[num][1])
+                                        name.grid(row = 2 + num, column = 0)
+                                elif camperNameDate[num][0] is not None:
+                                        name = Label(master, text = camperNameDate[num][0])
+                                        name.grid(row = 2 + num, column = 0)
+                                elif camperNameDate[num][1] is not None:
+                                        name = Label(master, text = camperNameDate[num][1])
+                                        name.grid(row = 2 + num, column = 0)
+
+
 
                                 prog = Label(master, text = "Camper Application")
                                 prog.grid(row = 2 + num, column = 1)
