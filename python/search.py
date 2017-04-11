@@ -15,7 +15,6 @@ class searchPage:
 		nameHead2 = Label(master, text = "Search by Name", font= "Verdana 10 underline")
 		nameHead2.grid(row = 4, column = 0)
 
-
 		programList = ['None', "Child Application", "Camp High Five Application"]
 		programs = StringVar(master)
 		programs.set('Program') 
@@ -23,30 +22,28 @@ class searchPage:
 		dropdownProgram = OptionMenu(master, programs, *programList)
 		dropdownProgram.grid(row = 2, column = 1)
 
-
+		db = MySQLdb.connect(host = "localhost", user="root", db="HERO" )
+		curr = db.cursor()
 		#grab all dat submitted, remove duplicates, set to yearList
-                db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
-                curr = db.cursor()
-		childDatesSubmitted = curr.execute("SELECT DISTINCT Year(Date_Submitted) FROM Child_Application")
-		campDatesSubmitted = curr.execute("SELECT DISTINCT Year(Date_Submitted) FROM Camp_Application")
+		childDatesSubmitted = curr.execute("SELECT Year(Date_Submitted) FROM Child_Application;")
+		val1 = curr.fetchall()
+		campDatesSubmitted = curr.execute("SELECT Year(Date_Submitted) FROM Camp_Application;")
+		val2 = curr.fetchall()
 		yearList = []
 
-		print childDatesSubmitted
-
-		for item in childDatesSubmitted:
+		for item in val1:
 			if item not in yearList:
 				yearList.append(item)
 
-		for item in campDatesSubmitted:
+		for item in val2:
 			if item not in yearList:
 				yearList.append(item)
-
 		years = StringVar(master)
 		years.set("Year")
 
+		#add back yearlist
 		dropdownYear = OptionMenu(master, years, "None", *yearList)
 		dropdownYear.grid(row = 2, column = 2)
-
 
 		categoriesList = ['None', 'City', "County", 'Referral Source', "Child's Age",
 					"Child's Gender", "Child's Race/Ethnicity",
@@ -79,14 +76,9 @@ class searchPage:
 		searchButton2 = Button(master, text = "Search", command = self.closeWindow)
 		searchButton2.grid(row = 5, column = 3)
 
-
-
-
-                curr.close()
-                db.close()
-            
-
-
+        curr.close()
+        db.close()
+        
 
 		#possibly add a back button
 	def closeWindow(self):
