@@ -77,7 +77,7 @@ CREATE TABLE Childs_Information (
   HIV_Status ENUM('HIV Positive','HIV Negative'),
   Aware TINYINT(1),
   Why VARCHAR(100),
-  Refferal_Source VARCHAR(70),
+  Referral_Source VARCHAR(70),
 
   School_attending VARCHAR(50),
   School_grade_level VARCHAR(12),

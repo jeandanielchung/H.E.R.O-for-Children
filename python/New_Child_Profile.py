@@ -215,7 +215,7 @@ class Example(tk.Frame):
         childInfo15.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
-        #refferal source
+        #Referral source
         label = Label(self.ChildInfoSectionframe, text = "\nReferral Source ..................................................................................... ")
         global childInfo16
         childInfo16 = Entry(self.ChildInfoSectionframe)
@@ -1160,56 +1160,56 @@ class Example(tk.Frame):
         programs8 = Entry(self.ChildInfoSectionframe, width = 19)
         programs8.grid(row = r, column = 1, sticky = E)
 
-#Referal Needs
+#Referral Needs
         #header
         labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nREFERRAL NEEDS")
         r = r+1
         labelParentInfoSection.grid(row = r, column = 0)
         labelParentInfoSection.config(font=("Helvetica", 20))
 
-    #Referal
-        label = Label(self.ChildInfoSectionframe, text = "\nReferal Needs ....................................................................................... ")
+    #Referral
+        label = Label(self.ChildInfoSectionframe, text = "\nReferral Needs ....................................................................................... ")
         r = r+1
         label.grid(row = r, column = 0)
 
         #Food
-        global referal0
-        referal0 = IntVar()
-        Checkbutton(self.ChildInfoSectionframe, text="Food", variable = referal0).grid(row = r,  column = 1, sticky = SW)
+        global Referral0
+        Referral0 = IntVar()
+        Checkbutton(self.ChildInfoSectionframe, text="Food", variable = Referral0).grid(row = r,  column = 1, sticky = SW)
 
         #Transitional Housing/Shelter
-        global referal1
-        referal1 = IntVar()
+        global Referral1
+        Referral1 = IntVar()
         r = r+1
-        Checkbutton(self.ChildInfoSectionframe, text="Transitional Housing/Shelter", variable = referal1).grid(row = r,  column = 1, sticky = W)
+        Checkbutton(self.ChildInfoSectionframe, text="Transitional Housing/Shelter", variable = Referral1).grid(row = r,  column = 1, sticky = W)
 
         #Rent/Utilities Assistance
-        global referal2
-        referal2 = IntVar()
+        global Referral2
+        Referral2 = IntVar()
         r = r+1
-        Checkbutton(self.ChildInfoSectionframe, text="Rent/Utilities Assistance", variable = referal2).grid(row = r,  column = 1, sticky = W)
+        Checkbutton(self.ChildInfoSectionframe, text="Rent/Utilities Assistance", variable = Referral2).grid(row = r,  column = 1, sticky = W)
 
         #Clothing/Furniture
-        global referal3
-        referal3 = IntVar()
+        global Referral3
+        Referral3 = IntVar()
         r = r+1
-        Checkbutton(self.ChildInfoSectionframe, text="Clothing/Furniture", variable = referal3).grid(row = r,  column = 1, sticky = W)
+        Checkbutton(self.ChildInfoSectionframe, text="Clothing/Furniture", variable = Referral3).grid(row = r,  column = 1, sticky = W)
 
         #Financial/Public Assistance
-        global referal4
-        referal4 = IntVar()
+        global Referral4
+        Referral4 = IntVar()
         r = r+1
-        Checkbutton(self.ChildInfoSectionframe, text="Financial/Public Assistance", variable = referal4).grid(row = r,  column = 1, sticky = W)
+        Checkbutton(self.ChildInfoSectionframe, text="Financial/Public Assistance", variable = Referral4).grid(row = r,  column = 1, sticky = W)
 
         #Other
-        global referal5
-        referal5 = IntVar()
+        global Referral5
+        Referral5 = IntVar()
         r = r+1
-        Checkbutton(self.ChildInfoSectionframe, text="Other", variable = referal5).grid(row = r,  column = 1, sticky = W)
+        Checkbutton(self.ChildInfoSectionframe, text="Other", variable = Referral5).grid(row = r,  column = 1, sticky = W)
         
-        global referal6
-        referal6 = Entry(self.ChildInfoSectionframe, width = 19)
-        referal6.grid(row = r, column = 1, sticky = E)
+        global Referral6
+        Referral6 = Entry(self.ChildInfoSectionframe, width = 19)
+        Referral6.grid(row = r, column = 1, sticky = E)
 
 #Statement of Understanding
         #header
@@ -1397,25 +1397,25 @@ class Example(tk.Frame):
             programsOther = None
 
 
-        #refferal 
+        #Referral 
         programsC = ''
 
-        if referal0.get():
+        if Referral0.get():
             programsC = programsC + 'Food,'
 
-        if referal1.get():
+        if Referral1.get():
             programsC = programsC + 'Transitional Housing/Shelter,'
 
-        if referal2.get():
+        if Referral2.get():
             programsC = programsC + 'Rent/Utilities Assistance,'
 
-        if referal3.get():
+        if Referral3.get():
             programsC = programsC + 'Clothing/Furniture,'
 
-        if referal4.get():
+        if Referral4.get():
             programsC = programsC + 'Financial/Public Assistance,'
 
-        if referal5.get():
+        if Referral5.get():
             programsC = programsC + 'Other,'
 
         if programsC == '':
@@ -1423,9 +1423,9 @@ class Example(tk.Frame):
         else:
             programsC = programsC[:-1]
 
-        referalOther = referal6.get()
-        if referalOther == '':
-            referalOther = None
+        ReferralOther = Referral6.get()
+        if ReferralOther == '':
+            ReferralOther = None
 
         #Signature
         sig = signature.get()
@@ -2002,7 +2002,7 @@ class Example(tk.Frame):
                 db.commit()
 
                 curr.execute("""INSERT INTO Child_Application VALUES (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                    (id, date, sig, programsC, referalOther, programsB, programsOther, programsA,))
+                    (id, date, sig, programsC, ReferralOther, programsB, programsOther, programsA,))
 
             except (MySQLdb.IntegrityError) as e:
                 success = 0

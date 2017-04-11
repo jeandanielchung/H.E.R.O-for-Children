@@ -397,8 +397,8 @@ class Example(tk.Frame):
         childInfo15.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
-        #refferal source
-        curr.execute("SELECT Refferal_Source FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        #Referral source
+        curr.execute("SELECT Referral_Source FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nReferral Source ..................................................................................... ")
@@ -2143,7 +2143,7 @@ class Example(tk.Frame):
         r = r+1
         label.grid(row = r, column = 0)
             
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatePrograms0())
         buttonUpdate.grid(row = r, column = 2)
         
         curr.execute("SELECT HERO_Programs FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
@@ -2199,7 +2199,7 @@ class Example(tk.Frame):
         r = r+1
         label.grid(row = r, column = 0)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatePrograms1())
         buttonUpdate.grid(row = r, column = 2)
         
         curr.execute("SELECT Future_Programs FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
@@ -2244,89 +2244,89 @@ class Example(tk.Frame):
         else:
             programs8.insert(0, 'Unanswered')
             
-#Referal Needs ************************************************************************************************************************
+#Referral Needs ************************************************************************************************************************
         #header
         labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nREFERRAL NEEDS")
         r = r+1
         labelParentInfoSection.grid(row = r, column = 0)
         labelParentInfoSection.config(font=("Helvetica", 20))
 
-    #Referal
-        label = Label(self.ChildInfoSectionframe, text = "\nReferal Needs ....................................................................................... ")
+    #Referral
+        label = Label(self.ChildInfoSectionframe, text = "\nReferral Needs ....................................................................................... ")
         r = r+1
         label.grid(row = r, column = 0)
 
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateReferral())
         buttonUpdate.grid(row = r, column = 2)
         
         curr.execute("SELECT Referral FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         var = curr.fetchall()[0][0]
         
         #Food
-        global referal0
-        referal0 = IntVar()
-        Checkbutton(self.ChildInfoSectionframe, text="Food", variable = referal0).grid(row = r,  column = 1, sticky = SW)
+        global Referral0
+        Referral0 = IntVar()
+        Checkbutton(self.ChildInfoSectionframe, text="Food", variable = Referral0).grid(row = r,  column = 1, sticky = SW)
 
         if 'Healthy HEROs' in var:
-            referal0.set(1)
+            Referral0.set(1)
 
         #Transitional Housing/Shelter
-        global referal1
-        referal1 = IntVar()
+        global Referral1
+        Referral1 = IntVar()
         r = r+1
-        Checkbutton(self.ChildInfoSectionframe, text="Transitional Housing/Shelter", variable = referal1).grid(row = r,  column = 1, sticky = W)
+        Checkbutton(self.ChildInfoSectionframe, text="Transitional Housing/Shelter", variable = Referral1).grid(row = r,  column = 1, sticky = W)
 
         if 'Transitional Housing/Shelter' in var:
-            referal1.set(1)
+            Referral1.set(1)
 
         #Rent/Utilities Assistance
-        global referal2
-        referal2 = IntVar()
+        global Referral2
+        Referral2 = IntVar()
         r = r+1
-        Checkbutton(self.ChildInfoSectionframe, text="Rent/Utilities Assistance", variable = referal2).grid(row = r,  column = 1, sticky = W)
+        Checkbutton(self.ChildInfoSectionframe, text="Rent/Utilities Assistance", variable = Referral2).grid(row = r,  column = 1, sticky = W)
 
         if 'Rent/Utilities Assistance' in var:
-            referal2.set(1)
+            Referral2.set(1)
 
         #Clothing/Furniture
-        global referal3
-        referal3 = IntVar()
+        global Referral3
+        Referral3 = IntVar()
         r = r+1
-        Checkbutton(self.ChildInfoSectionframe, text="Clothing/Furniture", variable = referal3).grid(row = r,  column = 1, sticky = W)
+        Checkbutton(self.ChildInfoSectionframe, text="Clothing/Furniture", variable = Referral3).grid(row = r,  column = 1, sticky = W)
 
         if 'Clothing/Furniture' in var:
-            referal3.set(1)
+            Referral3.set(1)
 
         #Financial/Public Assistance
-        global referal4
-        referal4 = IntVar()
+        global Referral4
+        Referral4 = IntVar()
         r = r+1
-        Checkbutton(self.ChildInfoSectionframe, text="Financial/Public Assistance", variable = referal4).grid(row = r,  column = 1, sticky = W)
+        Checkbutton(self.ChildInfoSectionframe, text="Financial/Public Assistance", variable = Referral4).grid(row = r,  column = 1, sticky = W)
 
         if 'Financial/Public Assistance' in var:
-            referal4.set(1)
+            Referral4.set(1)
 
         #Other
-        global referal5
-        referal5 = IntVar()
+        global Referral5
+        Referral5 = IntVar()
         r = r+1
-        Checkbutton(self.ChildInfoSectionframe, text="Other", variable = referal5).grid(row = r,  column = 1, sticky = W)
+        Checkbutton(self.ChildInfoSectionframe, text="Other", variable = Referral5).grid(row = r,  column = 1, sticky = W)
 
         if 'Other' in var:
-            referal5.set(1)
+            Referral5.set(1)
 
         #if other
-        global referal6
-        referal6 = Entry(self.ChildInfoSectionframe, width = 19)
-        referal6.grid(row = r, column = 1, sticky = E)
+        global Referral6
+        Referral6 = Entry(self.ChildInfoSectionframe, width = 19)
+        Referral6.grid(row = r, column = 1, sticky = E)
 
         curr.execute("SELECT Referral_Other FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
         if val is not None:
-            referal6.insert(0, val)
+            Referral6.insert(0, val)
         else:
-            referal6.insert(0, 'Unanswered')
+            Referral6.insert(0, 'Unanswered')
 
 #Statement of Understanding ************************************************************************************************************************
         #header
@@ -2890,9 +2890,9 @@ class Example(tk.Frame):
         #Execute
         newVal = childInfo16.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Refferal_Source = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Referral_Source = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Refferal_Source = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Referral_Source = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
         db.commit()
             
         #feedback
@@ -4015,7 +4015,130 @@ class Example(tk.Frame):
 
         #Close Database Connection
         curr.close()
-        db.close() 
+        db.close()
+
+    def updatePrograms0(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = ''
+
+        if programs0.get():
+            newVal = newVal + 'Super HEROes Program,'
+
+        if programs1.get():
+            newVal = newVal + 'Bright HEROs Program,'
+
+        if programs2.get():
+            newVal = newVal + 'Camp High Five,'
+
+        if programs3.get():
+            newVal = newVal + 'Holiday of HEROs,'
+
+        if programs4.get():
+            newVal = newVal + 'Transition to Adulthood,'
+
+        if newVal == '':
+            curr.execute("UPDATE Child_Application SET HERO_Programs = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            newVal = newVal[:-1]
+            curr.execute("UPDATE Child_Application SET HERO_Programs = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        db.commit()
+            
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+
+    def updatePrograms1(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = ''
+
+        if programs5.get():
+            newVal = newVal + 'Healthy HEROs,'
+
+        if programs6.get():
+            newVal = newVal + 'Career Development/Job Readiness,'
+
+        if programs7.get():
+            newVal = newVal + 'Other,'
+
+        if newVal == '':
+            curr.execute("UPDATE Child_Application SET Future_Programs = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            newVal = newVal[:-1]
+            curr.execute("UPDATE Child_Application SET Future_Programs = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+
+        newValOther = programs8.get()
+        if (newValOther == 'Unanswered') or (newValOther == ''):
+            curr.execute("UPDATE Child_Application SET Future_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Child_Application SET Future_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newValOther, id, date,))
+        
+        db.commit()
+
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateReferral(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        #Execute
+        newVal = ''
+
+        if Referral0.get():
+            newVal = newVal + 'Food,'
+
+        if Referral1.get():
+            newVal = newVal + 'Transitional Housing/Shelter,'
+
+        if Referral2.get():
+            newVal = newVal + 'Rent/Utilities Assistance,'
+
+        if Referral3.get():
+            newVal = newVal + 'Clothing/Furniture,'
+
+        if Referral4.get():
+            newVal = newVal + 'Financial/Public Assistance,'
+
+        if Referral5.get():
+            newVal = newVal + 'Other,'
+
+        if newVal == '':
+            curr.execute("UPDATE Child_Application SET Referral = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            newVal = newVal[:-1]
+            curr.execute("UPDATE Child_Application SET Referral = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+
+        newValOther = Referral6.get()
+        if (newValOther == 'Unanswered') or (newValOther == ''):
+            curr.execute("UPDATE Child_Application SET Referral_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        else:
+            curr.execute("UPDATE Child_Application SET Referral_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newValOther, id, date,))
+        
+        db.commit()
+
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
 
 
     #check string entry is a number

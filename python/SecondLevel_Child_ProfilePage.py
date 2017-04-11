@@ -233,8 +233,8 @@ class Example(tk.Frame):
             label = Label(self.ChildInfoSectionframe, text = "please provide a reason why child is not aware ...................................... Unanswered")
         label.pack(anchor = 'w')
         
-        #refferal source
-        curr.execute("SELECT Refferal_Source FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        #Referral source
+        curr.execute("SELECT Referral_Source FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         if val is not None:
             label = Label(self.ChildInfoSectionframe, text = "\nReferral Source ..................................................................................... " + val)
@@ -817,7 +817,7 @@ class Example(tk.Frame):
             label = Label(self.ChildInfoSectionframe, text = "\nProgram(s) you would be interested in your child to participating in ...... Unanswered")
         label.pack(anchor = 'w')
                     
-#Referal Needs
+#Referral Needs
         #header
         labelParentInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nREFERRAL NEEDS")
         labelParentInfoSection.pack(fill = "x")
@@ -829,13 +829,13 @@ class Example(tk.Frame):
         curr.execute("SELECT Referral_Other FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         otherReferral = curr.fetchall()[0][0]
         if Referral is not None and otherReferral is not None:
-            label = Label(self.ChildInfoSectionframe, text = "\nReferal Needs ....................................................................................... " + Referral + ", " + otherReferral)
+            label = Label(self.ChildInfoSectionframe, text = "\nReferral Needs ....................................................................................... " + Referral + ", " + otherReferral)
         elif Referral is not None:
-            label = Label(self.ChildInfoSectionframe, text = "\nReferal Needs ....................................................................................... " + Referral)
+            label = Label(self.ChildInfoSectionframe, text = "\nReferral Needs ....................................................................................... " + Referral)
         elif otherReferral is not None:
-            label = Label(self.ChildInfoSectionframe, text = "\nReferal Needs ........................................................................................ " + otherReferral)
+            label = Label(self.ChildInfoSectionframe, text = "\nReferral Needs ........................................................................................ " + otherReferral)
         else:
-            label = Label(self.ChildInfoSectionframe, text = "\nReferal Needs ........................................................................................ Unanswered")
+            label = Label(self.ChildInfoSectionframe, text = "\nReferral Needs ........................................................................................ Unanswered")
         label.pack(anchor = 'w')
                     
 #Statement of Understanding

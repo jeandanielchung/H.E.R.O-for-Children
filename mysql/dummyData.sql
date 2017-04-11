@@ -3,6 +3,7 @@ INSERT INTO User VALUES ('Jeremy', 'Farts', SHA1('Farts2.0'), 'Regular'); # need
 INSERT INTO User VALUES ('Daniel', 'IsGrosS', SHA1('poop'), 'Manager'); # need SHA1 for the password to decrypt it
 
 
+
 INSERT INTO Child VALUES (); # empty because the only attribute right now is an auto-incremented ID
 INSERT INTO Child VALUES ();
 /*
@@ -11,7 +12,7 @@ INSERT INTO Childs_Information
 	Name_First, Name_Last, Name_Nickname,
 	Address_Street, Address_City, Address_County, Address_Zip,
 	Home_Phone, Guardian_Phone, Guardian_Email,
-	Age, Birthday, Gender, HIV_Status, Aware, Why, Refferal_Source,
+	Age, Birthday, Gender, HIV_Status, Aware, Why, Referral_Source,
 	School_attending, School_grade_level,
 	Ethnicity, Ethnicity_Other, ADD_ADHD, Learning_Disability,
 	Developmental_Disability, Mental_Health_Issues,
@@ -22,7 +23,7 @@ VALUES
   '123 Techwood Drive', 'Atlanta', 'Fulton', 30308,
   1234567890, 0987654321, 'guardian@gmail.com', 21,
   '1997-01-02', 'Female',
-  'HIV Negative', 1, 'idk why', 'no refferal',
+  'HIV Negative', 1, 'idk why', 'no Referral',
   'Gatech', 'Junior',
   ('Other,Multi-racial'), 'idk lol',
   0, 1, 0, 1, 0, 1);
@@ -34,11 +35,11 @@ INSERT INTO Child_Application (ID,Date_Submitted, Signature, Referral, Future_Pr
 	(2,'2016-12-12', 0, 'Food', 'Other', 'Holiday of HEROs');
 
 
-INSERT INTO Childs_Information (ID, Date_Submitted, Name_First, Name_Last, Name_Nickname, Address_Street, Address_City,Address_County,Address_Zip, Home_Phone, Guardian_Phone, Guardian_Email, Age, Birthday, Gender, HIV_Status, Aware, Why, Refferal_Source,School_attending,School_grade_level,Ethnicity,ADD_ADHD,Learning_Disability,Developmental_Disability,Mental_Health_Issues,Other_Medical_Condition,Victim_of_Abuse,Criminal_Justice_System,Legal_Custody)	VALUES
+INSERT INTO Childs_Information (ID, Date_Submitted, Name_First, Name_Last, Name_Nickname, Address_Street, Address_City,Address_County,Address_Zip, Home_Phone, Guardian_Phone, Guardian_Email, Age, Birthday, Gender, HIV_Status, Aware, Why, Referral_Source,School_attending,School_grade_level,Ethnicity,ADD_ADHD,Learning_Disability,Developmental_Disability,Mental_Health_Issues,Other_Medical_Condition,Victim_of_Abuse,Criminal_Justice_System,Legal_Custody)	VALUES
 	(1,'2016-11-24', 'John', 'Osman', 'Johnny Boy', '3567 Clubland Drive', 'Marietta', 'Cobb County', 30068,'7709736653', '4044083543', 'osmangirls@bellsouth.net', 58, '1958-11-24', 'Male','HIV Negative', 1,'Because he asked', 'His doctor', 'Langley High School', '9','White/Caucasian', 0, 1, 0,1, 0, 0,1, 'Mother');
 
 
-INSERT INTO Childs_Information (ID, Date_Submitted, Name_First, Name_Last, Name_Nickname, Address_Street, Address_City,Address_County,Address_Zip, Home_Phone, Guardian_Phone, Guardian_Email, Age, Birthday, Gender, HIV_Status, Aware, Why, Refferal_Source,School_attending,School_grade_level,Ethnicity,ADD_ADHD,Learning_Disability,Developmental_Disability,Mental_Health_Issues,Other_Medical_Condition,Victim_of_Abuse,Criminal_Justice_System,Legal_Custody,Custody_Other) VALUES
+INSERT INTO Childs_Information (ID, Date_Submitted, Name_First, Name_Last, Name_Nickname, Address_Street, Address_City,Address_County,Address_Zip, Home_Phone, Guardian_Phone, Guardian_Email, Age, Birthday, Gender, HIV_Status, Aware, Why, Referral_Source,School_attending,School_grade_level,Ethnicity,ADD_ADHD,Learning_Disability,Developmental_Disability,Mental_Health_Issues,Other_Medical_Condition,Victim_of_Abuse,Criminal_Justice_System,Legal_Custody,Custody_Other) VALUES
 	(2,'2016-12-12', 'Claire', 'Kennedy', 'ID', '123 Dumb Street', 'Monroe', 'Lincoln Parish', 12345, '3182345678', '3183456789','imkarmenkenneday@gmail.com', 9, '2007-12-12', 'Female', 'HIV Positive', 0, 'She is too dumb', 'Her doctor', 'Good Hope Elementary School','3rd grade', 'White/Caucasian', 1, 1, 1, 1, 0, 0,1, 'Both Parents', 'She is really annoying');
 
 
