@@ -1,4 +1,5 @@
-INSERT INTO User VALUES ('FSonika', SHA1('I<3Dogs'), 'Administrator'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Sonika', 'FSonika', SHA1('I<3Dogs'), 'Administrator'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Jeremy', 'jp', SHA1('IluvCats'), 'Regular'); # need SHA1 for the password to decrypt it
 
 INSERT INTO Child VALUES (); # empty because the only attribute right now is an auto-incremented ID
 INSERT INTO Child VALUES ();
