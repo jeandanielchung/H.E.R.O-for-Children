@@ -57,7 +57,7 @@ class AddNewApp(tk.Tk):
         db = MySQLdb.connect(
             host = "localhost", 
             user="root", 
-            passwd="Darling", 
+            passwd="Mr10371!", 
             db="HERO" )
         curr = db.cursor()
 
@@ -65,9 +65,10 @@ class AddNewApp(tk.Tk):
         if v.get() == '2':             # If they are not a returning child, add them and date submitted into Child()
             curr.execute("INSERT INTO Child() VALUES ();") #is this actually auto incrementing
             db.commit()
-
+    
             #get variables from user input
-            ID = curr.execute("SELECT MAX(ID) FROM Child;")
+            curr.execute("SELECT MAX(ID) FROM Child;")
+            ID = curr.fetchall()[0][0]
             Date = entryDate.get()
             program =  programs.get()
 
