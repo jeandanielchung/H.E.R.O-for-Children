@@ -40,8 +40,7 @@ class AddUser:
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
         
-        curr.execute("""INSERT INTO User VALUES ('son', 'finch', SHA1('ew'), 'Regular');""")
-            #, (entry1.get(), entry2.get(), entry3.get(), variable.get(),))
+        curr.execute("""INSERT INTO User VALUES (%s, %s, SHA1(%s), %s);""", (entry1.get(), entry2.get(), entry3.get(), variable.get(),))
         db.commit()
 
         curr.close()
