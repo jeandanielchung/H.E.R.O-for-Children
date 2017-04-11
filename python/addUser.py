@@ -1,10 +1,11 @@
 from Tkinter import *
-# import MySQLdb
-
+import MySQLdb
 
 class AddUser:
     def __init__(self, master):
 
+
+    
         self.frame = Frame(master)
         self.frame.pack()
 
@@ -28,38 +29,25 @@ class AddUser:
         level = Label(self.frame, text="Type").grid(row=4)
         variable = StringVar(master)
         variable.set("Regular")
-        menu = OptionMenu(self.frame, variable, "Regular", "Manager", "Admin").grid(row=4, column=1)
+        menu = OptionMenu(self.frame, variable, 'Administrator', 'Manager', 'Regular').grid(row=4, column=1)
 
         add = Button(self.frame, text="Add User", command = self.addUser).grid(row=6, column=3)
-        back = Button(self.frame, text="Go Back", command=self.close).grid(row=6, column=0)
+        back = Button(self.frame, text="Go Back", command = self.back).grid(row=6, column=0)
 
 
     def addUser(self):
-        print("This adds a user")
 
-        db = MySQLdb.connect(
-            host="localhost",
-            user="root",
-            passwd="db100",
-            db="HERO")
-
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
-
-        name = entry1.get()
-        user = entry2.get()
-        password = entry3.get()
-        level = variable.get()
-
-
-        # sql insert new user execution
-
-        curr.execute("INSERT INTO User VALUES (%s, %s, %s, %s);", (name, user, password, level,))
+        
+        curr.execute("""INSERT INTO User VALUES ('son', 'finch', SHA1('ew'), 'Regular');""")
+            #, (entry1.get(), entry2.get(), entry3.get(), variable.get(),))
         db.commit()
+
         curr.close()
         db.close()
 
-    def close(self):
-        # close page
+    def back(self):
         self.master.destroy()
 
 
