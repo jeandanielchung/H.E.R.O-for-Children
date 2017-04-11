@@ -1,4 +1,5 @@
 from Tkinter import *
+import MySQLdb
 
 
 class DeleteUserPage:
@@ -6,25 +7,36 @@ class DeleteUserPage:
 		self.master = master
 		master.title("Delete User Page")
 
-		nameHead = Label(master, text = "Name", font= "Verdana 10 underline")
+		db = MySQLdb.connect(host = "localhost", user = "root", db = "HERO")
+		curr = db.cursor()
+
+		nameHead = Label(master, text = "Username", font= "Verdana 10 underline")
 		nameHead.grid(row = 1, column = 0)
 
-		critHead = Label(master, text = "Username", font= "Verdana 10 underline")
+		critHead = Label(master, text = "User Type", font= "Verdana 10 underline")
 		critHead.grid(row = 1, column = 1)
 
 		self.back = Button(master, text = "Back", command = self.closeWindow)
 		self.back.grid(row = 0, column = 0)
 
-        #example data
-		for num in range(0,5):
-			name = Label(master, text = "Test Name " + str(1+num))
-			name.grid(row = 2 + num, column = 0)
+		curr.execute("SELECT * FROM User")
+		results = curr.fetchall()
 
-			user = Label(master, text = "poonsl@ya2"+str(num))
-			user.grid(row = 2 + num, column = 1)
+		count = 0
+		for username,_,usertype in results:
+			usernameLabel = Label(master, text = username, font= "Verdana 10")
+			usernameLabel.grid(row = 2 + count, column = 0)
 
-			delBut = Button(master, text = "Delete", command = self.closeWindow)
-			delBut.grid(row = 2 + num, column = 2)
+			usertypeLabel = Label(master, text = usertype, font= "Verdana 10")
+			usertypeLabel.grid(row = 2 + count, column = 1)
+
+			deleteButton = Button(master, text = "Delete", command = self.closeWindow)
+			deleteButton.grid(row = 2 + count, column = 2)
+			count += 1
+
+
+	# def deleteUser(self, curr, username):
+	# 	curr.execute()
 
 	def closeWindow(self):
 		self.master.destroy()
