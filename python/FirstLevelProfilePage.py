@@ -38,10 +38,13 @@ class ProfilePage:
         self.programs = Label(self.frame, text="PROGRAMS").grid(row=3, column=3)
         self.years = Label(self.frame, text="YEARS").grid(row=3, column=4)
 
-        # As many detail buttons as needed
+        # Add as many detail buttons as needed
         self.details = Button(self.frame, text="See Details").grid(row=4, column=5)
         self.details = Button(self.frame, text="See Details").grid(row=5, column=5)
         self.details = Button(self.frame, text="See Details").grid(row=6, column=5)
+
+        curr.close()
+        db.close()
 
 master = Tk()
 addUserPage = ProfilePage(master)
