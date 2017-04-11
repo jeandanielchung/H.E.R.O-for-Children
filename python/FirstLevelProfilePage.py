@@ -25,7 +25,7 @@ class ProfilePage:
         lastNameLabel = Label(self.frame, text= name_last, font="Arial 12 underline").grid(row=1, column=4)
 
         #child app
-        childAppLabel = Label(self.frame, text= "Child Applicaions").grid(row=2, column=0)
+        childAppLabel = Label(self.frame, text= "Child Applications").grid(row=2, column=0)
 
         curr.execute("SELECT Date_Submitted FROM Child_Application WHERE ID = %s;", (id,))
         childDateArr = curr.fetchall()
@@ -40,7 +40,7 @@ class ProfilePage:
             r = r + 1
 
         #camp app
-        campAppLabel = Label(self.frame, text= "Camp Applicaions").grid(row=r, column=0)
+        campAppLabel = Label(self.frame, text= "Camp Applications").grid(row=r, column=0)
 
         curr.execute("SELECT Date_Submitted FROM Camp_Application WHERE ID = %s;", (id,))
         campDateArr = curr.fetchall()
