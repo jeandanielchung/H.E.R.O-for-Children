@@ -3,8 +3,6 @@ INSERT INTO User VALUES ('Jeremy', 'Farts', SHA1('Farts2.0'), 'Regular'); # need
 INSERT INTO User VALUES ('Daniel', 'IsGrosS', SHA1('poop'), 'Manager'); # need SHA1 for the password to decrypt it
 
 
->>>>>>> Stashed changes
-
 INSERT INTO Child VALUES (); # empty because the only attribute right now is an auto-incremented ID
 INSERT INTO Child VALUES ();
 /*
