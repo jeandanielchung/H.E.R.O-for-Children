@@ -2352,7 +2352,7 @@ class Example(tk.Frame):
                 statement0.set(1)
 
         r = r+1
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateStatement())
         buttonUpdate.grid(row = r, column = 2)
         Yes.grid(row = r, column = 1, sticky = 'w')
         No.grid(row = r, column = 1, sticky = 'e')
@@ -2492,7 +2492,7 @@ class Example(tk.Frame):
 
         #signature completed
         label = Label(self.ChildInfoSectionframe, text = "\nSignature .............................................................................................. ")
-        curr.execute("SELECT Statement_Seven FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Signature FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
         global signature
@@ -2507,7 +2507,7 @@ class Example(tk.Frame):
                 signature.set(1)
 
         r = r+1
-        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
+        buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateSignature())
         buttonUpdate.grid(row = r, column = 2)
         Yes.grid(row = r, column = 1, sticky = 'w')
         No.grid(row = r, column = 1, sticky = 'e')
@@ -4139,6 +4139,88 @@ class Example(tk.Frame):
         #Close Database Connection
         curr.close()
         db.close()
+
+    def updateStatement(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+        s0 = statement0.get()
+        if s0 == 0:
+            s0 = None
+        elif s0 == 2:
+            s0 = 0
+
+        s1 = statement1.get()
+        if s1 == 0:
+            s1 = None
+        elif s1 == 2:
+            s1 = 0
+
+        s2 = statement2.get()
+        if s2 == 0:
+            s2 = None
+        elif s2 == 2:
+            s2 = 0
+
+        s3 = statement3.get()
+        if s3 == 0:
+            s3 = None
+        elif s3 == 2:
+            s3 = 0
+
+        s4 = statement4.get()
+        if s4 == 0:
+            s4 = None
+        elif s4 == 2:
+            s4 = 0
+
+        s5 = statement5.get()
+        if s5 == 0:
+            s5 = None
+        elif s5 == 2:
+            s5 = 0
+
+        s6 = statement6.get()
+        if s6 == 0:
+            s6 = None
+        elif s6 == 2:
+            s6 = 0
+
+        curr.execute("""UPDATE Statement_Of_Understanding SET Statement_One = %s, Statement_Two = %s, Statement_Three = %s, Statement_Four = %s,
+            Statement_Five = %s, Statement_Six = %s, Statement_Seven = %s WHERE ID = %s AND Date_Submitted = %s;""",
+            (s0, s1, s2, s3, s4, s5, s6, id, date,))
+        db.commit()
+
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
+    def updateSignature(self):
+        #Open Database Connection
+        db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+        curr = db.cursor()
+
+
+        newVal = signature.get()
+        if newVal == 0:
+            newVal = None
+        elif newVal == 2:
+            newVal = 0
+
+        curr.execute("""UPDATE Child_Application SET Signature = %s WHERE ID = %s AND Date_Submitted = %s;""", (newVal, id, date,))
+        db.commit()
+
+        #feedback
+        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+
+        #Close Database Connection
+        curr.close()
+        db.close()
+
 
 
     #check string entry is a number
