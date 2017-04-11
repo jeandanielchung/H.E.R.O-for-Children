@@ -9,43 +9,56 @@ class ProfilePage:
 
         # id and date
         id = 1
-        date = '2016-11-24'
+        name_first = 'John'
+        name_last = 'Osman'
 
         self.frame = Frame(master)
         self.frame.pack()
 
         # Back button will take you to previous page
-        self.back = Button(self.frame, text="Back").grid(row=0, column=0)
+        back = Button(self.frame, text="Back").grid(row=0, column=0)
         # Delete will permanently remove child from database
-        self.delete = Button(self.frame, text="Delete", command=self.back).grid(row=0, column=10)
+        delete = Button(self.frame, text="Delete", command=self.back).grid(row=0, column=10)
 
-        '''curr.execute("SELECT Name_First From Childs_Information WHERE ID MEDIUMINT = %s AND Date_Submitted = %s;", (id, date,))
-        val = curr.fetchall()[0][0]
-        if val is not None:
-            label = Label(self.ChildInfoSectionframe, text=val, font="Arial 12 underline").grid(row=1, column=3)
-        else:
-            label = Label(self.ChildInfoSectionframe, text="Not found").grid(row=1, column=3)
+        #name title
+        firstNameLabel = Label(self.frame, text= name_first, font="Arial 12 underline").grid(row=1, column=3)
+        lastNameLabel = Label(self.frame, text= name_last, font="Arial 12 underline").grid(row=1, column=4)
 
-        curr.execute("SELECT Name_Last FROM Childs_Information WHERE ID MEDIUMINT = %s AND Date_Submitted = %s;", (id, date,))
-        val = curr.fetchall()[0][0]
-        if val is not None:
-            label = Label(self.ChildInfoSectionframe, text=val, font="Arial 12 underline").grid(row=1, column=4)
-        else:
-            label = Label(self.ChildInfoSectionframe, text="Not found").grid(row=1, column=4)'''
+        #child app
+        childAppLabel = Label(self.frame, text= "Child Applicaions").grid(row=2, column=0)
 
-        self.name = Label(self.frame, text="First Name", font="Arial 12 underline").grid(row=1, column=3)
-        self.name = Label(self.frame, text="Last Name", font="Arial 12 underline").grid(row=1, column=4)
-        self.programs = Label(self.frame, text="PROGRAMS").grid(row=3, column=3)
-        self.years = Label(self.frame, text="YEARS").grid(row=3, column=4)
+        curr.execute("SELECT Date_Submitted FROM Child_Application WHERE ID = %s;", (id,))
+        childDateArr = curr.fetchall()
 
-        # Add as many detail buttons as needed
-        # Details button will take you to another page
-        self.details = Button(self.frame, text="See Details").grid(row=4, column=5)
-        self.details = Button(self.frame, text="See Details").grid(row=5, column=5)
-        self.details = Button(self.frame, text="See Details").grid(row=6, column=5)
+        r = 3
+        for childDate in childDateArr:
+            #date of program attended
+            dateLabel = Label(self.frame, text= childDate[0]).grid(row=r, column=1)
+            
+            # Details button will take you to another page
+            details = Button(self.frame, text="See Details").grid(row=r, column=5)
+            r = r + 1
 
-        #curr.close()
-        #db.close()
+        #camp app
+        campAppLabel = Label(self.frame, text= "Camp Applicaions").grid(row=r, column=0)
+
+        curr.execute("SELECT Date_Submitted FROM Camp_Application WHERE ID = %s;", (id,))
+        campDateArr = curr.fetchall()
+
+        r = r + 1
+        for campDate in campDateArr:
+            #date of program attended
+            dateLabel = Label(self.frame, text= campDate[0]).grid(row=r, column=1)
+            
+            # Details button will take you to another page
+            details = Button(self.frame, text="See Details").grid(row=r, column=5)
+            r = r + 1
+
+
+
+        curr.close()
+        db.close()
+
     def back(self):
         self.destroy();
 
