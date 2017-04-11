@@ -1,10 +1,17 @@
 import Tkinter as tk
 from Tkinter import *
+import MySQLdb
 
 class HomePage(tk.Tk):
     def __init__(self, master):
         self.master = master
         master.title = "Home Page"
+
+        db = MySQLdb.connect(
+            host = "localhost", 
+            user="root",  
+            db="HERO")
+        curr = db.cursor()
 
         newAppButton = Button(master, text = "Add New Application", command = self.newApp)
         newAppButton.grid(row = 1, column = 1)
@@ -19,6 +26,9 @@ class HomePage(tk.Tk):
         closeButton = Button(master, text = "Close", command = self.close)
         closeButton.grid(row = 5, column = 1)
 
+        curr.close()
+        db.close()
+
     def newApp(self):
         #goes to new Application Page
         self.newWindow = Tk()
@@ -32,9 +42,8 @@ class HomePage(tk.Tk):
 
         db = MySQLdb.connect(
             host = "localhost", 
-            user="root", 
-            passwd="yourMySqlPassword", 
-            db="HERO" )
+            user="root",  
+            db="HERO")
         curr = db.cursor()
 
         credentials = curr.execute("SELECT User_Type FROM User WHERE ID = %s AND Date_Submitted = %s;", (ID, Date,))
