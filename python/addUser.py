@@ -50,7 +50,6 @@ class AddUser:
         password = entry3.get()
         level = variable.get()
 
-
         # sql insert new user execution
 
         curr.execute("INSERT INTO User VALUES (%s, %s, %s, %s);", (name, user, password, level,))
