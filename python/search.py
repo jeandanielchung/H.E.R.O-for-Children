@@ -1,5 +1,6 @@
 from Tkinter import *
 import MySQLdb
+import tkMessageBox
 
 
 class searchPage:
@@ -54,7 +55,7 @@ class searchPage:
 		dropdownYear = OptionMenu(master, years, "None", *yearList)
 		dropdownYear.grid(row = 1, column = 2)
 
-		categoriesList = ['None', 'City', "County", 'Referral Source', "Child's Age",
+		categoriesList = ['None', 'Zip Code', 'City', "County", 'Referral Source', "Child's Age",
 					"Child's Gender", "Child's Race/Ethnicity",
 					"Child's HIV Status (infected or affected)", "Child's Learning Disabilities",
 					"Child's HERO Program Participation", "Child's Allergies", "Child's Years with HERO",
@@ -106,6 +107,9 @@ class searchPage:
 	#if year not chosen: year
 	def searchCat(self):
 
+		db = MySQLdb.connect(host="localhost", user="root", passwd="Darling", db="HERO")
+		curr = db.cursor()
+
 		#check for program selection
 		selectedProgram = programs.get()
 		programParam = 1
@@ -119,6 +123,8 @@ class searchPage:
 		if (selectedYear == 'Year') or (selectedYear == 'None'):
 			#no year input
 			yearParam = 0
+		else:
+			selectedYear = selectedYear[1:5]
 
 		#check for category selection
 		selectedCategory = categories.get()
@@ -126,112 +132,252 @@ class searchPage:
 
 		#no category input
 		if (selectedCategory == 'Category') or (selectedCategory == 'None'):
-			
-			#no program input
-			if not programParam:
 
-				#no year input
-				if not yearParam:
-
-					#child
+			#no year & no program OR no year & child
+			#first, last, year in child
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
 					curr.execute("SELECT Name_First, Name_Last, YEAR(Date_Submitted) FROM Childs_Information;")
 					child = curr.fetchall()
 
-					print child
-
-					#camp
+			#no year & no program OR no year & camp
+			#first, last, year in camp
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
 					curr.execute("SELECT First_Name, Last_Name, YEAR(Date_Submitted) FROM Demographic_Information;")
 					camp = curr.fetchall()
 
-					print camp
+			#year & no program OR year & child
+			#first, last in child
+			check = yearParam and ((not programParam) or (selectedProgram == 'Child Application'))
+			if (check):
+					curr.execute("SELECT Name_First, Name_Last FROM Childs_Information WHERE YEAR(Date_Submitted) = %s;", (selectedYear,))
+					child = curr.fetchall()
+
+			#year & no program OR year & camp
+			#first, last in camp
+			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("SELECT First_Name, Last_Name FROM Demographic_Information WHERE YEAR(Date_Submitted) = %s;", (selectedYear,))
+					camp = curr.fetchall()
 
 
+		elif selectedCategory == 'Zip Code':
+			
+			#no year & no program OR no year & child
+			#first, last, year, cat in child
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Address_Zip FROM Childs_Information 
+						WHERE Address_Zip != 'NULL';""")
+					child = curr.fetchall()
 
+			#no year & no program OR no year & camp
+			#first, last, year, cat in camp
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT First_Name, Last_Name, YEAR(Date_Submitted), Address_Zip FROM Demographic_Information 
+						WHERE Address_Zip != 'NULL';""")
+					camp = curr.fetchall()
 
-			#program input
-			else:	
-				#search child app
-				if (selectedProgram == 'Child Application'):
-					print 'nope'
+			#year & no program OR year & child
+			#first, last, cat in child
+			check = yearParam and ((not programParam) or (selectedProgram == 'Child Application'))
+			if (check):
+					curr.execute("""SELECT Name_First, Name_Last, Address_Zip FROM Childs_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Address_Zip != 'NULL';""", (selectedYear,))
+					child = curr.fetchall()
 
-					#year was chosen
-					if yearParam:
-						print 'nope'
+			#year & no program OR year & camp
+			#first, last, cat in camp
+			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT First_Name, Last_Name, Address_Zip FROM Demographic_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Address_Zip != 'NULL';""", (selectedYear,))
+					camp = curr.fetchall()
 
-
-
-				#search camp app
-				else:
-					print 'nope'
 
 		elif selectedCategory == 'City':
-			i = i + 1
-			print i
+			
+			#no year & no program OR no year & child
+			#first, last, year, cat in child
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Address_City FROM Childs_Information 
+						WHERE Address_City != 'NULL';""")
+					child = curr.fetchall()
+
+			#no year & no program OR no year & camp
+			#first, last, year, cat in camp
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT First_Name, Last_Name, YEAR(Date_Submitted), Address_City FROM Demographic_Information 
+						WHERE Address_City != 'NULL';""")
+					camp = curr.fetchall()
+
+			#year & no program OR year & child
+			#first, last, cat in child
+			check = yearParam and ((not programParam) or (selectedProgram == 'Child Application'))
+			if (check):
+					curr.execute("""SELECT Name_First, Name_Last, Address_City FROM Childs_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Address_City != 'NULL';""", (selectedYear,))
+					child = curr.fetchall()
+
+			#year & no program OR year & camp
+			#first, last, cat in camp
+			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT First_Name, Last_Name, Address_City FROM Demographic_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Address_City != 'NULL';""", (selectedYear,))
+					camp = curr.fetchall()
+
 
 		elif selectedCategory == 'County':
-			i = i + 1
-			print i
+
+			#no year & no program OR no year & child
+			#first, last, year, cat in child
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Address_County FROM Childs_Information 
+						WHERE Address_County != 'NULL';""")
+					child = curr.fetchall()
+
+			#no year & no program OR no year & camp
+			#first, last, year, cat in camp
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT First_Name, Last_Name, YEAR(Date_Submitted), Address_County FROM Demographic_Information 
+						WHERE Address_County != 'NULL';""")
+					camp = curr.fetchall()
+
+			#year & no program OR year & child
+			#first, last, cat in child
+			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT Name_First, Name_Last, Address_County FROM Childs_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Address_County != 'NULL';""", (selectedYear,))
+					child = curr.fetchall()
+
+			#year & no program OR year & camp
+			#first, last, cat in camp
+			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT First_Name, Last_Name, Address_County FROM Demographic_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Address_County != 'NULL';""", (selectedYear,))
+					camp = curr.fetchall()
+
 
 		elif selectedCategory == 'Referral Source':
-			i = i + 1
-			print i
+
+			#no year & no program OR no year & child
+			#first, last, year, cat in child
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Referral_Source FROM Childs_Information 
+						WHERE Referral_Source != 'NULL';""")
+					child = curr.fetchall()
+
+
+			#year & no program OR year & child
+			#first, last, cat in child
+			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT Name_First, Name_Last, Referral_Source FROM Childs_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Referral_Source != 'NULL';""", (selectedYear,))
+					child = curr.fetchall()
+
+			if (selectedProgram == 'Camp High Five Application'):
+				tkMessageBox.showinfo("Search", "This application does not contain the category")
+
+
 
 		elif selectedCategory == 'Child''s Age':
-			i = i + 1
-			print i
+
+			#no year & no program OR no year & child
+			#first, last, year, cat in child
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Age FROM Childs_Information 
+						WHERE Age != 'NULL';""")
+					child = curr.fetchall()
+
+			#no year & no program OR no year & camp
+			#first, last, year, cat in camp
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT First_Name, Last_Name, YEAR(Date_Submitted), Age FROM Demographic_Information 
+						WHERE Age != 'NULL';""")
+					camp = curr.fetchall()
+
+			#year & no program OR year & child
+			#first, last, cat in child
+			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT Name_First, Name_Last, Age FROM Childs_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Age != 'NULL';""", (selectedYear,))
+					child = curr.fetchall()
+
+			#year & no program OR year & camp
+			#first, last, cat in camp
+			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT First_Name, Last_Name, Age FROM Demographic_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Age != 'NULL';""", (selectedYear,))
+					camp = curr.fetchall()
+
 
 		elif selectedCategory == 'Child''s Gender':
-			i = i + 1
-			print i
+
+			#no year & no program OR no year & child
+			#first, last, year, cat in child
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Gender FROM Childs_Information 
+						WHERE Gender != 'NULL';""")
+					child = curr.fetchall()
+
+			#no year & no program OR no year & camp
+			#first, last, year, cat in camp
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT First_Name, Last_Name, YEAR(Date_Submitted), Gender FROM Demographic_Information 
+						WHERE Gender != 'NULL';""")
+					camp = curr.fetchall()
+
+			#year & no program OR year & child
+			#first, last, cat in child
+			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT Name_First, Name_Last, Gender FROM Childs_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Gender != 'NULL';""", (selectedYear,))
+					child = curr.fetchall()
+
+			#year & no program OR year & camp
+			#first, last, cat in camp
+			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT First_Name, Last_Name, Gender FROM Demographic_Information 
+						WHERE YEAR(Date_Submitted) = %s AND Gender != 'NULL';""", (selectedYear,))
+					camp = curr.fetchall()
+
 
 		elif selectedCategory == 'Child''s Race/Ethnicity':
-			i = i + 1
-			print i
+
+
+
 
 		elif selectedCategory == 'Child''s HIV Status (infected or affected)':
-			i = i + 1
-			print i
+			print 'nope'
 
 		elif selectedCategory == 'Child''s Learning Disabilities':
-			i = i + 1
-			print i
+			print 'nope'
 
 		elif selectedCategory == 'Child''s HERO Program Participation':
-			i = i + 1
-			print i
+			print 'nope'
 
 		elif selectedCategory == 'Child''s Allergies':
-			i = i + 1
-			print i
+			print 'nope'
 
 		elif selectedCategory == 'Child''s Years with HERO':
-			i = i + 1
-			print i
+			print 'nope'
 
 		elif selectedCategory == 'Household Composition':
-			i = i + 1
-			print i
+			print 'nope'
 
 		elif selectedCategory == 'Parent(s) HIV Status (infected or affected)':
-			i = i + 1
-			print i
+			print 'nope'
 
 		elif selectedCategory == 'Household Income Range':
-			i = i + 1
-			print i
+			print 'nope'
 
 		elif selectedCategory == 'Household Income Source':
-			i = i + 1
-			print i
+			print 'nope'
 
 		elif selectedCategory == 'Parent(s) Highest Level of Education':
-			i = i + 1
-			print i
+			print 'nope'
 
 		elif selectedCategory == 'Parent(s) Employment Status':
-			i = i + 1
-			print i
+			print 'nope'
 
+		curr.close()
+		db.close()
 
 	#search by name with possible parameters: program, year, first name, last name
 	def searchName(self):
