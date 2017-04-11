@@ -66,10 +66,11 @@ CREATE TABLE Childs_Information (
   Address_County VARCHAR(30),
   Address_Zip INT,
 
-  Home_Phone BIGINT,
-  Guardian_Phone BIGINT,
+  Home_Phone CHAR(10),
+  Guardian_Phone CHAR(10),
   Guardian_Email VARCHAR(70),
 
+  Age INT,
   Birthday DATE,
   Gender ENUM('Male','Female'),
 
@@ -123,7 +124,7 @@ CREATE TABLE Parent_Guardian_Information (
   Address_State CHAR(2),
   Address_Zip INT,
 
-  WorkPhone BIGINT,
+  WorkPhone CHAR(10),
   Email VARCHAR(70),
 
   PRIMARY KEY(ID, Date_Submitted),
@@ -139,7 +140,7 @@ CREATE TABLE Absent_Parent_Information (
 
   Name_First VARCHAR(30),
   Name_Last VARCHAR(30),
-  Telephone BIGINT,
+  Telephone CHAR(10),
 
   Address_Street VARCHAR(50),
   Address_City VARCHAR(30),
@@ -220,9 +221,9 @@ CREATE TABLE ChildApp_Emergency_Contact (
   Address_State CHAR(2),
   Address_Zip INT,
 
-  Phone_Home BIGINT,
-  Phone_Cell BIGINT,
-  Phone_Alt BIGINT,
+  Phone_Home CHAR(10),
+  Phone_Cell CHAR(10),
+  Phone_Alt CHAR(10),
 
   PRIMARY KEY(ID, Date_Submitted),
   FOREIGN KEY(ID, Date_Submitted) REFERENCES Child_Application(ID, Date_Submitted) ON DELETE CASCADE );
@@ -321,7 +322,7 @@ CREATE TABLE Demographic_Contacts (
   Type ENUM('Cell', 'Home', 'Work'),
   Name VARCHAR(60),
   Time_Preference SET('Day', 'Evening'),
-  Phone_Number BIGINT,
+  Phone_Number CHAR(10),
 
   PRIMARY KEY (ID, Date_Submitted, Type),
   FOREIGN KEY (ID, Date_Submitted) REFERENCES Parent(ID, Date_Submitted) ON DELETE CASCADE );
@@ -338,8 +339,8 @@ CREATE TABLE Parent_Emergency_Contact (
 
   Name VARCHAR(60),
   Relationship VARCHAR(100),
-  Daytime_Phone BIGINT,
-  Evening_Phone BIGINT,
+  Daytime_Phone CHAR(10),
+  Evening_Phone CHAR(10),
   PRIMARY KEY (ID, Date_Submitted, Name),
   FOREIGN KEY (ID, Date_Submitted) REFERENCES Parent (ID, Date_Submitted) ON DELETE CASCADE );
 
@@ -368,9 +369,9 @@ CREATE TABLE Medical_Provider_Information (
   Date_Submitted DATE,
 
   Medical_Provider_Name VARCHAR(50),
-  Phone_Office BIGINT,
+  Phone_Office CHAR(10),
   Pharmacy_Name VARCHAR(50),
-  Phone_Pharmacy BIGINT,
+  Phone_Pharmacy CHAR(10),
 
   PRIMARY KEY(ID, Date_Submitted),
   FOREIGN KEY(ID, Date_Submitted) REFERENCES Parent(ID, Date_Submitted) ON DELETE CASCADE );
@@ -656,7 +657,7 @@ CREATE TABLE Medical_Provider_Verification_Statement (
   Address_City VARCHAR(30),
   Address_State CHAR(2),
   Address_Zip INT,
-  Phone BIGINT,
+  Phone CHAR(10),
   Emergency_Contact VARCHAR(50),
 
   PRIMARY KEY(ID, Date_Submitted),
