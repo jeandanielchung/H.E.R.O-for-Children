@@ -1,5 +1,6 @@
 from Tkinter import *
 import MySQLdb
+import tkMessageBox
 
 
 class NewAppReturningPage:
@@ -72,14 +73,29 @@ class NewAppReturningPage:
                 if firstName != '' and lastName != '' and ID == '' and bd != '': # checks if the filled name and bd fields and left ID blank
                         #select data if from child
                         if program == 'Child Application':
-                                curr.execute("SELECT * FROM Childs_Information WHERE Name_First = %s AND Name_Last = %s AND Birthday = %s;",(firstName,lastName,bd))
-                                data = curr.fetchall()[0][0]
-                                print data #how to print the data selected
+                                curr.execute("SELECT ID FROM Childs_Information WHERE Name_First = %s AND Name_Last = %s AND Birthday = %s;",(firstName,lastName,bd))
+                                data = curr.fetchall()
+                                if data == ():
+                                    tkMessageBox.showinfo("Returning Child","Error: no such child exists.")
+                                else:
+                                    data = data[0][0]
+                                    print data #how to print the data selected
                         #select data if from camper
                         elif program == 'Camper Application':
-                                curr.execute("SELECT * FROM Demographic_Information WHERE First_Name = %s AND Last_Name = %s AND Date_Of_Birth = %s;",(firstName,lastName,bd))
-                                data = curr.fetchall()[0][0]
-                                print data #how to print the data selected
+                                curr.execute("SELECT ID FROM Demographic_Information WHERE First_Name = %s AND Last_Name = %s AND Date_Of_Birth = %s;",(firstName,lastName,bd))
+                                data = curr.fetchall()
+                                if data == ():
+                                    tkMessageBox.showinfo("Returning Child","Error: no such child exists.")
+                                else:
+                                    data = data[0][0]
+                                    print data #how to print the data selected
+                        else:
+                            tkMessageBox.showinfo("Returning Child","Please select a program from the list")
+                            
+                        
+                else: #user entered the child ID
+                    ###Link me somewhere
+                    print '' #placeholder, this should send user to childs information page
         def closeWindow(self):
                 self.master.destroy()
 
