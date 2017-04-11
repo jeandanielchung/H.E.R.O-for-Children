@@ -45,7 +45,6 @@ class AddUser:
 
         #sql insert new user execution
         
-
         curr.close()
         db.close()
 
