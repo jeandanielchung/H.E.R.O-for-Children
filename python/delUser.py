@@ -7,7 +7,7 @@ class DeleteUserPage:
 		self.master = master
 		master.title("Delete User Page")
 
-		db = MySQLdb.connect(host = "localhost", user = "root", db = "HERO")
+                db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
 		curr = db.cursor()
 
 		nameHead = Label(master, text = "Nameame", font= "Verdana 10 underline")
