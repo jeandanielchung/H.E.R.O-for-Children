@@ -662,10 +662,12 @@ class Example(tk.Frame):
         #Sex1
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
         global houseInfo12
-        houseInfo12 = Entry(self.ChildInfoSectionframe)
+        houseInfo12 = StringVar()
+        choices = ['Male','Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo12, *choices)
 
         r = r+1
-        houseInfo12.grid(row = r, column = 1)
+        option.grid(row = r, column = 1, ipadx = 70)
         label.grid(row = r, column = 0)
 
         #Age1
@@ -680,11 +682,13 @@ class Example(tk.Frame):
         #HIV Status1
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
         global houseInfo14
-        houseInfo14 = Entry(self.ChildInfoSectionframe)
+        houseInfo14 = StringVar()
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo14, *choices)
 
         r = r+1
-        houseInfo14.grid(row = r, column = 1)
-        label.grid(row = r, column = 0) 
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
 
 
     #person2
@@ -713,10 +717,12 @@ class Example(tk.Frame):
         #Sex2
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
         global houseInfo22
-        houseInfo22 = Entry(self.ChildInfoSectionframe)
+        houseInfo22 = StringVar()
+        choices = ['Male','Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo22, *choices)
 
         r = r+1
-        houseInfo22.grid(row = r, column = 1)
+        option.grid(row = r, column = 1, ipadx = 70)
         label.grid(row = r, column = 0)
 
         #Age2
@@ -731,11 +737,13 @@ class Example(tk.Frame):
         #HIV Status2
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
         global houseInfo24
-        houseInfo24 = Entry(self.ChildInfoSectionframe)
+        houseInfo24 = StringVar()
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo24, *choices)
 
         r = r+1
-        houseInfo24.grid(row = r, column = 1)
-        label.grid(row = r, column = 0) 
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
 
 
     #person3
@@ -764,10 +772,12 @@ class Example(tk.Frame):
         #Sex3
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
         global houseInfo32
-        houseInfo32 = Entry(self.ChildInfoSectionframe)
+        houseInfo32 = StringVar()
+        choices = ['Male','Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo32, *choices)
 
         r = r+1
-        houseInfo32.grid(row = r, column = 1)
+        option.grid(row = r, column = 1, ipadx = 70)
         label.grid(row = r, column = 0)
 
         #Age3
@@ -782,11 +792,13 @@ class Example(tk.Frame):
         #HIV Status3
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
         global houseInfo34
-        houseInfo34 = Entry(self.ChildInfoSectionframe)
+        houseInfo34 = StringVar()
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo34, *choices)
 
         r = r+1
-        houseInfo34.grid(row = r, column = 1)
-        label.grid(row = r, column = 0) 
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
 
 
     #person4
@@ -815,10 +827,12 @@ class Example(tk.Frame):
         #Sex4
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
         global houseInfo42
-        houseInfo42 = Entry(self.ChildInfoSectionframe)
+        houseInfo42 = StringVar()
+        choices = ['Male','Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo42, *choices)
 
         r = r+1
-        houseInfo42.grid(row = r, column = 1)
+        option.grid(row = r, column = 1, ipadx = 70)
         label.grid(row = r, column = 0)
 
         #Age4
@@ -833,10 +847,12 @@ class Example(tk.Frame):
         #HIV Status4
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
         global houseInfo44
-        houseInfo44 = Entry(self.ChildInfoSectionframe)
+        houseInfo44 = StringVar()
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo44, *choices)
 
         r = r+1
-        houseInfo44.grid(row = r, column = 1)
+        option.grid(row = r, column = 1, ipadx = 70)
         label.grid(row = r, column = 0) 
 
 
@@ -866,10 +882,12 @@ class Example(tk.Frame):
         #Sex5
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
         global houseInfo52
-        houseInfo52 = Entry(self.ChildInfoSectionframe)
+        houseInfo52 = StringVar()
+        choices = ['Male','Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo52, *choices)
 
         r = r+1
-        houseInfo52.grid(row = r, column = 1)
+        option.grid(row = r, column = 1, ipadx = 70)
         label.grid(row = r, column = 0)
 
         #Age5
@@ -884,11 +902,13 @@ class Example(tk.Frame):
         #HIV Status5
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
         global houseInfo54
-        houseInfo54 = Entry(self.ChildInfoSectionframe)
+        houseInfo54 = StringVar()
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo54, *choices)
 
         r = r+1
-        houseInfo54.grid(row = r, column = 1)
-        label.grid(row = r, column = 0) 
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
 
 
     #person6
@@ -917,10 +937,12 @@ class Example(tk.Frame):
         #Sex6
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
         global houseInfo62
-        houseInfo62 = Entry(self.ChildInfoSectionframe)
+        houseInfo62 = StringVar()
+        choices = ['Male','Female']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo62, *choices)
 
         r = r+1
-        houseInfo62.grid(row = r, column = 1)
+        option.grid(row = r, column = 1, ipadx = 70)
         label.grid(row = r, column = 0)
 
         #Age6
@@ -935,11 +957,13 @@ class Example(tk.Frame):
         #HIV Status6
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
         global houseInfo64
-        houseInfo64 = Entry(self.ChildInfoSectionframe)
+        houseInfo64 = StringVar()
+        choices = ['HIV Positive','HIV Negative','Unknown']
+        option = tk.OptionMenu(self.ChildInfoSectionframe, houseInfo64, *choices)
 
         r = r+1
-        houseInfo64.grid(row = r, column = 1)
-        label.grid(row = r, column = 0) 
+        option.grid(row = r, column = 1, ipadx = 70)
+        label.grid(row = r, column = 0)
 
         #Family Annual Income Info
         label = Label(self.ChildInfoSectionframe, text = "\nFamily Annual Income Information ......................................................... ")
@@ -1564,9 +1588,6 @@ class Example(tk.Frame):
         cI29 = childInfo29.get()
         if cI29 == '':
             cI29 = None
-
-#TODO:
-#cI7 is a date, figure out how to make sure its ok
 
 #Parent/ Guardian's Information
         #adapt for database

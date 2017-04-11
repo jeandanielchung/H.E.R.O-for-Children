@@ -49,7 +49,7 @@ class LoginPage:
         curr.execute("SELECT * FROM User WHERE Username = %s AND Password = SHA1(%s)", (username, password,))
         result = curr.fetchone()
 
-        if result is not None:
+        if result is not None: # if the result isn't None then there is a user/password combination match
             user_type = result[2] # this is the type of user i.e. admininistrator, manager, regular
             print "You logged in"
             print "User Type is " + user_type

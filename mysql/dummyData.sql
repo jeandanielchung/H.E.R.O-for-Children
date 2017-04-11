@@ -3,8 +3,8 @@ INSERT INTO User VALUES ('FSonika', SHA1('I<3Dogs'), 'Administrator'); # need SH
 INSERT INTO Child VALUES (); # empty because the only attribute right now is an auto-incremented ID
 INSERT INTO Child VALUES ();
 /*
-INSERT INTO Childs_Information 
-(ID, Date_Submitted, 
+INSERT INTO Childs_Information
+(ID, Date_Submitted,
 	Name_First, Name_Last, Name_Nickname,
 	Address_Street, Address_City, Address_County, Address_Zip,
 	Home_Phone, Guardian_Phone, Guardian_Email,
@@ -13,10 +13,10 @@ INSERT INTO Childs_Information
 	Ethnicity, Ethnicity_Other, ADD_ADHD, Learning_Disability,
 	Developmental_Disability, Mental_Health_Issues,
 	Other_Medical_Condition, Victim_of_Abuse)
-VALUES 
-(1, '2016-11-24', 
-  'Sonika', 'Finch', 'Son', 
-  '123 Techwood Drive', 'Atlanta', 'Fulton', 30308, 
+VALUES
+(1, '2016-11-24',
+  'Sonika', 'Finch', 'Son',
+  '123 Techwood Drive', 'Atlanta', 'Fulton', 30308,
   1234567890, 0987654321, 'guardian@gmail.com', 21,
   '1997-01-02', 'Female',
   'HIV Negative', 1, 'idk why', 'no refferal',
