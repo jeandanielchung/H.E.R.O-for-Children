@@ -7,12 +7,6 @@ class HomePage(tk.Tk):
         self.master = master
         master.title = "Home Page"
 
-        db = MySQLdb.connect(
-            host = "localhost", 
-            user="root",  
-            db="HERO")
-        curr = db.cursor()
-
         newAppButton = Button(master, text = "Add New Application", command = self.newApp)
         newAppButton.grid(row = 1, column = 1)
 
@@ -25,9 +19,6 @@ class HomePage(tk.Tk):
 
         closeButton = Button(master, text = "Close", command = self.close)
         closeButton.grid(row = 5, column = 1)
-
-        curr.close()
-        db.close()
 
     def newApp(self):
         #goes to new Application Page
@@ -46,7 +37,11 @@ class HomePage(tk.Tk):
             db="HERO")
         curr = db.cursor()
 
-        credentials = curr.execute("SELECT User_Type FROM User WHERE ID = %s AND Date_Submitted = %s;", (ID, Date,))
+        username = "FSonika"
+        pulled = curr.execute("SELECT User_Type FROM User WHERE Username = %s;", (username,))
+        print pulled
+        credentials = curr.fetchall()[0][0]
+        print credentials
 
         #need to be able to get the user credentials
         if (credentials == 'Administrator' or credentials == 'Manager'):
@@ -65,11 +60,14 @@ class HomePage(tk.Tk):
         db = MySQLdb.connect(
             host = "localhost", 
             user="root", 
-            passwd="yourMySqlPassword", 
             db="HERO" )
         curr = db.cursor()
 
-        credentials = curr.execute("SELECT User_Type FROM User WHERE ID = %s AND Date_Submitted = %s;", (ID, Date,))
+        username = "FSonika"
+        pulled = curr.execute("SELECT User_Type FROM User WHERE Username = %s;", (username,))
+        print pulled
+        credentials = curr.fetchall()[0][0]
+        print credentials
 
         if (credentials == 'Administrator'):
             self.newWindow = Tk()
