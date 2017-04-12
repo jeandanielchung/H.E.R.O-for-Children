@@ -46,6 +46,9 @@ class AddUser:
         curr.close()
         db.close()
 
+        tkMessageBox.showinfo("Add User", "Add User Successful!")
+
+
     def back(self):
         self.master.destroy()
 

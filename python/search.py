@@ -57,7 +57,7 @@ class searchPage:
 
 		categoriesList = ['None', 'Zip Code', 'City', "County", 'Referral Source', "Child's Age",
 					"Child's Gender", "Child's Race/Ethnicity",
-					"Child's HIV Status (infected or affected)", "Child's Learning Disabilities",
+					"Child's HIV Status (infected or affected)", "Child's Other Issues",
 					"Child's HERO Program Participation", "Child's Allergies", "Child's Years with HERO",
 					"Household Composition", "Parent(s) HIV Status (infected or affected)",
 					"Household Income Range", "Household Income Source", "Parent(s) Highest Level of Education",
@@ -107,6 +107,9 @@ class searchPage:
 	#if year not chosen: year
 	def searchCat(self):
 
+		camp = ''
+		child = ''
+
 		db = MySQLdb.connect(host="localhost", user="root", passwd="Darling", db="HERO")
 		curr = db.cursor()
 
@@ -131,31 +134,31 @@ class searchPage:
 		catParam = 1
 
 		#no category input
-		if (selectedCategory == 'Category') or (selectedCategory == 'None'):
+		if (selectedCategory == 'Category') or (selectedCategory == 'None') or (selectedCategory == "Child's HERO Program Participation"):
 
 			#no year & no program OR no year & child
 			#first, last, year in child
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("SELECT Name_First, Name_Last, YEAR(Date_Submitted) FROM Childs_Information;")
+					curr.execute("SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted) FROM Childs_Information;")
 					child = curr.fetchall()
 
 			#no year & no program OR no year & camp
 			#first, last, year in camp
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("SELECT First_Name, Last_Name, YEAR(Date_Submitted) FROM Demographic_Information;")
+					curr.execute("SELECT ID, Date_Submitted, First_Name, Last_Name, YEAR(Date_Submitted) FROM Demographic_Information;")
 					camp = curr.fetchall()
 
 			#year & no program OR year & child
 			#first, last in child
 			check = yearParam and ((not programParam) or (selectedProgram == 'Child Application'))
 			if (check):
-					curr.execute("SELECT Name_First, Name_Last FROM Childs_Information WHERE YEAR(Date_Submitted) = %s;", (selectedYear,))
+					curr.execute("SELECT ID, Date_Submitted, Name_First, Name_Last FROM Childs_Information WHERE YEAR(Date_Submitted) = %s;", (selectedYear,))
 					child = curr.fetchall()
 
 			#year & no program OR year & camp
 			#first, last in camp
 			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("SELECT First_Name, Last_Name FROM Demographic_Information WHERE YEAR(Date_Submitted) = %s;", (selectedYear,))
+					curr.execute("SELECT ID, Date_Submitted, First_Name, Last_Name FROM Demographic_Information WHERE YEAR(Date_Submitted) = %s;", (selectedYear,))
 					camp = curr.fetchall()
 
 
@@ -164,14 +167,14 @@ class searchPage:
 			#no year & no program OR no year & child
 			#first, last, year, cat in child
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Address_Zip FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted), Address_Zip FROM Childs_Information 
 						WHERE Address_Zip != 'NULL';""")
 					child = curr.fetchall()
 
 			#no year & no program OR no year & camp
 			#first, last, year, cat in camp
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("""SELECT First_Name, Last_Name, YEAR(Date_Submitted), Address_Zip FROM Demographic_Information 
+					curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, YEAR(Date_Submitted), Address_Zip FROM Demographic_Information 
 						WHERE Address_Zip != 'NULL';""")
 					camp = curr.fetchall()
 
@@ -179,14 +182,14 @@ class searchPage:
 			#first, last, cat in child
 			check = yearParam and ((not programParam) or (selectedProgram == 'Child Application'))
 			if (check):
-					curr.execute("""SELECT Name_First, Name_Last, Address_Zip FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, Address_Zip FROM Childs_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Address_Zip != 'NULL';""", (selectedYear,))
 					child = curr.fetchall()
 
 			#year & no program OR year & camp
 			#first, last, cat in camp
 			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("""SELECT First_Name, Last_Name, Address_Zip FROM Demographic_Information 
+					curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, Address_Zip FROM Demographic_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Address_Zip != 'NULL';""", (selectedYear,))
 					camp = curr.fetchall()
 
@@ -196,14 +199,14 @@ class searchPage:
 			#no year & no program OR no year & child
 			#first, last, year, cat in child
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Address_City FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted), Address_City FROM Childs_Information 
 						WHERE Address_City != 'NULL';""")
 					child = curr.fetchall()
 
 			#no year & no program OR no year & camp
 			#first, last, year, cat in camp
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("""SELECT First_Name, Last_Name, YEAR(Date_Submitted), Address_City FROM Demographic_Information 
+					curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, YEAR(Date_Submitted), Address_City FROM Demographic_Information 
 						WHERE Address_City != 'NULL';""")
 					camp = curr.fetchall()
 
@@ -211,14 +214,14 @@ class searchPage:
 			#first, last, cat in child
 			check = yearParam and ((not programParam) or (selectedProgram == 'Child Application'))
 			if (check):
-					curr.execute("""SELECT Name_First, Name_Last, Address_City FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, Address_City FROM Childs_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Address_City != 'NULL';""", (selectedYear,))
 					child = curr.fetchall()
 
 			#year & no program OR year & camp
 			#first, last, cat in camp
 			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("""SELECT First_Name, Last_Name, Address_City FROM Demographic_Information 
+					curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, Address_City FROM Demographic_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Address_City != 'NULL';""", (selectedYear,))
 					camp = curr.fetchall()
 
@@ -228,28 +231,28 @@ class searchPage:
 			#no year & no program OR no year & child
 			#first, last, year, cat in child
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Address_County FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted), Address_County FROM Childs_Information 
 						WHERE Address_County != 'NULL';""")
 					child = curr.fetchall()
 
 			#no year & no program OR no year & camp
 			#first, last, year, cat in camp
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("""SELECT First_Name, Last_Name, YEAR(Date_Submitted), Address_County FROM Demographic_Information 
+					curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, YEAR(Date_Submitted), Address_County FROM Demographic_Information 
 						WHERE Address_County != 'NULL';""")
 					camp = curr.fetchall()
 
 			#year & no program OR year & child
 			#first, last, cat in child
 			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("""SELECT Name_First, Name_Last, Address_County FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, Address_County FROM Childs_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Address_County != 'NULL';""", (selectedYear,))
 					child = curr.fetchall()
 
 			#year & no program OR year & camp
 			#first, last, cat in camp
 			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("""SELECT First_Name, Last_Name, Address_County FROM Demographic_Information 
+					curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, Address_County FROM Demographic_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Address_County != 'NULL';""", (selectedYear,))
 					camp = curr.fetchall()
 
@@ -259,7 +262,7 @@ class searchPage:
 			#no year & no program OR no year & child
 			#first, last, year, cat in child
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Referral_Source FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted), Referral_Source FROM Childs_Information 
 						WHERE Referral_Source != 'NULL';""")
 					child = curr.fetchall()
 
@@ -267,7 +270,7 @@ class searchPage:
 			#year & no program OR year & child
 			#first, last, cat in child
 			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("""SELECT Name_First, Name_Last, Referral_Source FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, Referral_Source FROM Childs_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Referral_Source != 'NULL';""", (selectedYear,))
 					child = curr.fetchall()
 
@@ -276,105 +279,187 @@ class searchPage:
 
 
 
-		elif selectedCategory == 'Child''s Age':
+		elif selectedCategory == "Child's Age":
 
 			#no year & no program OR no year & child
 			#first, last, year, cat in child
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Age FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted), Age FROM Childs_Information 
 						WHERE Age != 'NULL';""")
 					child = curr.fetchall()
 
 			#no year & no program OR no year & camp
 			#first, last, year, cat in camp
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("""SELECT First_Name, Last_Name, YEAR(Date_Submitted), Age FROM Demographic_Information 
+					curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, YEAR(Date_Submitted), Age FROM Demographic_Information 
 						WHERE Age != 'NULL';""")
 					camp = curr.fetchall()
 
 			#year & no program OR year & child
 			#first, last, cat in child
 			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("""SELECT Name_First, Name_Last, Age FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, Age FROM Childs_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Age != 'NULL';""", (selectedYear,))
 					child = curr.fetchall()
 
 			#year & no program OR year & camp
 			#first, last, cat in camp
 			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("""SELECT First_Name, Last_Name, Age FROM Demographic_Information 
+					curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, Age FROM Demographic_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Age != 'NULL';""", (selectedYear,))
 					camp = curr.fetchall()
 
 
-		elif selectedCategory == 'Child''s Gender':
+		elif selectedCategory == "Child's Gender":
 
 			#no year & no program OR no year & child
 			#first, last, year, cat in child
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("""SELECT Name_First, Name_Last, YEAR(Date_Submitted), Gender FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted), Gender FROM Childs_Information 
 						WHERE Gender != 'NULL';""")
 					child = curr.fetchall()
 
 			#no year & no program OR no year & camp
 			#first, last, year, cat in camp
 			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("""SELECT First_Name, Last_Name, YEAR(Date_Submitted), Gender FROM Demographic_Information 
+					curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, YEAR(Date_Submitted), Gender FROM Demographic_Information 
 						WHERE Gender != 'NULL';""")
 					camp = curr.fetchall()
 
 			#year & no program OR year & child
 			#first, last, cat in child
 			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
-					curr.execute("""SELECT Name_First, Name_Last, Gender FROM Childs_Information 
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, Gender FROM Childs_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Gender != 'NULL';""", (selectedYear,))
 					child = curr.fetchall()
 
 			#year & no program OR year & camp
 			#first, last, cat in camp
 			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
-					curr.execute("""SELECT First_Name, Last_Name, Gender FROM Demographic_Information 
+					curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, Gender FROM Demographic_Information 
 						WHERE YEAR(Date_Submitted) = %s AND Gender != 'NULL';""", (selectedYear,))
 					camp = curr.fetchall()
 
 
-		elif selectedCategory == 'Child''s Race/Ethnicity':
+		elif selectedCategory == "Child's Race/Ethnicity":
+
+			#no year & no program OR no year & child
+			#first, last, year, cat in child
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted), Ethnicity, Ethnicity_Other FROM Childs_Information 
+						WHERE Ethnicity != 'NULL' OR Ethnicity_Other != 'NULL';""")
+					child = curr.fetchall()
+
+			#year & no program OR year & child
+			#first, last, cat in child
+			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, Ethnicity, Ethnicity_Other FROM Childs_Information 
+						WHERE YEAR(Date_Submitted) = %s AND (Ethnicity != 'NULL' OR Ethnicity_Other != 'NULL');""", (selectedYear,))
+					child = curr.fetchall()
+
+			if (selectedProgram == 'Camp High Five Application'):
+				tkMessageBox.showinfo("Search", "This application does not contain the category")
 
 
+		elif selectedCategory == "Child's HIV Status (infected or affected)":
+
+			#no year & no program OR no year & child
+			#first, last, year, cat in child
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted), HIV_Status FROM Childs_Information 
+						WHERE HIV_Status != 'NULL';""")
+					child = curr.fetchall()
+
+			#year & no program OR year & child
+			#first, last, cat in child
+			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, HIV_Status FROM Childs_Information 
+						WHERE YEAR(Date_Submitted) = %s AND HIV_Status != 'NULL';""", (selectedYear,))
+					child = curr.fetchall()
+
+			if (selectedProgram == 'Camp High Five Application'):
+				tkMessageBox.showinfo("Search", "This application does not contain the category")
 
 
-		elif selectedCategory == 'Child''s HIV Status (infected or affected)':
+		elif selectedCategory == "Child's Other Issues":
+
+			#no year & no program OR no year & child
+			#first, last, year, cat in child
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted), 
+						ADD_ADHD, Learning_Disability, Developmental_Disability, Mental_Health_Issues, 
+						Other_Medical_Condition, Victim_of_Abuse, Criminal_Justice_System
+						FROM Childs_Information 
+						WHERE ADD_ADHD != 'NULL' OR Learning_Disability != 'NULL' OR Developmental_Disability != 'NULL' OR
+						Mental_Health_Issues != 'NULL' OR Other_Medical_Condition != 'NULL' OR Victim_of_Abuse != 'NULL' OR 
+						Criminal_Justice_System != 'NULL';""")
+					child = curr.fetchall()
+
+
+			#year & no program OR year & child
+			#first, last, cat in child
+			if (yearParam and ((not programParam) or (selectedProgram == 'Child Application'))):
+					curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, 
+						ADD_ADHD, Learning_Disability, Developmental_Disability, Mental_Health_Issues, 
+						Other_Medical_Condition, Victim_of_Abuse, Criminal_Justice_System 
+						FROM Childs_Information WHERE YEAR(Date_Submitted) = %s 
+						AND (ADD_ADHD != 'NULL' OR Learning_Disability != 'NULL' OR Developmental_Disability != 'NULL' OR
+						Mental_Health_Issues != 'NULL' OR Other_Medical_Condition != 'NULL' OR Victim_of_Abuse != 'NULL' OR 
+						Criminal_Justice_System != 'NULL');""", (selectedYear,))
+					child = curr.fetchall()
+
+			if (selectedProgram == 'Camp High Five Application'):
+				tkMessageBox.showinfo("Search", "This application does not contain the category")
+
+
+		#elif selectedCategory == "Child's HERO Program Participation":
+		#	print 'nope'
+
+#TODO figure out name situation
+		elif selectedCategory == "Child's Allergies":
+
+			#no year & no program OR no year & camp
+			#first, last, year, cat in camp
+			if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT ID, Date_Submitted, YEAR(Date_Submitted), Med_Allergy, Food_Allergy, Env_Allergy FROM Allergies 
+						WHERE Med_Allergy != 'NULL' OR Food_Allergy != 'NULL' OR Env_Allergy != 'NULL';""")
+					camp = curr.fetchall()
+
+			#year & no program OR year & camp
+			#first, last, cat in camp
+			if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+					curr.execute("""SELECT ID, Date_Submitted, Med_Allergy, Food_Allergy, Env_Allergy FROM Allergies 
+						WHERE YEAR(Date_Submitted) = %s 
+						AND (Med_Allergy != 'NULL' OR Food_Allergy != 'NULL' OR Env_Allergy != 'NULL');""", (selectedYear,))
+					camp = curr.fetchall()
+
+			if (selectedProgram == 'Child Application'):
+				tkMessageBox.showinfo("Search", "This application does not contain the category")
+
+
+		'''elif selectedCategory == "Child's Years with HERO":
 			print 'nope'
 
-		elif selectedCategory == 'Child''s Learning Disabilities':
+		elif selectedCategory == "Household Composition":
 			print 'nope'
 
-		elif selectedCategory == 'Child''s HERO Program Participation':
+		elif selectedCategory == "Parent(s) HIV Status (infected or affected)":
 			print 'nope'
 
-		elif selectedCategory == 'Child''s Allergies':
+		elif selectedCategory == "Household Income Range":
 			print 'nope'
 
-		elif selectedCategory == 'Child''s Years with HERO':
+		elif selectedCategory == "Household Income Source":
 			print 'nope'
 
-		elif selectedCategory == 'Household Composition':
+		elif selectedCategory == "Parent(s) Highest Level of Education":
 			print 'nope'
 
-		elif selectedCategory == 'Parent(s) HIV Status (infected or affected)':
-			print 'nope'
+		elif selectedCategory == "Parent(s) Employment Status":
+			print 'nope' '''
 
-		elif selectedCategory == 'Household Income Range':
-			print 'nope'
-
-		elif selectedCategory == 'Household Income Source':
-			print 'nope'
-
-		elif selectedCategory == 'Parent(s) Highest Level of Education':
-			print 'nope'
-
-		elif selectedCategory == 'Parent(s) Employment Status':
-			print 'nope'
+		print child
+		print camp
 
 		curr.close()
 		db.close()

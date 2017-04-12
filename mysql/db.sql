@@ -163,12 +163,6 @@ CREATE TABLE Household_Information (
 # Count variable is to distinguish between which line
   Count INT,
   Name VARCHAR(60),
-
-
-
-
-
-
   Relationship VARCHAR(25),
   Sex ENUM('Male', 'Female'),
   Age INT,
