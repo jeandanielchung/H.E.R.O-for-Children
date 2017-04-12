@@ -7,7 +7,7 @@ class DeleteUserPage:
 		self.master = master
 		master.title("Delete User Page")
 
-                db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+                db = MySQLdb.connect(host = "localhost", user="root", db="HERO" )
 		curr = db.cursor()
 
 		nameHead = Label(master, text = "Nameame", font= "Verdana 10 underline")
@@ -53,7 +53,7 @@ class DeleteUserPage:
 			usertypeLabel = Label(master, text = usertype, font= "Verdana 10")
 			usertypeLabel.grid(row = 2 + count, column = 2)
 
-			deleteButton = Button(master, text = "Delete", command = lambda: self.closeWindow()) # TODO: Fix deleteUser
+			deleteButton = Button(master, text = "Delete", command = lambda: self.deleteUser(username)) # TODO: Fix deleteUser, right now it passes the last username not the associated one
 			deleteButton.grid(row = 2 + count, column = 3)
 			count += 1
 
@@ -62,16 +62,15 @@ class DeleteUserPage:
 
 
 	def deleteUser(self, username):
+		db = MySQLdb.connect(host = "localhost", user = "root", db = "HERO")
+		curr = db.cursor()
 
-		print username
-		# db = MySQLdb.connect(host = "localhost", user = "root", db = "HERO")
-		# curr = db.cursor()
+		curr.execute("DELETE FROM User WHERE Username = %s", (username,)) # will delete the last user in the table
+		db.commit()
 
-		# curr.execute("DELETE FROM User WHERE Username = %s", (username,))
-		# db.commit()
-
-		# curr.close()
-		# db.close()
+		curr.close()
+		db.close()
+		# link page back to itself here
 
 	def closeWindow(self):
 		self.master.destroy()
