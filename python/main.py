@@ -155,27 +155,27 @@ class AddUser(tk.Frame):
         self.frame = self
         self.frame.pack()
 
-        global entry1
-        global entry2
-        global entry3
-        global variable
+        global __entry1
+        global __entry2
+        global __entry3
+        global __variable
 
         name = Label(self.frame, text="Name").grid(row=1)
-        entry1 = Entry(self.frame)
-        entry1.grid(row=1, column=1)
+        __entry1 = Entry(self.frame)
+        __entry1.grid(row=1, column=1)
 
         username = Label(self.frame, text="Username").grid(row=2)
-        entry2 = Entry(self.frame)
-        entry2.grid(row=2, column=1)
+        __entry2 = Entry(self.frame)
+        __entry2.grid(row=2, column=1)
 
         password = Label(self.frame, text="Password").grid(row=3)
-        entry3 = Entry(self.frame)
-        entry3.grid(row=3, column=1)
+        __entry3 = Entry(self.frame)
+        __entry3.grid(row=3, column=1)
 
         level = Label(self.frame, text="Type").grid(row=4)
-        variable = StringVar(self)
-        variable.set("Regular")
-        menu = OptionMenu(self.frame, variable, 'Administrator', 'Manager', 'Regular').grid(row=4, column=1)
+        __variable = StringVar(self)
+        __variable.set("Regular")
+        menu = OptionMenu(self.frame, __variable, 'Administrator', 'Manager', 'Regular').grid(row=4, column=1)
 
         add = Button(self.frame, text="Add User", command = lambda: self.addUser(parent, controller)).grid(row=6, column=3)
         back = Button(self.frame, text="Back", command = lambda: controller.show_frame(AdminUserPage)).grid(row=6, column=0)
@@ -186,7 +186,7 @@ class AddUser(tk.Frame):
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
         
-        curr.execute("""INSERT INTO User VALUES (%s, %s, SHA1(%s), %s);""", (entry1.get(), entry2.get(), entry3.get(), variable.get(),))
+        curr.execute("""INSERT INTO User VALUES (%s, %s, SHA1(%s), %s);""", (__entry1.get(), __entry2.get(), __entry3.get(), __variable.get(),))
         db.commit()
 
         curr.close()
@@ -324,6 +324,7 @@ class SearchPage(tk.Frame):
         for item in val2:
             if item not in yearList:
                 yearList.append(item)
+
         global years
         years = StringVar(master)
         years.set("Year")
@@ -339,6 +340,7 @@ class SearchPage(tk.Frame):
                     "Household Composition", "Parent(s) HIV Status (infected or affected)",
                     "Household Income Range", "Household Income Source", "Parent(s) Highest Level of Education",
                     "Parent(s) Employment Status"]
+
         global categories
         categories = StringVar(master)
         categories.set("Category")
@@ -346,7 +348,7 @@ class SearchPage(tk.Frame):
         dropdownCategories = OptionMenu(master, categories, *categoriesList)
         dropdownCategories.grid(row = 3, column = 1)
 
-        global catEntry
+
         catEntry = Entry(master, width=15)
         catEntry.grid(row = 3, column = 2)
 
@@ -359,14 +361,12 @@ class SearchPage(tk.Frame):
         txt = Label(master, text = "First Name:")
         txt.grid(row = 5, column = 1)
 
-        global firstName
         firstName = Entry(master, width=15)
         firstName.grid(row = 5, column = 2)
         
         txt = Label(master, text = "Last Name:")
         txt.grid(row = 6, column = 1)
 
-        global lastName
         lastName = Entry(master, width=15)
         lastName.grid(row = 6, column = 2)
 
@@ -388,7 +388,101 @@ class SearchResultsPage(tk.Frame):
 
         master = self
 
-        count = Label(master, text = "Total: ")
+        camp = ''
+        child = ''
+
+        db = MySQLdb.connect(host="localhost", user="root", passwd="Darling", db="HERO")
+        curr = db.cursor()
+
+        #check for program selection
+        selectedProgram = programs.get()
+        programParam = 1
+        if (selectedProgram == 'Program') or (selectedProgram == 'None'):
+            #no program input
+            programParam = 0
+
+        #check for year selection
+        selectedYear = years.get()
+        yearParam = 1
+        if (selectedYear == 'Year') or (selectedYear == 'None'):
+            #no year input
+            yearParam = 0
+        else:
+            selectedYear = selectedYear[1:5]
+
+        #check for category selection
+        selectedCategory = categories.get()
+        catParam = 1
+
+        #no category input
+        if (selectedCategory == 'Category') or (selectedCategory == 'None') or (selectedCategory == "Child's HERO Program Participation"):
+
+            #no year & no program OR no year & child
+            #first, last, year in child
+            if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+                    print 'ahiii'
+                    curr.execute("SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted) FROM Childs_Information;")
+                    child = curr.fetchall()
+
+            #no year & no program OR no year & camp
+            #first, last, year in camp
+            if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+                    curr.execute("SELECT ID, Date_Submitted, First_Name, Last_Name, YEAR(Date_Submitted) FROM Demographic_Information;")
+                    camp = curr.fetchall()
+
+            #year & no program OR year & child
+            #first, last in child
+            check = yearParam and ((not programParam) or (selectedProgram == 'Child Application'))
+            if (check):
+                    curr.execute("SELECT ID, Date_Submitted, Name_First, Name_Last FROM Childs_Information WHERE YEAR(Date_Submitted) = %s;", (selectedYear,))
+                    child = curr.fetchall()
+
+            #year & no program OR year & camp
+            #first, last in camp
+            if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+                    curr.execute("SELECT ID, Date_Submitted, First_Name, Last_Name FROM Demographic_Information WHERE YEAR(Date_Submitted) = %s;", (selectedYear,))
+                    camp = curr.fetchall()
+
+
+        elif selectedCategory == 'Zip Code':
+            
+            #no year & no program OR no year & child
+            #first, last, year, cat in child
+            if ((not yearParam) and ((not programParam) or (selectedProgram == 'Child Application'))):
+                    curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, YEAR(Date_Submitted), Address_Zip FROM Childs_Information 
+                        WHERE Address_Zip != 'NULL';""")
+                    child = curr.fetchall()
+
+            #no year & no program OR no year & camp
+            #first, last, year, cat in camp
+            if ((not yearParam) and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+                    curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, YEAR(Date_Submitted), Address_Zip FROM Demographic_Information 
+                        WHERE Address_Zip != 'NULL';""")
+                    camp = curr.fetchall()
+
+            #year & no program OR year & child
+            #first, last, cat in child
+            check = yearParam and ((not programParam) or (selectedProgram == 'Child Application'))
+            if (check):
+                    curr.execute("""SELECT ID, Date_Submitted, Name_First, Name_Last, Address_Zip FROM Childs_Information 
+                        WHERE YEAR(Date_Submitted) = %s AND Address_Zip != 'NULL';""", (selectedYear,))
+                    child = curr.fetchall()
+
+            #year & no program OR year & camp
+            #first, last, cat in camp
+            if (yearParam and ((not programParam) or (selectedProgram == 'Camp High Five Application'))):
+                    curr.execute("""SELECT ID, Date_Submitted, First_Name, Last_Name, Address_Zip FROM Demographic_Information 
+                        WHERE YEAR(Date_Submitted) = %s AND Address_Zip != 'NULL';""", (selectedYear,))
+                    camp = curr.fetchall()
+
+
+
+
+        print child
+        print camp 
+
+        total = len(child) + len(camp)
+        count = Label(master, text = "Total: " + str(total))
         count.grid(row = 0, column = 4)
 
         nameHead = Label(master, text = "Name", font= "Verdana 10 underline")
@@ -441,6 +535,7 @@ class FirstProfilePage(tk.Frame):
 
         # id and date
         id = 1
+        date = '2016-11-24'
         name_first = 'John'
         name_last = 'Osman'
 
@@ -1479,6 +1574,7 @@ class EditProfile(tk.Frame):
         id = 1
         date = '2016-11-24'
 
+
 #Database Connection
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
@@ -1513,7 +1609,7 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
-        global childInfo0
+        #childInfo0
         childInfo0 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
@@ -5701,42 +5797,40 @@ class AddNewApp(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-
-        master = self
-
         """Pull in a request from the database 
         about the programs that are offered
         and then add them to a list and pull them into the programList"""
 
+        master = self
 
         #get this program list from the DB
         programList = ['Child Application', 'Camper Application']
-        global AddNewApp_programs
-        AddNewApp_programs = StringVar()
-        AddNewApp_programs.set('Programs')
-        dropdownProgram = OptionMenu(master, AddNewApp_programs, *programList)
+        global __programs
+        __programs = StringVar()
+        __programs.set('Programs')
+        dropdownProgram = OptionMenu(master, __programs, *programList)
         dropdownProgram.grid(row = 0, column = 3)
 
 
         labelDate = Label(master, text = "Date Submitted (YYYY-MM-DD)")
         labelDate.grid(row = 1, column = 3)
 
-        global entryDate
-        entryDate = Entry(master, bd = 3)
-        entryDate.grid(row = 1, column = 4)
+        global __entryDate
+        __entryDate = Entry(master, bd = 3)
+        __entryDate.grid(row = 1, column = 4)
         
         returningTxt = Label(master, text = "Returning Child?")
         returningTxt.grid(row = 2, column = 3)
 
-        global v
-        v = StringVar()
-        returningInq = Radiobutton(master, text="Yes", variable=v, value=1)
+        global __v
+        __v = StringVar()
+        returningInq = Radiobutton(master, text="Yes", variable=__v, value=1)
         returningInq.grid(row = 2,column = 4)
 
-        returningInq = Radiobutton(master, text="No", variable=v, value=2)
+        returningInq = Radiobutton(master, text="No", variable= __v, value=2)
         returningInq.grid(row = 2,column = 5)
 
-        v.set(0)
+        __v.set(0)
 
         createButton = Button(master, text = "Create", command = lambda: self.create(parent, controller))
         createButton.grid(row = 3, column = 3)
@@ -5757,15 +5851,15 @@ class AddNewApp(tk.Frame):
         curr = db.cursor()
 
         
-        if v.get() == '2':             # If they are not a returning child, add them and date submitted into Child()
+        if __v.get() == '2':             # If they are not a returning child, add them and date submitted into Child()
             curr.execute("INSERT INTO Child() VALUES ();") #is this actually auto incrementing
             db.commit()
     
             #get variables from user input
             curr.execute("SELECT MAX(ID) FROM Child;")
             ID = curr.fetchall()[0][0]
-            Date = entryDate.get()
-            program = AddNewApp_programs.get()
+            Date = __entryDate.get()
+            program = __programs.get()
 
             #Add the ID and Date_Submitted into the program specified by the user
             #Needs a check for valid date format
@@ -5789,7 +5883,7 @@ class AddNewApp(tk.Frame):
                     tkMessageBox.showinfo("Add a New Applicaiton","Date must be if YYYY-MM-DD format\nAnd must be a real date.")
 
 
-        elif v.get() == '1':       #if they are a returning child, send them to newAppReturning.py
+        elif __v.get() == '1':       #if they are a returning child, send them to newAppReturning.py
             controller.show_frame(NewAppReturning)
             
         else:         #user failed to select Yes/No for returning Child
@@ -5896,7 +5990,6 @@ class NewAppReturning(tk.Frame):
         firstName = nameEntry.get()
         lastName = name2Entry.get()
         bd = bdEntry.get()
-        print(program,ID,firstName,lastName,bd)
 
         #error handling
         if firstName != '' and lastName != '' and ID == '' and bd != '': # checks if the filled name and bd fields and left ID blank
@@ -5909,7 +6002,6 @@ class NewAppReturning(tk.Frame):
                                 tkMessageBox.showinfo("Returning Child","Error: no such child exists.")
                             else:
                                 data = data[0][0]
-                                print data #how to print the data selected
                                 controller.show_frame(NameBirthEntryPage)
                     #select data if from camper
                     elif program == 'Camper Application':
@@ -5919,7 +6011,6 @@ class NewAppReturning(tk.Frame):
                                 tkMessageBox.showinfo("Returning Child","Error: no such child exists.")
                             else:
                                 data = data[0][0]
-                                print data #how to print the data selected
                                 controller.show_frame(NameBirthEntryPage)
 
                     
@@ -5956,7 +6047,7 @@ class NameBirthEntryPage(tk.Frame):
         self.back.grid(row = 0, column = 0)
 
         ###
-        ID = 2 ##get this ID from another page
+        ID = 1 ##get this ID from another page
         ###
         program = "Child Application" #get me too!
         ###
@@ -6072,8 +6163,8 @@ class NewChildApp(tk.Frame):
     #figure out how to pass in parameters
         global id
         global date
-        id = 2
-        date = '2016-12-12'
+        id = 1
+        date = '2016-11-24'
         
 #Database Connection
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
@@ -8036,9 +8127,6 @@ class NewChildApp(tk.Frame):
 #Insert into DB
         if goodData:
             try:
-                curr.execute("""DELETE FROM Child_Application WHERE ID = 2;""")
-                db.commit()
-
                 curr.execute("""INSERT INTO Child_Application VALUES (%s, %s, %s, %s, %s, %s, %s, %s);""",
                     (id, date, sig, programsC, ReferralOther, programsB, programsOther, programsA,))
 
@@ -8046,9 +8134,6 @@ class NewChildApp(tk.Frame):
                 success = 0
 
             try:
-                curr.execute("""DELETE FROM Childs_Information WHERE ID = 2;""")
-                db.commit()
-
                 curr.execute("""INSERT INTO Childs_Information VALUES 
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
                              (id, date, cI0, cI1, cI2, cI3, cI4, cI5, cI6, cI7, cI8, cI9, cI10, cI11, cI12, cI13, cI14, cI15, cI16,
@@ -8058,9 +8143,6 @@ class NewChildApp(tk.Frame):
                 success = 0
 
             try:
-                curr.execute("""DELETE FROM Parent_Guardian_Information WHERE ID = 2;""")
-                db.commit()
-
                 curr.execute("""INSERT INTO Parent_Guardian_Information VALUES 
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
                              (id, date, pI0, pI1, pI2, pI3, pI4, pI5, pI6, pI7, pI8, pI9, pI10, pI11,
@@ -8070,9 +8152,6 @@ class NewChildApp(tk.Frame):
                 success = 0
 
             try:
-                curr.execute("""DELETE FROM Absent_Parent_Information WHERE ID = 2;""")
-                db.commit()
-
                 curr.execute("""INSERT INTO Absent_Parent_Information VALUES
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
                                  (id, date, abs0, abs1, abs2, abs3, abs4, abs5, abs6, abs7,))
@@ -8083,9 +8162,6 @@ class NewChildApp(tk.Frame):
             if person1:
                 try:
                     count = 1
-                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 1;""")
-                    db.commit()
-
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house10, house11, house12, house13, house14,))
@@ -8096,9 +8172,6 @@ class NewChildApp(tk.Frame):
             if person2:
                 try:
                     count = 2
-                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 2;""")
-                    db.commit()
-
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house20, house21, house22, house23, house24,))
@@ -8109,9 +8182,6 @@ class NewChildApp(tk.Frame):
             if person3:
                 try:
                     count = 3
-                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 3;""")
-                    db.commit()
-
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house30, house31, house32, house33, house34,))
@@ -8122,9 +8192,6 @@ class NewChildApp(tk.Frame):
             if person4:
                 try:
                     count = 4
-                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 4;""")
-                    db.commit()
-
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house40, house41, house42, house43, house44,))
@@ -8135,9 +8202,6 @@ class NewChildApp(tk.Frame):
             if person5:
                 try:
                     count = 5
-                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 5;""")
-                    db.commit()
-
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house50, house51, house52, house53, house54,))
@@ -8148,9 +8212,6 @@ class NewChildApp(tk.Frame):
             if person6:
                 try:
                     count = 6
-                    curr.execute("""DELETE FROM Household_Information WHERE ID = 2 AND Count = 6;""")
-                    db.commit()
-
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house60, house61, house62, house63, house64,))
@@ -8159,9 +8220,6 @@ class NewChildApp(tk.Frame):
                     success = 0
 
             try:
-                curr.execute("""DELETE FROM Fam_Annual_Income WHERE ID = 2;""")
-                db.commit()
-
                 curr.execute("""INSERT INTO Fam_Annual_Income VALUES
                     (%s, %s, %s);""",
                     (id, date, income,))
@@ -8170,9 +8228,6 @@ class NewChildApp(tk.Frame):
                 success = 0
 
             try:
-                curr.execute("""DELETE FROM Source_Fam_Income WHERE ID = 2;""")
-                db.commit()
-
                 curr.execute("""INSERT INTO Source_Fam_Income VALUES
                     (%s, %s, %s, %s);""",
                     (id, date, source0, source1,))
@@ -8181,9 +8236,6 @@ class NewChildApp(tk.Frame):
                 success = 0
 
             try:
-                curr.execute("""DELETE FROM ChildApp_Emergency_Contact WHERE ID = 2;""")
-                db.commit()
-
                 curr.execute("""INSERT INTO ChildApp_Emergency_Contact VALUES
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
                     (id, date, emergency0, emergency1, emergency2, emergency3, emergency4, emergency5, emergency6,
