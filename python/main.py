@@ -6028,6 +6028,7 @@ class NewAppReturning(tk.Frame):
 
 class NameBirthEntryPage(tk.Frame):
 
+    #need to pass in ID; make sure it is capatalized for this method
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
@@ -6161,9 +6162,9 @@ class NewChildApp(tk.Frame):
 
 #TODO
     #figure out how to pass in parameters
-        global id
+        global __id
         global date
-        id = 1
+        __id = 1
         date = '2016-11-24'
         
 #Database Connection
@@ -8128,7 +8129,7 @@ class NewChildApp(tk.Frame):
         if goodData:
             try:
                 curr.execute("""INSERT INTO Child_Application VALUES (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                    (id, date, sig, programsC, ReferralOther, programsB, programsOther, programsA,))
+                    (__id, date, sig, programsC, ReferralOther, programsB, programsOther, programsA,))
 
             except (MySQLdb.IntegrityError) as e:
                 success = 0
@@ -8136,7 +8137,7 @@ class NewChildApp(tk.Frame):
             try:
                 curr.execute("""INSERT INTO Childs_Information VALUES 
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
-                             (id, date, cI0, cI1, cI2, cI3, cI4, cI5, cI6, cI7, cI8, cI9, cI10, cI11, cI12, cI13, cI14, cI15, cI16,
+                             (__id, date, cI0, cI1, cI2, cI3, cI4, cI5, cI6, cI7, cI8, cI9, cI10, cI11, cI12, cI13, cI14, cI15, cI16,
                                  cI17, cI18, cI19, cI20, cI21, cI22, cI23, cI24, cI25, cI26, cI27, cI28, cI29,))
 
             except (MySQLdb.IntegrityError) as e:
@@ -8145,7 +8146,7 @@ class NewChildApp(tk.Frame):
             try:
                 curr.execute("""INSERT INTO Parent_Guardian_Information VALUES 
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
-                             (id, date, pI0, pI1, pI2, pI3, pI4, pI5, pI6, pI7, pI8, pI9, pI10, pI11,
+                             (__id, date, pI0, pI1, pI2, pI3, pI4, pI5, pI6, pI7, pI8, pI9, pI10, pI11,
                                  pI12, pI13, pI14, pI15,))
 
             except (MySQLdb.IntegrityError) as e:
@@ -8154,7 +8155,7 @@ class NewChildApp(tk.Frame):
             try:
                 curr.execute("""INSERT INTO Absent_Parent_Information VALUES
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
-                                 (id, date, abs0, abs1, abs2, abs3, abs4, abs5, abs6, abs7,))
+                                 (__id, date, abs0, abs1, abs2, abs3, abs4, abs5, abs6, abs7,))
 
             except (MySQLdb.IntegrityError) as e:
                 success = 0
@@ -8164,7 +8165,7 @@ class NewChildApp(tk.Frame):
                     count = 1
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                     (id, date, count, house10, house11, house12, house13, house14,))
+                                     (__id, date, count, house10, house11, house12, house13, house14,))
 
                 except (MySQLdb.IntegrityError) as e:
                     success = 0
@@ -8174,7 +8175,7 @@ class NewChildApp(tk.Frame):
                     count = 2
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                     (id, date, count, house20, house21, house22, house23, house24,))
+                                     (__id, date, count, house20, house21, house22, house23, house24,))
 
                 except (MySQLdb.IntegrityError) as e:
                     success = 0
@@ -8184,7 +8185,7 @@ class NewChildApp(tk.Frame):
                     count = 3
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                     (id, date, count, house30, house31, house32, house33, house34,))
+                                     (__id, date, count, house30, house31, house32, house33, house34,))
 
                 except (MySQLdb.IntegrityError) as e:
                     success = 0
@@ -8194,7 +8195,7 @@ class NewChildApp(tk.Frame):
                     count = 4
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                     (id, date, count, house40, house41, house42, house43, house44,))
+                                     (__id, date, count, house40, house41, house42, house43, house44,))
 
                 except (MySQLdb.IntegrityError) as e:
                     success = 0
@@ -8204,7 +8205,7 @@ class NewChildApp(tk.Frame):
                     count = 5
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                     (id, date, count, house50, house51, house52, house53, house54,))
+                                     (__id, date, count, house50, house51, house52, house53, house54,))
 
                 except (MySQLdb.IntegrityError) as e:
                     success = 0
@@ -8214,7 +8215,7 @@ class NewChildApp(tk.Frame):
                     count = 6
                     curr.execute("""INSERT INTO Household_Information VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
-                                     (id, date, count, house60, house61, house62, house63, house64,))
+                                     (__id, date, count, house60, house61, house62, house63, house64,))
 
                 except (MySQLdb.IntegrityError) as e:
                     success = 0
@@ -8222,7 +8223,7 @@ class NewChildApp(tk.Frame):
             try:
                 curr.execute("""INSERT INTO Fam_Annual_Income VALUES
                     (%s, %s, %s);""",
-                    (id, date, income,))
+                    (__id, date, income,))
 
             except (MySQLdb.IntegrityError) as e:
                 success = 0
@@ -8230,7 +8231,7 @@ class NewChildApp(tk.Frame):
             try:
                 curr.execute("""INSERT INTO Source_Fam_Income VALUES
                     (%s, %s, %s, %s);""",
-                    (id, date, source0, source1,))
+                    (__id, date, source0, source1,))
 
             except (MySQLdb.IntegrityError) as e:
                 success = 0
@@ -8238,7 +8239,7 @@ class NewChildApp(tk.Frame):
             try:
                 curr.execute("""INSERT INTO ChildApp_Emergency_Contact VALUES
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
-                    (id, date, emergency0, emergency1, emergency2, emergency3, emergency4, emergency5, emergency6,
+                    (__id, date, emergency0, emergency1, emergency2, emergency3, emergency4, emergency5, emergency6,
                          emergency7, emergency8, emergency9,))
 
             except (MySQLdb.IntegrityError) as e:
@@ -8247,7 +8248,7 @@ class NewChildApp(tk.Frame):
             try:
                 curr.execute("""INSERT INTO Statement_Of_Understanding VALUES
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s);""",
-                    (id, date, s0, s1, s2, s3, s4, s5, s6,))
+                    (__id, date, s0, s1, s2, s3, s4, s5, s6,))
 
             except (MySQLdb.IntegrityError) as e:
                 success = 0
@@ -8258,7 +8259,7 @@ class NewChildApp(tk.Frame):
             if success:
                 tkMessageBox.showinfo("New Profile", "Submission Sucessful!")
             else:
-                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
+                tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(__id) + " \nAlready exists in the system")
 
 
 
