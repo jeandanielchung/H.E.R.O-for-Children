@@ -148,7 +148,6 @@ class HomePage(tk.Frame):
         newAppButton = tk.Button(self, text = "Add New Application", command=lambda: controller.show_frame(AddNewApp))
         newAppButton.grid(row = 1, column = 3, padx = 185, pady = 10)
 
-        print credentials
         if (credentials == 'Administrator' or credentials == 'Manager'):
 
             searchButton = tk.Button(self, text = "Search",  command=lambda: controller.show_frame(SearchPage))
@@ -433,14 +432,18 @@ class SearchResultsPage(tk.Frame):
         curr = db.cursor()
 
         #check for program selection
-        selectedProgram = programs.get()
+        selectedProgram = "Child Application"
+        #TODO: pass in programs
+        #programs.get()
         programParam = 1
         if (selectedProgram == 'Program') or (selectedProgram == 'None'):
             #no program input
             programParam = 0
 
         #check for year selection
-        selectedYear = years.get()
+        selectedYear = '2016'
+        #TODO: pass in years
+        #years.get()
         yearParam = 1
         if (selectedYear == 'Year') or (selectedYear == 'None'):
             #no year input
@@ -449,7 +452,10 @@ class SearchResultsPage(tk.Frame):
             selectedYear = selectedYear[1:5]
 
         #check for category selection
-        selectedCategory = categories.get()
+        selectedCategory = "Child's Gender"
+        #TODO: pass in categories
+        #
+        #categories.get()
         catParam = 1
 
         #no category input
