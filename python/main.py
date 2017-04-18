@@ -336,12 +336,19 @@ class SearchPage(tk.Frame):
         nameLabel = Label(master, text = "Search by Name", font= "Verdana 10 underline")
         nameLabel.grid(row = 4, column = 0)
 
+<<<<<<< HEAD
+        programList = ['None', "Child Application", "Camp High Five Application"]
+        global __programs
+        __programs = StringVar(master)
+        __programs.set('Programs')
+=======
         programList = ['Any', 'None', "Child Application", "Camp High Five Application"]
-        global programs
-        programs = StringVar(master)
-        programs.set('Programs')
+        global __programs
+        __programs = StringVar(master)
+        __programs.set('Programs')
+>>>>>>> 9f1e08a7fa262052df79067cbddb66cf7b393777
 
-        dropdownProgram = OptionMenu(master, programs, *programList)
+        dropdownProgram = OptionMenu(master, __programs, *programList)
         dropdownProgram.grid(row = 1, column = 1)
 
 
@@ -361,12 +368,16 @@ class SearchPage(tk.Frame):
             if item not in yearList:
                 yearList.append(item)
 
-        global years
-        years = StringVar(master)
-        years.set("Year")
+        global __years
+        __years = StringVar(master)
+        __years.set("Year")
 
         #add back yearlist
+<<<<<<< HEAD
+        dropdownYear = OptionMenu(master, __years, "None", *yearList)
+=======
         dropdownYear = OptionMenu(master, years, "Any", "None", *yearList)
+>>>>>>> 9f1e08a7fa262052df79067cbddb66cf7b393777
         dropdownYear.grid(row = 1, column = 2)
 
         categoriesList = ['None', 'Zip Code', 'City', "County", 'Referral Source', "Child's Age",
@@ -377,11 +388,11 @@ class SearchPage(tk.Frame):
                     "Household Income Range", "Household Income Source", "Parent(s) Highest Level of Education",
                     "Parent(s) Employment Status"]
 
-        global categories
-        categories = StringVar(master)
-        categories.set("Category")
+        global __categories
+        __categories = StringVar(master)
+        __categories.set("Category")
 
-        dropdownCategories = OptionMenu(master, categories, *categoriesList)
+        dropdownCategories = OptionMenu(master, ___categories, *categoriesList)
         dropdownCategories.grid(row = 3, column = 1)
 
 
@@ -511,6 +522,14 @@ class SearchResultsPage(tk.Frame):
                     camp = curr.fetchall()
 
 
+<<<<<<< HEAD
+
+
+        print child
+        print camp
+
+=======
+>>>>>>> 9f1e08a7fa262052df79067cbddb66cf7b393777
         total = len(child) + len(camp)
         count = Label(master, text = "Total: " + str(total))
         count.grid(row = 0, column = 4)
@@ -1601,11 +1620,14 @@ class EditProfile(tk.Frame):
         backButton = Button(self.buttonframe, text = "Back", command = lambda: controller.show_frame(SecondProfilePage))
         backButton.pack(side = "left")
 
+<<<<<<< HEAD
+=======
 
         #home
         backButton = Button(self.buttonframe, text = "Home", command = lambda: controller.show_frame(HomePage))
         backButton.pack(side = "left")
 
+>>>>>>> 9f1e08a7fa262052df79067cbddb66cf7b393777
         #delete
         deleteButton = Button(self.buttonframe, text = "Delete Application", command = lambda: self.delete())
         deleteButton.pack(side = "right")
@@ -6189,7 +6211,10 @@ class NewChildApp(tk.Frame):
         id = 1
         date = '2016-11-24'
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 9f1e08a7fa262052df79067cbddb66cf7b393777
 #Database Connection
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
@@ -8333,4 +8358,3 @@ class NewChildApp(tk.Frame):
 
 app = Main()
 app.mainloop()
-
