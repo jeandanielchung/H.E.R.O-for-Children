@@ -9,14 +9,14 @@ class AddNewApp(tk.Tk):
         master.title = "Add a New Application"
 
 
-        """Pull in a request from the database 
+        """Pull in a request from the database
         about the programs that are offered
         and then add them to a list and pull them into the programList"""
 
 
         #get this program list from the DB
         programList = ['none', 'Child Application', 'Camper Application']
-        global programs
+        __global programs
         programs = StringVar()
         programs.set(programList[0])
         dropdownProgram = OptionMenu(master, programs, *programList)
@@ -26,14 +26,14 @@ class AddNewApp(tk.Tk):
         labelDate = Label(master, text = "Date Submitted (YYYY-MM-DD)")
         labelDate.grid(row = 1, column = 3)
 
-        global entryDate
+        __global entryDate
         entryDate = Entry(master, bd = 3)
         entryDate.grid(row = 1, column = 4)
-        
+
         returningTxt = Label(master, text = "Returning Child?")
         returningTxt.grid(row = 2, column = 3)
 
-        global v
+        __global v
         v = StringVar()
         returningInq = Radiobutton(master, text="Yes", variable=v, value=1)
         returningInq.grid(row = 2,column = 4)
@@ -53,19 +53,19 @@ class AddNewApp(tk.Tk):
     def create(self):
         #send to create page
         #add an application form to the DB
-        
+
         db = MySQLdb.connect(
-            host = "localhost", 
-            user="root", 
-            passwd="Mr10371!", 
+            host = "localhost",
+            user="root",
+            passwd="Mr10371!",
             db="HERO" )
         curr = db.cursor()
 
-        
+
         if v.get() == '2':             # If they are not a returning child, add them and date submitted into Child()
             curr.execute("INSERT INTO Child() VALUES ();") #is this actually auto incrementing
             db.commit()
-    
+
             #get variables from user input
             curr.execute("SELECT MAX(ID) FROM Child;")
             ID = curr.fetchall()[0][0]
@@ -82,11 +82,11 @@ class AddNewApp(tk.Tk):
                 db.commit()
             else:
                 tkMessageBox.showinfo("Add a New Applicaiton","Please select a program")
-                    
+
 
         elif v.get() == '1':       #if they are a returning child, send them to newAppReturning.py
             print '' #place holder... needs to go to newAppReturning.py
-            
+
         else:         #user failed to select Yes/No for returning Child
             tkMessageBox.showinfo("Add a New Application","Please select Yes or No for 'Returning User?'")
 

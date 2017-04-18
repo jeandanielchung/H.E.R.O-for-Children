@@ -1,10 +1,17 @@
-INSERT INTO User VALUES ('Sonika', 'FSonika', SHA1('I<3Dogs'), 'Administrator'); # need SHA1 for the password to decrypt it
-INSERT INTO User VALUES ('Jeremy', 'Farts', SHA1('Farts2.0'), 'Regular'); # need SHA1 for the password to decrypt it
-INSERT INTO User VALUES ('Daniel', 'IsGrosS', SHA1('poop'), 'Manager'); # need SHA1 for the password to decrypt it
+
+
+INSERT INTO User VALUES ('Sonika', 'SonikaFinch', SHA1('I<3Dogs'), 'Administrator'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Jeremy', 'Jerm', SHA1('Farts2.0'), 'Regular'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Daniel', 'DChung', SHA1('poop'), 'Manager'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Elizabeth', 'Oz', SHA1('mypswd'), 'Regular'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Mateo', 'MRod', SHA1('mypswd'), 'Manager'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Cameron', 'Cam', SHA1('mypswd'), 'Manager'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Lillie', 'LZ', SHA1('mypswd'), 'Manager'); # need SHA1 for the password to decrypt it
 
 
 
 INSERT INTO Child VALUES (); # empty because the only attribute right now is an auto-incremented ID
+INSERT INTO Child VALUES ();
 INSERT INTO Child VALUES ();
 /*
 INSERT INTO Childs_Information
