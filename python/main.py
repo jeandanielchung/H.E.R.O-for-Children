@@ -1569,10 +1569,10 @@ class EditProfile(tk.Frame):
 #TODO
     #figure out how to pass in parameters
     #deal with changing these? I think naw
-        global id
-        global date
-        id = 1
-        date = '2016-11-24'
+        global __id
+        global __date
+        __id = 1
+        __date = '2016-11-24'
 
 
 #Database Connection
@@ -1605,7 +1605,7 @@ class EditProfile(tk.Frame):
         labelChildInfoSection.config(font=("Helvetica", 20))
 
         #first name
-        curr.execute("SELECT Name_First FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Name_First FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
@@ -1625,7 +1625,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #last name
-        curr.execute("SELECT Name_Last FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Name_Last FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
@@ -1645,7 +1645,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #nickname
-        curr.execute("SELECT Name_Nickname FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Name_Nickname FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nNickname .............................................................................................. ")
@@ -1665,7 +1665,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #address street
-        curr.execute("SELECT Address_Street FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_Street FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nHome Address ....................................................................................... ")
@@ -1685,7 +1685,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #address city
-        curr.execute("SELECT Address_City FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_City FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nCity ....................................................................................................... ")
@@ -1705,7 +1705,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #address county
-        curr.execute("SELECT Address_County FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_County FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nCounty .................................................................................................. ")
@@ -1725,7 +1725,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
         
         #address zip
-        curr.execute("SELECT Address_Zip FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_Zip FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nZip ........................................................................................................ ")
@@ -1745,7 +1745,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #home phone
-        curr.execute("SELECT Home_Phone FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Home_Phone FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nHome Phone .......................................................................................... ")
@@ -1765,7 +1765,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #guardian phone
-        curr.execute("SELECT Guardian_Phone FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Guardian_Phone FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nParent/Guardian's Cell Phone ................................................................ ")
@@ -1785,7 +1785,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #guardian email
-        curr.execute("SELECT Guardian_Email FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Guardian_Email FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nParent/Guardian's e-mail address .......................................................... ")
@@ -1805,7 +1805,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #age
-        curr.execute("SELECT Age FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Age FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nAge ....................................................................................................... ")
@@ -1825,7 +1825,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #birthday
-        curr.execute("SELECT Birthday FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Birthday FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nDate of Birth (YYYY-MM-DD) ................................................................ ")
@@ -1847,7 +1847,7 @@ class EditProfile(tk.Frame):
         #gender
         label = Label(self.ChildInfoSectionframe, text = "\nGender .................................................................................................. ")
 
-        curr.execute("SELECT Gender FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Gender FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global childInfo12
@@ -1869,7 +1869,7 @@ class EditProfile(tk.Frame):
         #HIV status
         label = Label(self.ChildInfoSectionframe, text = "\nHIV status ............................................................................................. ")
 
-        curr.execute("SELECT HIV_Status FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT HIV_Status FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global childInfo13
@@ -1894,7 +1894,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0, sticky = 'w')
         label = Label(self.ChildInfoSectionframe, text = 'that a member of the household is HIV positive? ................................... ')
 
-        curr.execute("SELECT Aware FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Aware FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         global childInfo14
         childInfo14 = IntVar()
@@ -1917,7 +1917,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #why
-        curr.execute("SELECT Why FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Why FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "If no, please provide a reason why child is not aware .............................. ")
@@ -1937,7 +1937,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Referral source
-        curr.execute("SELECT Referral_Source FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Referral_Source FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nReferral Source ..................................................................................... ")
@@ -1957,7 +1957,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #school attending
-        curr.execute("SELECT School_attending FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT School_attending FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nSchool Attending .................................................................................. ")
@@ -1977,7 +1977,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Grade Level
-        curr.execute("SELECT School_grade_level FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT School_grade_level FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nGrade Level ........................................................................................... ")
@@ -1999,7 +1999,7 @@ class EditProfile(tk.Frame):
         #Ethnicity
         label = Label(self.ChildInfoSectionframe, text = "\nEthnicity ............................................................................................... ")
 
-        curr.execute("SELECT Ethnicity FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Ethnicity FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global childInfo19
@@ -2020,7 +2020,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Ethnicity Other
-        curr.execute("SELECT Ethnicity_Other FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Ethnicity_Other FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "If Other ................................................................................................. ")
@@ -2048,7 +2048,7 @@ class EditProfile(tk.Frame):
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with ADD/ADHD? ................................................................. ')
 
-        curr.execute("SELECT ADD_ADHD FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT ADD_ADHD FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         global childInfo21
         childInfo21 = IntVar()
@@ -2074,7 +2074,7 @@ class EditProfile(tk.Frame):
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with a learning disability? .................................................... ')
 
-        curr.execute("SELECT Learning_Disability FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Learning_Disability FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         global childInfo22
         childInfo22 = IntVar()
@@ -2100,7 +2100,7 @@ class EditProfile(tk.Frame):
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with a developmental disability? .......................................... ')
 
-        curr.execute("SELECT Developmental_Disability FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Developmental_Disability FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         global childInfo23
         childInfo23 = IntVar()
@@ -2126,7 +2126,7 @@ class EditProfile(tk.Frame):
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = 'Diagnosed with any mental health issues? ............................................. ')
 
-        curr.execute("SELECT Mental_Health_Issues FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Mental_Health_Issues FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         global childInfo24
         childInfo24 = IntVar()
@@ -2152,7 +2152,7 @@ class EditProfile(tk.Frame):
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = 'Diagnosed or suffered from any other medical condition? ..................... ')
 
-        curr.execute("SELECT Other_Medical_Condition FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Other_Medical_Condition FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         global childInfo25
         childInfo25 = IntVar()
@@ -2178,7 +2178,7 @@ class EditProfile(tk.Frame):
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = 'A victim of sexual abuse, physical or emotional abuse? ......................... ')
 
-        curr.execute("SELECT Victim_of_Abuse FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Victim_of_Abuse FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         global childInfo26
         childInfo26 = IntVar()
@@ -2204,7 +2204,7 @@ class EditProfile(tk.Frame):
         r = r+1
         label = Label(self.ChildInfoSectionframe, text = 'Part of the criminal justice system? ...................................................... ')
 
-        curr.execute("SELECT Criminal_Justice_System FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Criminal_Justice_System FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         global childInfo27
         childInfo27 = IntVar()
@@ -2229,7 +2229,7 @@ class EditProfile(tk.Frame):
         #Custody
         label = Label(self.ChildInfoSectionframe, text = "\nWho has legal custody of the child? ...................................................... ")
 
-        curr.execute("SELECT Legal_Custody FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Legal_Custody FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global childInfo28
@@ -2249,7 +2249,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Custody Other
-        curr.execute("SELECT Custody_Other FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Custody_Other FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "If Other ................................................................................................. ")
@@ -2276,7 +2276,7 @@ class EditProfile(tk.Frame):
         labelParentInfoSection.config(font=("Helvetica", 20))
 
         #first name
-        curr.execute("SELECT Name_First FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Name_First FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
@@ -2296,7 +2296,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #last name
-        curr.execute("SELECT Name_Last FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Name_Last FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
@@ -2316,7 +2316,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Relationship to child
-        curr.execute("SELECT Relationship_to_Child FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Relationship_to_Child FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nRelationship to child ............................................................................. ")
@@ -2336,7 +2336,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Age
-        curr.execute("SELECT Age FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Age FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nAge ....................................................................................................... ")
@@ -2358,7 +2358,7 @@ class EditProfile(tk.Frame):
         #HIV status
         label = Label(self.ChildInfoSectionframe, text = "\nHIV status ............................................................................................. ")
 
-        curr.execute("SELECT HIV_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT HIV_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global parentInfo4
@@ -2380,7 +2380,7 @@ class EditProfile(tk.Frame):
         #Adoptive Parent
         label = Label(self.ChildInfoSectionframe, text = "\nAdoptive Parent ..................................................................................... ")
 
-        curr.execute("SELECT Adoptive_Parent FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Adoptive_Parent FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global parentInfo5
@@ -2402,7 +2402,7 @@ class EditProfile(tk.Frame):
         #Marital Status
         label = Label(self.ChildInfoSectionframe, text = "\nMarital Status ...................................................................................... ")
 
-        curr.execute("SELECT Marital_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Marital_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global parentInfo6
@@ -2424,7 +2424,7 @@ class EditProfile(tk.Frame):
         #Highest Level of Education Completed
         label = Label(self.ChildInfoSectionframe, text = "\nHighest Level of Education Completed .................................................. ")
 
-        curr.execute("SELECT Education_Completed FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Education_Completed FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global parentInfo7
@@ -2446,7 +2446,7 @@ class EditProfile(tk.Frame):
         #Employment Status
         label = Label(self.ChildInfoSectionframe, text = "\nEmployment Status ............................................................................... ")
 
-        curr.execute("SELECT Employment_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Employment_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global parentInfo8
@@ -2466,7 +2466,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Employment Company
-        curr.execute("SELECT Employment_Company_Name FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Employment_Company_Name FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         r= r+1
@@ -2490,7 +2490,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Address
-        curr.execute("SELECT Address_Street FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_Street FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nAddress ................................................................................................ ")
@@ -2510,7 +2510,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #City
-        curr.execute("SELECT Address_City FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_City FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nCity ...................................................................................................... ")
@@ -2530,7 +2530,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #State
-        curr.execute("SELECT Address_State FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_State FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nState .................................................................................................... ")
@@ -2550,7 +2550,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Zip
-        curr.execute("SELECT Address_Zip FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_Zip FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nZip ........................................................................................................ ")
@@ -2570,7 +2570,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Work Phone
-        curr.execute("SELECT WorkPhone FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT WorkPhone FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nWork Phone .......................................................................................... ")
@@ -2590,7 +2590,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #E-mail
-        curr.execute("SELECT Email FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Email FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nE-mail ................................................................................................... ")
@@ -2617,7 +2617,7 @@ class EditProfile(tk.Frame):
         labelParentInfoSection.config(font=("Helvetica", 20))
 
         #first name
-        curr.execute("SELECT Name_First FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Name_First FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
@@ -2637,7 +2637,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #last name
-        curr.execute("SELECT Name_Last FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Name_Last FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
@@ -2657,7 +2657,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Telephone
-        curr.execute("SELECT Telephone FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Telephone FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nTelephone .............................................................................................. ")
@@ -2677,7 +2677,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Home Address
-        curr.execute("SELECT Address_Street FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_Street FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nHome Address ....................................................................................... ")
@@ -2697,7 +2697,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #City
-        curr.execute("SELECT Address_City FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_City FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nCity ....................................................................................................... ")
@@ -2717,7 +2717,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #County
-        curr.execute("SELECT Address_County FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_County FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nCounty .................................................................................................. ")
@@ -2737,7 +2737,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Zip
-        curr.execute("SELECT Address_Zip FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_Zip FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nZip ......................................................................................................... ")
@@ -2759,7 +2759,7 @@ class EditProfile(tk.Frame):
         #HIV status
         label = Label(self.ChildInfoSectionframe, text = "\nHIV status ............................................................................................. ")
 
-        curr.execute("SELECT HIV_Status FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT HIV_Status FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global absParentInfo7
@@ -2802,7 +2802,7 @@ class EditProfile(tk.Frame):
         #Name1
         label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
 
-        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo10
@@ -2820,7 +2820,7 @@ class EditProfile(tk.Frame):
         #Relationship to Child1
         label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
 
-        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo11
@@ -2838,7 +2838,7 @@ class EditProfile(tk.Frame):
         #Sex1
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
 
-        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo12
@@ -2857,7 +2857,7 @@ class EditProfile(tk.Frame):
         #Age1
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
 
-        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo13
@@ -2875,7 +2875,7 @@ class EditProfile(tk.Frame):
         #HIV Status1
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
 
-        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo14
@@ -2903,7 +2903,7 @@ class EditProfile(tk.Frame):
         #Name2
         label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
 
-        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo20
@@ -2921,7 +2921,7 @@ class EditProfile(tk.Frame):
         #Relationship to Child2
         label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
 
-        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo21
@@ -2939,7 +2939,7 @@ class EditProfile(tk.Frame):
         #Sex2
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
 
-        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo22
@@ -2958,7 +2958,7 @@ class EditProfile(tk.Frame):
         #Age2
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
 
-        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo23
@@ -2976,7 +2976,7 @@ class EditProfile(tk.Frame):
         #HIV Status2
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
 
-        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo24
@@ -3005,7 +3005,7 @@ class EditProfile(tk.Frame):
         #Name3
         label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
 
-        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo30
@@ -3023,7 +3023,7 @@ class EditProfile(tk.Frame):
         #Relationship to Child3
         label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
 
-        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo31
@@ -3041,7 +3041,7 @@ class EditProfile(tk.Frame):
         #Sex3
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
 
-        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo32
@@ -3060,7 +3060,7 @@ class EditProfile(tk.Frame):
         #Age3
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
 
-        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo33
@@ -3078,7 +3078,7 @@ class EditProfile(tk.Frame):
         #HIV Status3
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
 
-        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo34
@@ -3107,7 +3107,7 @@ class EditProfile(tk.Frame):
         #Name4
         label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
 
-        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo40
@@ -3125,7 +3125,7 @@ class EditProfile(tk.Frame):
         #Relationship to Child4
         label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
 
-        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo41
@@ -3143,7 +3143,7 @@ class EditProfile(tk.Frame):
         #Sex4
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
 
-        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo42
@@ -3162,7 +3162,7 @@ class EditProfile(tk.Frame):
         #Age4
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
 
-        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo43
@@ -3180,7 +3180,7 @@ class EditProfile(tk.Frame):
         #HIV Status4
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
 
-        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo44
@@ -3208,7 +3208,7 @@ class EditProfile(tk.Frame):
         #Name5
         label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
 
-        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo50
@@ -3226,7 +3226,7 @@ class EditProfile(tk.Frame):
         #Relationship to Child5
         label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
 
-        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo51
@@ -3244,7 +3244,7 @@ class EditProfile(tk.Frame):
         #Sex5
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
 
-        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo52
@@ -3263,7 +3263,7 @@ class EditProfile(tk.Frame):
         #Age5
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
 
-        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo53
@@ -3281,7 +3281,7 @@ class EditProfile(tk.Frame):
         #HIV Status5
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
 
-        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo54
@@ -3309,7 +3309,7 @@ class EditProfile(tk.Frame):
         #Name6
         label = Label(self.ChildInfoSectionframe, text = "Name .................................................................................................... ")
 
-        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo60
@@ -3327,7 +3327,7 @@ class EditProfile(tk.Frame):
         #Relationship to Child6
         label = Label(self.ChildInfoSectionframe, text = "Relationship to Child ............................................................................. ")
 
-        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo61
@@ -3345,7 +3345,7 @@ class EditProfile(tk.Frame):
         #Sex6
         label = Label(self.ChildInfoSectionframe, text = "Sex ....................................................................................................... ")
 
-        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo62
@@ -3364,7 +3364,7 @@ class EditProfile(tk.Frame):
         #Age6
         label = Label(self.ChildInfoSectionframe, text = "Age ....................................................................................................... ")
 
-        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo63
@@ -3382,7 +3382,7 @@ class EditProfile(tk.Frame):
         #HIV Status6
         label = Label(self.ChildInfoSectionframe, text = "HIV Status ............................................................................................ ")
 
-        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
+        curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, person,))
         val = curr.fetchall()
 
         global houseInfo64
@@ -3402,7 +3402,7 @@ class EditProfile(tk.Frame):
         #Family Annual Income Info
         label = Label(self.ChildInfoSectionframe, text = "\n\nFamily Annual Income Information ......................................................... ")
 
-        curr.execute("SELECT Fam_Annual_Income FROM Fam_Annual_Income WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Fam_Annual_Income FROM Fam_Annual_Income WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global famIncome0
@@ -3424,7 +3424,7 @@ class EditProfile(tk.Frame):
         #Source of Family Income
         label = Label(self.ChildInfoSectionframe, text = "\nSource of Family Income ....................................................................... ")
 
-        curr.execute("SELECT Source_Fam_Income FROM Source_Fam_Income WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Source_Fam_Income FROM Source_Fam_Income WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global famIncome1
@@ -3444,7 +3444,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Source of Family Income Other
-        curr.execute("SELECT Other FROM Source_Fam_Income WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Other FROM Source_Fam_Income WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "If Other ................................................................................................. ")
@@ -3471,7 +3471,7 @@ class EditProfile(tk.Frame):
         labelParentInfoSection.config(font=("Helvetica", 20))
 
         #first name
-        curr.execute("SELECT Name_First FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Name_First FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
@@ -3491,7 +3491,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #last name
-        curr.execute("SELECT Name_Last FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Name_Last FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         label = Label(self.ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
@@ -3511,7 +3511,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Relationship to child
-        curr.execute("SELECT Relationship_to_Child FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Relationship_to_Child FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nRelationship to child ............................................................................. ")
@@ -3531,7 +3531,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
         
         #Home Address
-        curr.execute("SELECT Address_Street FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_Street FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nHome Address ....................................................................................... ")
@@ -3551,7 +3551,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #City
-        curr.execute("SELECT Address_City FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_City FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nCity ...................................................................................................... ")
@@ -3571,7 +3571,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #State
-        curr.execute("SELECT Address_State FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_State FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nState ..................................................................................................... ")
@@ -3591,7 +3591,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Zip
-        curr.execute("SELECT Address_Zip FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Address_Zip FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nZip ........................................................................................................ ")
@@ -3611,7 +3611,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Home Phone Number
-        curr.execute("SELECT Phone_Home FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Phone_Home FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nHome Phone Number ............................................................................. ")
@@ -3631,7 +3631,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Cell Phone Number
-        curr.execute("SELECT Phone_Cell FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Phone_Cell FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nCell Phone Number ............................................................................... ")
@@ -3651,7 +3651,7 @@ class EditProfile(tk.Frame):
         label.grid(row = r, column = 0)
 
         #Alternate Phone Number
-        curr.execute("SELECT Phone_Alt FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Phone_Alt FROM ChildApp_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nAlternate Phone Number ....................................................................... ")
@@ -3685,7 +3685,7 @@ class EditProfile(tk.Frame):
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatePrograms0())
         buttonUpdate.grid(row = r, column = 2)
         
-        curr.execute("SELECT HERO_Programs FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT HERO_Programs FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         var = curr.fetchall()[0][0]
 
         #Super HEROes Program
@@ -3741,7 +3741,7 @@ class EditProfile(tk.Frame):
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatePrograms1())
         buttonUpdate.grid(row = r, column = 2)
         
-        curr.execute("SELECT Future_Programs FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Future_Programs FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         var = curr.fetchall()[0][0]
         
         #Healthy HEROs (health curriculum)
@@ -3775,7 +3775,7 @@ class EditProfile(tk.Frame):
         programs8 = Entry(self.ChildInfoSectionframe, width = 19)
         programs8.grid(row = r, column = 1, sticky = E)
 
-        curr.execute("SELECT Future_Other FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Future_Other FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         if val is not None:
@@ -3798,7 +3798,7 @@ class EditProfile(tk.Frame):
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updateReferral())
         buttonUpdate.grid(row = r, column = 2)
         
-        curr.execute("SELECT Referral FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Referral FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         var = curr.fetchall()[0][0]
         
         #Food
@@ -3859,7 +3859,7 @@ class EditProfile(tk.Frame):
         Referral6 = Entry(self.ChildInfoSectionframe, width = 19)
         Referral6.grid(row = r, column = 1, sticky = E)
 
-        curr.execute("SELECT Referral_Other FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Referral_Other FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         if val is not None:
@@ -3876,7 +3876,7 @@ class EditProfile(tk.Frame):
        
         #one
         label = Label(self.ChildInfoSectionframe, text = "Statement 1 ........................................................................................... ")
-        curr.execute("SELECT Statement_One FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Statement_One FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         global statement0
@@ -3899,7 +3899,7 @@ class EditProfile(tk.Frame):
 
         #two
         label = Label(self.ChildInfoSectionframe, text = "Statement 2 .......................................................................................... ")
-        curr.execute("SELECT Statement_Two FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Statement_Two FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         global statement1
@@ -3920,7 +3920,7 @@ class EditProfile(tk.Frame):
 
         #three
         label = Label(self.ChildInfoSectionframe, text = "Statement 3 .......................................................................................... ")
-        curr.execute("SELECT Statement_Three FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Statement_Three FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         global statement2
@@ -3941,7 +3941,7 @@ class EditProfile(tk.Frame):
 
         #four
         label = Label(self.ChildInfoSectionframe, text = "Statement 4 .......................................................................................... ")
-        curr.execute("SELECT Statement_Four FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Statement_Four FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         global statement3
@@ -3962,7 +3962,7 @@ class EditProfile(tk.Frame):
 
         #five
         label = Label(self.ChildInfoSectionframe, text = "Statement 5 .......................................................................................... ")
-        curr.execute("SELECT Statement_Five FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Statement_Five FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         global statement4
@@ -3983,7 +3983,7 @@ class EditProfile(tk.Frame):
 
         #six
         label = Label(self.ChildInfoSectionframe, text = "Statement 6 .......................................................................................... ")
-        curr.execute("SELECT Statement_Six FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Statement_Six FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         global statement5
@@ -4004,7 +4004,7 @@ class EditProfile(tk.Frame):
 
         #seven
         label = Label(self.ChildInfoSectionframe, text = "Statement 7 .......................................................................................... ")
-        curr.execute("SELECT Statement_Seven FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Statement_Seven FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
         global statement6
@@ -4031,7 +4031,7 @@ class EditProfile(tk.Frame):
 
         #signature completed
         label = Label(self.ChildInfoSectionframe, text = "\nSignature .............................................................................................. ")
-        curr.execute("SELECT Signature FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Signature FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
         
         global signature
@@ -4066,7 +4066,7 @@ class EditProfile(tk.Frame):
             curr = db.cursor()
 
             #Execute
-            curr.execute("DELETE FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("DELETE FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
             db.commit()
             
             #Close Database Connection
@@ -4094,9 +4094,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo0.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
         
         #feedback    
@@ -4115,9 +4115,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo1.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
         
         #feedback
@@ -4136,9 +4136,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Name_Nickname = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Name_Nickname = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Name_Nickname = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Name_Nickname = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4157,9 +4157,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo3.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4178,9 +4178,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo4.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4199,9 +4199,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo5.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Address_County = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Address_County = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Address_County = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Address_County = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4220,10 +4220,10 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo6.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
             db.commit()
         elif (self.is_number(newVal)):
-            curr.execute("UPDATE Childs_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
         else:
@@ -4243,9 +4243,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo7.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Home_Phone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Home_Phone = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Home_Phone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Home_Phone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4264,9 +4264,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo8.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Guardian_Phone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Guardian_Phone = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Guardian_Phone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Guardian_Phone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4285,9 +4285,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo9.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Guardian_Email = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Guardian_Email = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Guardian_Email = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Guardian_Email = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4306,10 +4306,10 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo10.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Age = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Age = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
             db.commit()
         elif (self.is_number(newVal)):
-            curr.execute("UPDATE Childs_Information SET Age = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Age = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
         else:
@@ -4324,14 +4324,14 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo11.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Birthday = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Birthday = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
             db.commit()
         elif (self.is_date(newVal)):
-            curr.execute("UPDATE Childs_Information SET Birthday = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Birthday = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
         else:
-            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nDate must be if YYYY-MM-DD format\nAnd must be a real date.")
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nDate must be if YYYY-MM-DD format\nAnd must be a real __date.")
             
         #Close Database Connection
         curr.close()
@@ -4346,7 +4346,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo12.get()
         if newVal != '':
-            curr.execute("UPDATE Childs_Information SET Gender = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Gender = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4364,7 +4364,7 @@ class EditProfile(tk.Frame):
 
         #Execute
         newVal = childInfo13.get()
-        curr.execute("UPDATE Childs_Information SET HIV_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+        curr.execute("UPDATE Childs_Information SET HIV_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4385,7 +4385,7 @@ class EditProfile(tk.Frame):
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
-            curr.execute("UPDATE Childs_Information SET Aware = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Aware = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4404,9 +4404,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo15.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Why = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Why = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Why = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Why = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4425,9 +4425,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo16.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Referral_Source = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Referral_Source = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Referral_Source = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Referral_Source = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4446,9 +4446,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo17.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET School_attending = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET School_attending = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET School_attending = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET School_attending = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4467,9 +4467,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo18.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET School_grade_level = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET School_grade_level = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET School_grade_level = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET School_grade_level = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4488,7 +4488,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo19.get()
         if newVal != '':
-            curr.execute("UPDATE Childs_Information SET Ethnicity = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Ethnicity = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4507,9 +4507,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo20.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Ethnicity_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Ethnicity_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Ethnicity_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Ethnicity_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4530,7 +4530,7 @@ class EditProfile(tk.Frame):
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
-            curr.execute("UPDATE Childs_Information SET ADD_ADHD = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET ADD_ADHD = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4551,7 +4551,7 @@ class EditProfile(tk.Frame):
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
-            curr.execute("UPDATE Childs_Information SET Learning_Disability = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Learning_Disability = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4572,7 +4572,7 @@ class EditProfile(tk.Frame):
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
-            curr.execute("UPDATE Childs_Information SET Developmental_Disability = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Developmental_Disability = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4593,7 +4593,7 @@ class EditProfile(tk.Frame):
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
-            curr.execute("UPDATE Childs_Information SET Mental_Health_Issues = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Mental_Health_Issues = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4614,7 +4614,7 @@ class EditProfile(tk.Frame):
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
-            curr.execute("UPDATE Childs_Information SET Other_Medical_Condition = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Other_Medical_Condition = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4635,7 +4635,7 @@ class EditProfile(tk.Frame):
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
-            curr.execute("UPDATE Childs_Information SET Victim_of_Abuse = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Victim_of_Abuse = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4656,7 +4656,7 @@ class EditProfile(tk.Frame):
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
-            curr.execute("UPDATE Childs_Information SET Criminal_Justice_System = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Criminal_Justice_System = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4675,7 +4675,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo28.get()
         if newVal != '':
-            curr.execute("UPDATE Childs_Information SET Legal_Custody = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Legal_Custody = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4694,9 +4694,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = childInfo29.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Childs_Information SET Custody_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Childs_Information SET Custody_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Childs_Information SET Custody_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Childs_Information SET Custody_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4717,9 +4717,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo0.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4738,9 +4738,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo1.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4759,9 +4759,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET Relationship_to_Child = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Relationship_to_Child = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET Relationship_to_Child = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Relationship_to_Child = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4780,10 +4780,10 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo3.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET Age = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Age = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
             db.commit()
         elif (self.is_number(newVal)):
-            curr.execute("UPDATE Parent_Guardian_Information SET Age = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Age = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
         else:
@@ -4798,7 +4798,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo4.get()
         if newVal != '':
-            curr.execute("UPDATE Parent_Guardian_Information SET HIV_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET HIV_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4817,7 +4817,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo5.get()
         if newVal != '':
-            curr.execute("UPDATE Parent_Guardian_Information SET Adoptive_Parent = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Adoptive_Parent = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4836,7 +4836,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo6.get()
         if newVal != '':
-            curr.execute("UPDATE Parent_Guardian_Information SET Marital_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Marital_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4855,7 +4855,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo7.get()
         if newVal != '':
-            curr.execute("UPDATE Parent_Guardian_Information SET Education_Completed = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Education_Completed = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4874,7 +4874,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo8.get()
         if newVal != '':
-            curr.execute("UPDATE Parent_Guardian_Information SET Employment_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Employment_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -4893,9 +4893,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo9.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET Employment_Company_Name = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Employment_Company_Name = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET Employment_Company_Name = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Employment_Company_Name = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4914,9 +4914,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo10.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4935,9 +4935,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo11.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4956,9 +4956,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo12.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET Address_State = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_State = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET Address_State = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_State = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4977,9 +4977,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo13.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -4998,9 +4998,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo14.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET WorkPhone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET WorkPhone = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET WorkPhone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET WorkPhone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5019,9 +5019,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = parentInfo15.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Parent_Guardian_Information SET Email = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Email = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET Email = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Parent_Guardian_Information SET Email = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5042,9 +5042,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = absParentInfo0.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Absent_Parent_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Absent_Parent_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5063,9 +5063,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = absParentInfo1.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Absent_Parent_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Absent_Parent_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5084,9 +5084,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = absParentInfo2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Absent_Parent_Information SET Telephone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Telephone = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Absent_Parent_Information SET Telephone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Telephone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5105,9 +5105,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = absParentInfo3.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Absent_Parent_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Absent_Parent_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5126,9 +5126,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = absParentInfo4.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Absent_Parent_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Absent_Parent_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5147,9 +5147,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = absParentInfo5.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Absent_Parent_Information SET Address_County = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Address_County = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Absent_Parent_Information SET Address_County = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Address_County = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5168,10 +5168,10 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = absParentInfo6.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Absent_Parent_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
             db.commit()
         elif (self.is_number(newVal)):
-            curr.execute("UPDATE Absent_Parent_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
         else:
@@ -5186,7 +5186,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = absParentInfo7.get()
         if newVal != '':
-            curr.execute("UPDATE Absent_Parent_Information SET HIV_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Absent_Parent_Information SET HIV_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -5269,17 +5269,17 @@ class EditProfile(tk.Frame):
 
 
         if goodData:
-            curr.execute("SELECT * FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, count,))
+            curr.execute("SELECT * FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (__id, __date, count,))
             current = curr.fetchall()
             if current is ():
                 curr.execute("""INSERT INTO Household_Information VALUES
                     (%s, %s, %s, %s, %s, %s, %s, %s);""", 
-                    (id, date, count, newVal0, newVal1, newVal2, newVal3, newVal4,))
+                    (__id, __date, count, newVal0, newVal1, newVal2, newVal3, newVal4,))
             else:
                 curr.execute("""UPDATE Household_Information 
                     SET Name = %s, Relationship = %s, Sex = %s, Age = %s, HIV_Status = %s 
                     WHERE ID = %s AND Date_Submitted = %s AND Count = %s;""", 
-                    (newVal0, newVal1, newVal2, newVal3, newVal4, id, date, count,))
+                    (newVal0, newVal1, newVal2, newVal3, newVal4, __id, __date, count,))
 
             db.commit()
             
@@ -5298,7 +5298,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = famIncome0.get()
         if newVal != '':
-            curr.execute("UPDATE Fam_Annual_Income SET Fam_Annual_Income = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Fam_Annual_Income SET Fam_Annual_Income = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -5316,7 +5316,7 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = famIncome1.get()
         if newVal != '':
-            curr.execute("UPDATE Source_Fam_Income SET Source_Fam_Income = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Source_Fam_Income SET Source_Fam_Income = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             
         #feedback
@@ -5334,9 +5334,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = famIncome2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Source_Fam_Income SET Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Source_Fam_Income SET Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Source_Fam_Income SET Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Source_Fam_Income SET Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5355,9 +5355,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = emergencyInfo0.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5375,9 +5375,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = emergencyInfo1.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5395,9 +5395,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = emergencyInfo2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Relationship_to_Child = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Relationship_to_Child = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Relationship_to_Child = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Relationship_to_Child = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5415,9 +5415,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = emergencyInfo3.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5435,9 +5435,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = emergencyInfo4.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5455,9 +5455,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = emergencyInfo5.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_State = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_State = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_State = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_State = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5476,10 +5476,10 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = emergencyInfo6.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
             db.commit()
         elif (self.is_number(newVal)):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
             tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
         else:
@@ -5500,9 +5500,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = emergencyInfo7.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Home = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Home = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Home = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Home = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5520,9 +5520,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = emergencyInfo8.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Cell = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Cell = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Cell = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Cell = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5540,9 +5540,9 @@ class EditProfile(tk.Frame):
         #Execute
         newVal = emergencyInfo9.get()
         if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Alt = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Alt = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Alt = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Alt = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5576,10 +5576,10 @@ class EditProfile(tk.Frame):
             newVal = newVal + 'Transition to Adulthood,'
 
         if newVal == '':
-            curr.execute("UPDATE Child_Application SET HERO_Programs = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Child_Application SET HERO_Programs = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
             newVal = newVal[:-1]
-            curr.execute("UPDATE Child_Application SET HERO_Programs = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Child_Application SET HERO_Programs = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
             
         #feedback
@@ -5608,16 +5608,16 @@ class EditProfile(tk.Frame):
             newVal = newVal + 'Other,'
 
         if newVal == '':
-            curr.execute("UPDATE Child_Application SET Future_Programs = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Child_Application SET Future_Programs = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
             newVal = newVal[:-1]
-            curr.execute("UPDATE Child_Application SET Future_Programs = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Child_Application SET Future_Programs = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
 
         newValOther = programs8.get()
         if (newValOther == 'Unanswered') or (newValOther == ''):
-            curr.execute("UPDATE Child_Application SET Future_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Child_Application SET Future_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Child_Application SET Future_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newValOther, id, date,))
+            curr.execute("UPDATE Child_Application SET Future_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newValOther, __id, __date,))
         
         db.commit()
 
@@ -5655,16 +5655,16 @@ class EditProfile(tk.Frame):
             newVal = newVal + 'Other,'
 
         if newVal == '':
-            curr.execute("UPDATE Child_Application SET Referral = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Child_Application SET Referral = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
             newVal = newVal[:-1]
-            curr.execute("UPDATE Child_Application SET Referral = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            curr.execute("UPDATE Child_Application SET Referral = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
 
         newValOther = Referral6.get()
         if (newValOther == 'Unanswered') or (newValOther == ''):
-            curr.execute("UPDATE Child_Application SET Referral_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            curr.execute("UPDATE Child_Application SET Referral_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
-            curr.execute("UPDATE Child_Application SET Referral_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newValOther, id, date,))
+            curr.execute("UPDATE Child_Application SET Referral_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newValOther, __id, __date,))
         
         db.commit()
 
@@ -5724,7 +5724,7 @@ class EditProfile(tk.Frame):
 
         curr.execute("""UPDATE Statement_Of_Understanding SET Statement_One = %s, Statement_Two = %s, Statement_Three = %s, Statement_Four = %s,
             Statement_Five = %s, Statement_Six = %s, Statement_Seven = %s WHERE ID = %s AND Date_Submitted = %s;""",
-            (s0, s1, s2, s3, s4, s5, s6, id, date,))
+            (s0, s1, s2, s3, s4, s5, s6, __id, __date,))
         db.commit()
 
         #feedback
@@ -5746,7 +5746,7 @@ class EditProfile(tk.Frame):
         elif newVal == 2:
             newVal = 0
 
-        curr.execute("""UPDATE Child_Application SET Signature = %s WHERE ID = %s AND Date_Submitted = %s;""", (newVal, id, date,))
+        curr.execute("""UPDATE Child_Application SET Signature = %s WHERE ID = %s AND Date_Submitted = %s;""", (newVal, __id, __date,))
         db.commit()
 
         #feedback
@@ -5766,7 +5766,7 @@ class EditProfile(tk.Frame):
         except ValueError:
             return False
 
-    #check string entry is a date (YYYY-MM-DD)
+    #check string entry is a __date (YYYY-MM-DD)
     def is_date(self, s):
         if len(s) != 10:
             return False
@@ -5789,6 +5789,8 @@ class EditProfile(tk.Frame):
 
 
 #******************************************************************************************************************************************************
+
+
 
 
 
