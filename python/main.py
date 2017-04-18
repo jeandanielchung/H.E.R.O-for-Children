@@ -343,9 +343,9 @@ class SearchPage(tk.Frame):
         __programs.set('Programs')
 =======
         programList = ['Any', 'None', "Child Application", "Camp High Five Application"]
-        global programs
-        programs = StringVar(master)
-        programs.set('Programs')
+        global __programs
+        __programs = StringVar(master)
+        __programs.set('Programs')
 >>>>>>> 9f1e08a7fa262052df79067cbddb66cf7b393777
 
         dropdownProgram = OptionMenu(master, __programs, *programList)
