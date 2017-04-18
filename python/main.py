@@ -1626,18 +1626,18 @@ class EditProfile(tk.Frame):
 
         label = Label(self.ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
         #childInfo0
-        childInfo0 = Entry(self.ChildInfoSectionframe)
+        __childInfo0 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo0.insert(0, val)
+            __childInfo0.insert(0, val)
         else:
-            childInfo0.insert(0, 'Unanswered')
+            __childInfo0.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo0())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo0.grid(row = r, column = 1)
+        __childInfo0.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #last name
@@ -1645,19 +1645,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
-        global childInfo1
-        childInfo1 = Entry(self.ChildInfoSectionframe)
+        global __childInfo1
+        __childInfo1 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo1.insert(0, val)
+            __childInfo1.insert(0, val)
         else:
-            childInfo1.insert(0, 'Unanswered')
+            __childInfo1.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo1())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo1.grid(row = r, column = 1)
+        __childInfo1.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #nickname
@@ -1665,19 +1665,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nNickname .............................................................................................. ")
-        global childInfo2
-        childInfo2 = Entry(self.ChildInfoSectionframe)
+        global __childInfo2
+        __childInfo2 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo2.insert(0, val)
+            __childInfo2.insert(0, val)
         else:
-            childInfo2.insert(0, 'Unanswered')
+            __childInfo2.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo2())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo2.grid(row = r, column = 1)
+        __childInfo2.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #address street
@@ -1685,19 +1685,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nHome Address ....................................................................................... ")
-        global childInfo3
-        childInfo3 = Entry(self.ChildInfoSectionframe)
+        global __childInfo3
+        __childInfo3 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo3.insert(0, val)
+            __childInfo3.insert(0, val)
         else:
-            childInfo3.insert(0, 'Unanswered')
+            __childInfo3.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo3())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo3.grid(row = r, column = 1)
+        __childInfo3.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #address city
@@ -1705,19 +1705,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nCity ....................................................................................................... ")
-        global childInfo4
-        childInfo4 = Entry(self.ChildInfoSectionframe)
+        global __childInfo4
+        __childInfo4 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo4.insert(0, val)
+            __childInfo4.insert(0, val)
         else:
-            childInfo4.insert(0, 'Unanswered')
+            __childInfo4.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo4())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo4.grid(row = r, column = 1)
+        __childInfo4.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #address county
@@ -1725,19 +1725,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nCounty .................................................................................................. ")
-        global childInfo5
-        childInfo5 = Entry(self.ChildInfoSectionframe)
+        global __childInfo5
+        __childInfo5 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo5.insert(0, val)
+            __childInfo5.insert(0, val)
         else:
-            childInfo5.insert(0, 'Unanswered')
+            __childInfo5.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo5())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo5.grid(row = r, column = 1)
+        __childInfo5.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #address zip
@@ -1745,19 +1745,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nZip ........................................................................................................ ")
-        global childInfo6
-        childInfo6 = Entry(self.ChildInfoSectionframe)
+        global __childInfo6
+        __childInfo6 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo6.insert(0, val)
+            __childInfo6.insert(0, val)
         else:
-            childInfo6.insert(0, 'Unanswered')
+            __childInfo6.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo6())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo6.grid(row = r, column = 1)
+        __childInfo6.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #home phone
@@ -1765,19 +1765,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nHome Phone .......................................................................................... ")
-        global childInfo7
-        childInfo7 = Entry(self.ChildInfoSectionframe)
+        global __childInfo7
+        __childInfo7 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo7.insert(0, val)
+            __childInfo7.insert(0, val)
         else:
-            childInfo7.insert(0, 'Unanswered')
+            __childInfo7.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo7())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo7.grid(row = r, column = 1)
+        __childInfo7.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #guardian phone
@@ -1785,19 +1785,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nParent/Guardian's Cell Phone ................................................................ ")
-        global childInfo8
-        childInfo8 = Entry(self.ChildInfoSectionframe)
+        global __childInfo8
+        __childInfo8 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo8.insert(0, val)
+            __childInfo8.insert(0, val)
         else:
-            childInfo8.insert(0, 'Unanswered')
+            __childInfo8.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo8())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo8.grid(row = r, column = 1)
+        __childInfo8.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #guardian email
@@ -1805,19 +1805,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nParent/Guardian's e-mail address .......................................................... ")
-        global childInfo9
-        childInfo9 = Entry(self.ChildInfoSectionframe)
+        global __childInfo9
+        __childInfo9 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo9.insert(0, val)
+            __childInfo9.insert(0, val)
         else:
-            childInfo9.insert(0, 'Unanswered')
+            __childInfo9.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo9())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo9.grid(row = r, column = 1)
+        __childInfo9.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #age
@@ -1825,19 +1825,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nAge ....................................................................................................... ")
-        global childInfo10
-        childInfo10 = Entry(self.ChildInfoSectionframe)
+        global __childInfo10
+        __childInfo10 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo10.insert(0, val)
+            __childInfo10.insert(0, val)
         else:
-            childInfo10.insert(0, 'Unanswered')
+            __childInfo10.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo10())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo10.grid(row = r, column = 1)
+        __childInfo10.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #birthday
@@ -1845,19 +1845,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nDate of Birth (YYYY-MM-DD) ................................................................ ")
-        global childInfo11
-        childInfo11 = Entry(self.ChildInfoSectionframe)
+        global __childInfo11
+        __childInfo11 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo11.insert(0, val)
+            __childInfo11.insert(0, val)
         else:
-            childInfo11.insert(0, 'Unanswered')
+            __childInfo11.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo11())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo11.grid(row = r, column = 1)
+        __childInfo11.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #gender
@@ -1866,14 +1866,14 @@ class EditProfile(tk.Frame):
         curr.execute("SELECT Gender FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
-        global childInfo12
-        childInfo12 = StringVar()
+        global __childInfo12
+        __childInfo12 = StringVar()
 
         choices = ['Male','Female']
-        option = tk.OptionMenu(self.ChildInfoSectionframe, childInfo12, *choices)
+        option = tk.OptionMenu(self.ChildInfoSectionframe, __childInfo12, *choices)
 
         if val is not None:
-            childInfo12.set(val)
+            __childInfo12.set(val)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo12())
 
@@ -1888,14 +1888,14 @@ class EditProfile(tk.Frame):
         curr.execute("SELECT HIV_Status FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
-        global childInfo13
-        childInfo13 = StringVar()
+        global __childInfo13
+        __childInfo13 = StringVar()
 
         choices = ['HIV Positive','HIV Negative']
-        option = tk.OptionMenu(self.ChildInfoSectionframe, childInfo13, *choices)
+        option = tk.OptionMenu(self.ChildInfoSectionframe, __childInfo13, *choices)
 
         if val is not None:
-            childInfo13.set(val)
+            __childInfo13.set(val)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo13())
 
@@ -1912,17 +1912,17 @@ class EditProfile(tk.Frame):
 
         curr.execute("SELECT Aware FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
-        global childInfo14
-        childInfo14 = IntVar()
+        global __childInfo14
+        __childInfo14 = IntVar()
 
-        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = childInfo14, value=1)
-        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = childInfo14, value=2)
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = __childInfo14, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = __childInfo14, value=2)
 
         if val is not None:
             if val is 0:
-                childInfo14.set(2)
+                __childInfo14.set(2)
             else:
-                childInfo14.set(1)
+                __childInfo14.set(1)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo14())
 
@@ -1937,19 +1937,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "If no, please provide a reason why child is not aware .............................. ")
-        global childInfo15
-        childInfo15 = Entry(self.ChildInfoSectionframe)
+        global __childInfo15
+        __childInfo15 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo15.insert(0, val)
+            __childInfo15.insert(0, val)
         else:
-            childInfo15.insert(0, 'Unanswered')
+            __childInfo15.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo15())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo15.grid(row = r, column = 1)
+        __childInfo15.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #Referral source
@@ -1957,19 +1957,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nReferral Source ..................................................................................... ")
-        global childInfo16
-        childInfo16 = Entry(self.ChildInfoSectionframe)
+        global __childInfo16
+        __childInfo16 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo16.insert(0, val)
+            __childInfo16.insert(0, val)
         else:
-            childInfo16.insert(0, 'Unanswered')
+            __childInfo16.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo16())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo16.grid(row = r, column = 1)
+        __childInfo16.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #school attending
@@ -1977,19 +1977,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nSchool Attending .................................................................................. ")
-        global childInfo17
-        childInfo17 = Entry(self.ChildInfoSectionframe)
+        global __childInfo17
+        __childInfo17 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo17.insert(0, val)
+            __childInfo17.insert(0, val)
         else:
-            childInfo17.insert(0, 'Unanswered')
+            __childInfo17.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo17())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo17.grid(row = r, column = 1)
+        __childInfo17.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #Grade Level
@@ -1997,19 +1997,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "\nGrade Level ........................................................................................... ")
-        global childInfo18
-        childInfo18 = Entry(self.ChildInfoSectionframe)
+        global __childInfo18
+        __childInfo18 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo18.insert(0, val)
+            __childInfo18.insert(0, val)
         else:
-            childInfo18.insert(0, 'Unanswered')
+            __childInfo18.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo18())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo18.grid(row = r, column = 1)
+        __childInfo18.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #Ethnicity
@@ -2018,15 +2018,15 @@ class EditProfile(tk.Frame):
         curr.execute("SELECT Ethnicity FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
-        global childInfo19
-        childInfo19 = StringVar()
+        global __childInfo19
+        __childInfo19 = StringVar()
 
         choices = ['White/Caucasian','Black/African-American','Hispanic/Latino',
         'Native American','Asian/Pacific Islander/Indian Sub-Continent','Multi-racial','Other']
-        option = tk.OptionMenu(self.ChildInfoSectionframe, childInfo19, *choices)
+        option = tk.OptionMenu(self.ChildInfoSectionframe, __childInfo19, *choices)
 
         if val is not None:
-            childInfo19.set(val)
+            __childInfo19.set(val)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo19())
 
@@ -2040,19 +2040,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "If Other ................................................................................................. ")
-        global childInfo20
-        childInfo20 = Entry(self.ChildInfoSectionframe)
+        global __childInfo20
+        __childInfo20 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo20.insert(0, val)
+            __childInfo20.insert(0, val)
         else:
-            childInfo20.insert(0, 'Unanswered')
+            __childInfo20.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo20())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo20.grid(row = r, column = 1)
+        __childInfo20.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #Even been...
@@ -2066,17 +2066,17 @@ class EditProfile(tk.Frame):
 
         curr.execute("SELECT ADD_ADHD FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
-        global childInfo21
-        childInfo21 = IntVar()
+        global __childInfo21
+        __childInfo21 = IntVar()
 
-        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = childInfo21, value=1)
-        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = childInfo21, value=2)
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = __childInfo21, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = __childInfo21, value=2)
 
         if val is not None:
             if val is 0:
-                childInfo21.set(2)
+                __childInfo21.set(2)
             else:
-                childInfo21.set(1)
+                __childInfo21.set(1)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo21())
 
@@ -2092,17 +2092,17 @@ class EditProfile(tk.Frame):
 
         curr.execute("SELECT Learning_Disability FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
-        global childInfo22
-        childInfo22 = IntVar()
+        global __childInfo22
+        __childInfo22 = IntVar()
 
-        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = childInfo22, value=1)
-        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = childInfo22, value=2)
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = __childInfo22, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = __childInfo22, value=2)
 
         if val is not None:
             if val is 0:
-                childInfo22.set(2)
+                __childInfo22.set(2)
             else:
-                childInfo22.set(1)
+                __childInfo22.set(1)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo22())
 
@@ -2118,17 +2118,17 @@ class EditProfile(tk.Frame):
 
         curr.execute("SELECT Developmental_Disability FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
-        global childInfo23
-        childInfo23 = IntVar()
+        global __childInfo23
+        __childInfo23 = IntVar()
 
-        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = childInfo23, value=1)
-        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = childInfo23, value=2)
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = __childInfo23, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = __childInfo23, value=2)
 
         if val is not None:
             if val is 0:
-                childInfo23.set(2)
+                __childInfo23.set(2)
             else:
-                childInfo23.set(1)
+                __childInfo23.set(1)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo23())
 
@@ -2144,17 +2144,17 @@ class EditProfile(tk.Frame):
 
         curr.execute("SELECT Mental_Health_Issues FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
-        global childInfo24
-        childInfo24 = IntVar()
+        global __childInfo24
+        __childInfo24 = IntVar()
 
-        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = childInfo24, value=1)
-        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = childInfo24, value=2)
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = __childInfo24, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = __childInfo24, value=2)
 
         if val is not None:
             if val is 0:
-                childInfo24.set(2)
+                __childInfo24.set(2)
             else:
-                childInfo24.set(1)
+                __childInfo24.set(1)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo24())
 
@@ -2170,17 +2170,17 @@ class EditProfile(tk.Frame):
 
         curr.execute("SELECT Other_Medical_Condition FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
-        global childInfo25
-        childInfo25 = IntVar()
+        global __childInfo25
+        __childInfo25 = IntVar()
 
-        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = childInfo25, value=1)
-        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = childInfo25, value=2)
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = __childInfo25, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = __childInfo25, value=2)
 
         if val is not None:
             if val is 0:
-                childInfo25.set(2)
+                __childInfo25.set(2)
             else:
-                childInfo25.set(1)
+                __childInfo25.set(1)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo25())
 
@@ -2196,17 +2196,17 @@ class EditProfile(tk.Frame):
 
         curr.execute("SELECT Victim_of_Abuse FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
-        global childInfo26
-        childInfo26 = IntVar()
+        global __childInfo26
+        __childInfo26 = IntVar()
 
-        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = childInfo26, value=1)
-        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = childInfo26, value=2)
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = __childInfo26, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = __childInfo26, value=2)
 
         if val is not None:
             if val is 0:
-                childInfo26.set(2)
+                __childInfo26.set(2)
             else:
-                childInfo26.set(1)
+                __childInfo26.set(1)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo26())
 
@@ -2222,17 +2222,17 @@ class EditProfile(tk.Frame):
 
         curr.execute("SELECT Criminal_Justice_System FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
-        global childInfo27
-        childInfo27 = IntVar()
+        global __childInfo27
+        __childInfo27 = IntVar()
 
-        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = childInfo27, value=1)
-        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = childInfo27, value=2)
+        Yes = Radiobutton(self.ChildInfoSectionframe, text = "Yes", variable = __childInfo27, value=1)
+        No = Radiobutton(self.ChildInfoSectionframe, text = "No", variable = __childInfo27, value=2)
 
         if val is not None:
             if val is 0:
-                childInfo27.set(2)
+                __childInfo27.set(2)
             else:
-                childInfo27.set(1)
+                __childInfo27.set(1)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo27())
 
@@ -2248,14 +2248,14 @@ class EditProfile(tk.Frame):
         curr.execute("SELECT Legal_Custody FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         val = curr.fetchall()[0][0]
 
-        global childInfo28
-        childInfo28 = StringVar()
+        global __childInfo28
+        __childInfo28 = StringVar()
 
         choices = ['Mother','Father','Both Parents','Aunt/Uncle','Grandparent','Pending Court Action','Other']
-        option = tk.OptionMenu(self.ChildInfoSectionframe, childInfo28, *choices)
+        option = tk.OptionMenu(self.ChildInfoSectionframe, __childInfo28, *choices)
 
         if val is not None:
-            childInfo28.set(val)
+            __childInfo28.set(val)
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo28())
 
@@ -2269,19 +2269,19 @@ class EditProfile(tk.Frame):
         val = curr.fetchall()[0][0]
 
         label = Label(self.ChildInfoSectionframe, text = "If Other ................................................................................................. ")
-        global childInfo29
-        childInfo29 = Entry(self.ChildInfoSectionframe)
+        global __childInfo29
+        __childInfo29 = Entry(self.ChildInfoSectionframe)
 
         if val is not None:
-            childInfo29.insert(0, val)
+            __childInfo29.insert(0, val)
         else:
-            childInfo29.insert(0, 'Unanswered')
+            __childInfo29.insert(0, 'Unanswered')
 
         buttonUpdate = Button(self.ChildInfoSectionframe, text = "Update", command = lambda:self.updatechildInfo29())
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
-        childInfo29.grid(row = r, column = 1)
+        __childInfo29.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
 #Parent/ Guardian Section ************************************************************************************************************************
@@ -4111,7 +4111,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo0.get()
+        newVal = __childInfo0.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4132,7 +4132,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo1.get()
+        newVal = __childInfo1.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4153,7 +4153,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo2.get()
+        newVal = __childInfo2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Name_Nickname = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4174,7 +4174,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo3.get()
+        newVal = __childInfo3.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4195,7 +4195,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo4.get()
+        newVal = __childInfo4.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4216,7 +4216,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo5.get()
+        newVal = __childInfo5.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_County = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4237,7 +4237,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo6.get()
+        newVal = __childInfo6.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
             db.commit()
@@ -4260,7 +4260,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo7.get()
+        newVal = __childInfo7.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Home_Phone = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4281,7 +4281,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo8.get()
+        newVal = __childInfo8.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Guardian_Phone = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4302,7 +4302,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo9.get()
+        newVal = __childInfo9.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Guardian_Email = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4323,7 +4323,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo10.get()
+        newVal = __childInfo10.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Age = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
             db.commit()
@@ -4341,7 +4341,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo11.get()
+        newVal = __childInfo11.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Birthday = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
             db.commit()
@@ -4364,7 +4364,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo12.get()
+        newVal = __childInfo12.get()
         if newVal != '':
             curr.execute("UPDATE Childs_Information SET Gender = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
@@ -4383,7 +4383,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo13.get()
+        newVal = __childInfo13.get()
         curr.execute("UPDATE Childs_Information SET HIV_Status = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
         db.commit()
 
@@ -4401,7 +4401,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo14.get()
+        newVal = __childInfo14.get()
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
@@ -4422,7 +4422,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo15.get()
+        newVal = __childInfo15.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Why = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4443,7 +4443,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo16.get()
+        newVal = __childInfo16.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Referral_Source = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4464,7 +4464,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo17.get()
+        newVal = __childInfo17.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET School_attending = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4485,7 +4485,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo18.get()
+        newVal = __childInfo18.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET School_grade_level = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4506,7 +4506,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo19.get()
+        newVal = __childInfo19.get()
         if newVal != '':
             curr.execute("UPDATE Childs_Information SET Ethnicity = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
@@ -4525,7 +4525,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo20.get()
+        newVal = __childInfo20.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Ethnicity_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
@@ -4546,7 +4546,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo21.get()
+        newVal = __childInfo21.get()
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
@@ -4567,7 +4567,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo22.get()
+        newVal = __childInfo22.get()
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
@@ -4588,7 +4588,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo23.get()
+        newVal = __childInfo23.get()
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
@@ -4609,7 +4609,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo24.get()
+        newVal = __childInfo24.get()
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
@@ -4630,7 +4630,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo25.get()
+        newVal = __childInfo25.get()
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
@@ -4651,7 +4651,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo26.get()
+        newVal = __childInfo26.get()
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
@@ -4672,7 +4672,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo27.get()
+        newVal = __childInfo27.get()
         if newVal != 0:
             if newVal == 2:
                 newVal = 0
@@ -4693,7 +4693,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo28.get()
+        newVal = __childInfo28.get()
         if newVal != '':
             curr.execute("UPDATE Childs_Information SET Legal_Custody = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, __id, __date,))
             db.commit()
@@ -4712,7 +4712,7 @@ class EditProfile(tk.Frame):
         curr = db.cursor()
 
         #Execute
-        newVal = childInfo29.get()
+        newVal = __childInfo29.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Custody_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (__id, __date,))
         else:
