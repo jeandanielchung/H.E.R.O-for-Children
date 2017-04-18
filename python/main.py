@@ -368,7 +368,7 @@ class SearchPage(tk.Frame):
 
         #add back yearlist
 
-        dropdownYear = OptionMenu(master, years, "Any", "None", *yearList)
+        dropdownYear = OptionMenu(master, __years, "Any", "None", *yearList)
         dropdownYear.grid(row = 1, column = 2)
 
         categoriesList = ['None', 'Zip Code', 'City', "County", 'Referral Source', "Child's Age",
@@ -383,7 +383,7 @@ class SearchPage(tk.Frame):
         __categories = StringVar(master)
         __categories.set("Category")
 
-        dropdownCategories = OptionMenu(master, ___categories, *categoriesList)
+        dropdownCategories = OptionMenu(master, __categories, *categoriesList)
         dropdownCategories.grid(row = 3, column = 1)
 
 
