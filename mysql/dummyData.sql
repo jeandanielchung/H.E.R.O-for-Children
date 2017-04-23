@@ -7,6 +7,7 @@ INSERT INTO User VALUES ('Elizabeth', 'Oz', SHA1('mypswd'), 'Regular'); # need S
 INSERT INTO User VALUES ('Mateo', 'MRod', SHA1('mypswd'), 'Manager'); # need SHA1 for the password to decrypt it
 INSERT INTO User VALUES ('Cameron', 'Cam', SHA1('mypswd'), 'Manager'); # need SHA1 for the password to decrypt it
 INSERT INTO User VALUES ('Lillie', 'LZ', SHA1('mypswd'), 'Manager'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Test', 'a', SHA1('a'), 'Administrator'); # need SHA1 for the password to decrypt it
 
 
 
