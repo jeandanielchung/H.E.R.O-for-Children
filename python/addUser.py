@@ -5,7 +5,7 @@ class AddUser:
     def __init__(self, master):
 
 
-    
+
         self.frame = Frame(master)
         self.frame.pack()
 
@@ -39,7 +39,7 @@ class AddUser:
 
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
-        
+
         curr.execute("""INSERT INTO User VALUES (%s, %s, SHA1(%s), %s);""", (entry1.get(), entry2.get(), entry3.get(), variable.get(),))
         db.commit()
 
