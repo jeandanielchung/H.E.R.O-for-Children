@@ -36,17 +36,22 @@ class Main(tk.Tk):
         self.frames = {}
 
         for F in (LoginPage, HomePage, AdminUserPage, AddUser, DeleteUserPage, SearchPage, SearchResultsPage, FirstProfilePage, SecondProfilePage, EditProfile, AddNewApp, NewAppReturning, NameBirthEntryPage, NewChildApp):
-
             frame = F(self.frame, self)
-
             self.frames[F] = frame
-
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame(LoginPage)
 
-    def show_frame(self, cont):
 
+        self.shared_data = {
+            "username": tk.StringVar(),
+        }
+
+    def get_page(self, page_class):
+        return self.frames[page_class]
+
+
+    def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
 
@@ -62,6 +67,8 @@ class Main(tk.Tk):
 class LoginPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
+        self.controller = controller
 
        #Database Connection
         db = MySQLdb.connect(
@@ -80,9 +87,13 @@ class LoginPage(tk.Frame):
         #labelUsername.pack(side = LEFT)
         labelUsername.grid(row = 1, column = 1)
 
-        entryUsername = Entry(master, bd = 5)
+        self.entryUsername = Entry(master, bd = 5)
+        #entryUsername = tk.Entry(master, bd = 5, textvariable=self.controller.shared_data["username"])
+
         #entryUsername.pack(side = RIGHT)
-        entryUsername.grid(row = 1, column = 2)
+        self.entryUsername.grid(row = 1, column = 2)
+
+
 
         labelPassword = Label(master, text = "Password")
         #labelPassword.pack(side = LEFT)
@@ -102,24 +113,28 @@ class LoginPage(tk.Frame):
         """These are the Buttons for the page"""
 
         # need to set things as callbacks so they dont get called immediately, so lambda
-        loginButton = Button(master, text = "login", command = lambda: self.login(parent, controller, entryUsername.get(), entryPassword.get(), curr))
+        loginButton = Button(master, text = "login", command = lambda: self.login(parent, controller, self.entryUsername, entryPassword, curr))
         loginButton.grid(row = 3, column = 2)
 
         closeButton = Button(master, text = "close", command=lambda: controller.destroy())
         closeButton.grid(row = 0, column = 0)
 
+        global loggedIn
+        loggedIn = 0
 
-    def login(self, parent, controller, username, password, curr):
 
-        curr.execute("SELECT * FROM User WHERE Username = %s AND Password = SHA1(%s)", (username, password,))
+    def login(self, parent, controller, entryUsername, entryPassword, curr):
+
+        curr.execute("SELECT * FROM User WHERE Username = %s AND Password = SHA1(%s)", (entryUsername.get(), entryPassword.get(),))
         result = curr.fetchone()
 
         if result is not None: # if the result isn't None then there is a user/password combination match
-            user_type = result[2] # this is the type of user i.e. admininistrator, manager, regular
+            loggedIn = 1
+            username = entryUsername.get()
+            Tk.update(controller)
             controller.show_frame(HomePage)
-
         else:
-            tkMessageBox.showinfo("Add User", "Either password or username was incorrect, try again")
+            tkMessageBox.showinfo("Login Page", "Either password or username was incorrect, try again")
 
 
 #******************************************************************************************************************************************************
@@ -129,37 +144,52 @@ class HomePage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        db = MySQLdb.connect(
-            host = "localhost",
-            user="root",
-            passwd = "Darling",
-            db="HERO")
-        curr = db.cursor()
+        self.controller = controller
+        #Login_Page = self.controller.get_page(LoginPage)
+        #
+        #Login_Page.entryUsername.get()
+        #username = self.controller.shared_data["username"].get()
+        #self.Login= LoginPage(parent, controller)
+        #username = self.Login.entryUsername.get()
 
-        #TODO: pass in username
-        username = "Oz"
+        username = controller.get_page(LoginPage).entryUsername.get()
+        
+        print username
+        print loggedIn
 
-        pulled = curr.execute("SELECT User_Type FROM User WHERE Username = %s;", (username,))
-        credentials = curr.fetchall()[0][0]
+        if username is not '':
 
-        closeButton = tk.Button(self, text = "Close", command=lambda: controller.destroy())
-        closeButton.grid(row = 0, column = 0)
+            db = MySQLdb.connect(
+                host = "localhost",
+                user="root",
+                passwd = "Darling",
+                db="HERO")
+            curr = db.cursor()
 
-        newAppButton = tk.Button(self, text = "Add New Application", command=lambda: controller.show_frame(AddNewApp))
-        newAppButton.grid(row = 1, column = 3, padx = 185, pady = 10)
+            #TODO: pass in username
+            #username = "Oz"
 
-        if (credentials == 'Administrator' or credentials == 'Manager'):
+            pulled = curr.execute("SELECT User_Type FROM User WHERE Username = %s;", (username,))
+            credentials = curr.fetchall()[0][0]
 
-            searchButton = tk.Button(self, text = "Search",  command=lambda: controller.show_frame(SearchPage))
-            searchButton.grid(row = 2, column = 3, padx = 185, pady = 10)
+            closeButton = tk.Button(self, text = "Close", command=lambda: controller.destroy())
+            closeButton.grid(row = 0, column = 0)
 
-        if (credentials == 'Administrator'):
-            adminButton = tk.Button(self, text = "Administrate Users", command=lambda: controller.show_frame(AdminUserPage))
-            adminButton.grid(row = 3, column = 3, padx = 185, pady = 10)
+            newAppButton = tk.Button(self, text = "Add New Application", command=lambda: controller.show_frame(AddNewApp))
+            newAppButton.grid(row = 1, column = 3, padx = 185, pady = 10)
+
+            if (credentials == 'Administrator' or credentials == 'Manager'):
+
+                searchButton = tk.Button(self, text = "Search",  command=lambda: controller.show_frame(SearchPage))
+                searchButton.grid(row = 2, column = 3, padx = 185, pady = 10)
+
+            if (credentials == 'Administrator'):
+                adminButton = tk.Button(self, text = "Administrate Users", command=lambda: controller.show_frame(AdminUserPage))
+                adminButton.grid(row = 3, column = 3, padx = 185, pady = 10)
 
 
-        curr.close()
-        db.close()
+            curr.close()
+            db.close()
 
 
 
@@ -170,7 +200,9 @@ class AdminUserPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        back = tk.Button(self, text = "Back", command = lambda: controller.show_frame(HomePage))
+        #TODO pass in username
+        username = 'SonikaFInch'
+        back = tk.Button(self, text = "Back", command = lambda: controller.show_frame(HomePage, username))
         back.grid(row = 0, column = 0)
 
         addButton = tk.Button(self, text = "Add", command=lambda: controller.show_frame(AddUser))
@@ -399,7 +431,9 @@ class SearchPage(tk.Frame):
         searchCatButton = Button(master, text = "Search", command=lambda: controller.show_frame(SearchResultsPage))
         searchCatButton.grid(row = 3, column = 3)
 
-        back = Button(master, text = "Back", command = lambda: controller.show_frame(HomePage))
+        #TODO: pass in username
+        username = 'SonikaFinch'
+        back = Button(master, text = "Back", command = lambda: controller.show_frame(HomePage, username))
         back.grid(row = 0, column = 0)
 
         txt = Label(master, text = "First Name:")
@@ -562,9 +596,8 @@ class FirstProfilePage(tk.Frame):
         db = MySQLdb.connect(host="localhost", user="root", passwd="Darling", db="HERO")
         curr = db.cursor()
 
-        # id and date
+        # id
         id = 1
-        date = '2016-11-24'
         name_first = 'John'
         name_last = 'Osman'
 
@@ -1624,7 +1657,9 @@ class EditProfile(tk.Frame):
 =======
 >>>>>>> 8c2c84071b24ab98622578fe335ea3c7a6860836
         #home
-        backButton = Button(self.buttonframe, text = "Home", command = lambda: controller.show_frame(HomePage))
+        #TODO pass in username
+        username = 'SonikaFinch'
+        backButton = Button(self.buttonframe, text = "Home", command = lambda: controller.show_frame(HomePage, username))
         backButton.pack(side = "left")
 
         #delete
@@ -5878,7 +5913,9 @@ class AddNewApp(tk.Frame):
         createButton = Button(master, text = "Create", command = lambda: self.create(parent, controller))
         createButton.grid(row = 3, column = 3)
 
-        closeButton = Button(master, text = "Back", command = lambda: controller.show_frame(HomePage))
+        #TODO pass in username
+        username = 'SonikaFinch'
+        closeButton = Button(master, text = "Back", command = lambda: controller.show_frame(HomePage, username))
         closeButton.grid(row  = 0, column = 0)
 
 
@@ -8307,7 +8344,9 @@ class NewChildApp(tk.Frame):
             if success:
                 tkMessageBox.showinfo("New Profile", "Submission Sucessful!")
 
-                controller.show_frame(HomePage)
+                #TODO pass in username
+                username = 'SonikaFinch'
+                controller.show_frame(HomePage, username)
 
             else:
                 tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + __date + "\nFor ID number: " + str(__id) + " \nAlready exists in the system")
@@ -8354,7 +8393,6 @@ class NewChildApp(tk.Frame):
 
 
 #******************************************************************************************************************************************************
-
 
 app = Main()
 app.mainloop()

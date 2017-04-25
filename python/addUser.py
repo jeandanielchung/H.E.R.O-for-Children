@@ -5,7 +5,7 @@ class AddUser:
     def __init__(self, master):
 
 
-    
+
         self.frame = Frame(master)
         self.frame.pack()
 
@@ -40,6 +40,7 @@ class AddUser:
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
 
+
         curr.execute("SELECT * FROM User WHERE Username = %s", (entry2.get(),))
         result = current.fetchone() 
 
@@ -54,7 +55,7 @@ class AddUser:
             db.commit()
 
             tkMessageBox.showinfo("Add User", "Add User Successful!")
-        
+
 
         curr.close()
         db.close()
