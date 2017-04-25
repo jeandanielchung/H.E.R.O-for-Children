@@ -39,14 +39,27 @@ class AddUser:
 
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()
+
+        curr.execute("SELECT * FROM User WHERE Username = %s", (entry2.get(),))
+        result = current.fetchone() 
+
+        if (entry1.get() == "" or entry2.get() == "" or entry3.get() == ""):
+            #something is not filled out
+            tkMessageBox.showerror("Error!", "Please fill out all the fields.", )
+        elif result is not None:
+            #username already in the DB
+            tkMessageBox.showerror("Error!", "There is already that username in use, please choose another.")
+        else:
+            curr.execute("""INSERT INTO User VALUES (%s, %s, SHA1(%s), %s);""", (entry1.get(), entry2.get(), entry3.get(), variable.get(),))
+            db.commit()
+
+            tkMessageBox.showinfo("Add User", "Add User Successful!")
         
-        curr.execute("""INSERT INTO User VALUES (%s, %s, SHA1(%s), %s);""", (entry1.get(), entry2.get(), entry3.get(), variable.get(),))
-        db.commit()
 
         curr.close()
         db.close()
 
-        tkMessageBox.showinfo("Add User", "Add User Successful!")
+        
 
 
     def back(self):

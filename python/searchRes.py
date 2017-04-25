@@ -6,6 +6,8 @@ class searchResultsPage:
 		self.master = master
 		master.title("Search Results Page")
 		#5 columns at least 3 rows
+
+		#need to implement dynamic tracking of count
 		count = Label(master, text = "Total: ")
 		count.grid(row = 0, column = 4)
 
@@ -21,10 +23,14 @@ class searchResultsPage:
 		yearHead = Label(master, text = "Year", font= "Verdana 10 underline")
 		yearHead.grid(row = 1, column = 3)
 
-		self.back = Button(master, text = "Back", command = self.closeWindow)
+		self.back = Button(master, text = "Close", command = self.closeWindow)
 		self.back.grid(row = 0, column = 0)
 
-        #example data
+
+
+
+
+        """#example data
 		for num in range(0,5):
 			name = Label(master, text = "Test Name")
 			name.grid(row = 2 + num, column = 0)
@@ -40,10 +46,7 @@ class searchResultsPage:
 
 			profBut = Button(master, text = "See Profile", command = self.closeWindow)
 			profBut.grid(row = 2 + num, column = 4)
-
-
-
-
+		"""
 
 		#possibly add a back button
 	def closeWindow(self):
