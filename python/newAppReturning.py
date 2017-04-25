@@ -11,7 +11,7 @@ class NewAppReturningPage:
                 idLabel = Label(master, text = "ID")
                 idLabel.grid(row = 2, column = 0)
 
-                global idEntry
+                __global idEntry
                 idEntry = Entry(master, bd =3)
                 idEntry.grid(row = 2, column = 1)
 
@@ -22,31 +22,31 @@ class NewAppReturningPage:
                 programLabel.grid(row = 0, column = 3)
 
                 programList = ['none', 'Child Application', 'Camper Application']
-                global programs
+                __global programs
                 programs = StringVar()
                 programs.set(programList[0])
                 dropdownProgram = OptionMenu(master, programs, *programList)
                 dropdownProgram.grid(row = 0, column = 4)
-               
+
                 nameLabel = Label(master, text = "First Name")
                 nameLabel.grid(row = 4, column = 0)
 
-                
-                global nameEntry
+
+                __global nameEntry
                 nameEntry = Entry(master,bd = 3)
                 nameEntry.grid(row = 4, column = 1)
 
                 name2Label = Label(master, text = "Last Name")
                 name2Label.grid(row = 5, column = 0)
 
-                global name2Entry
+                __global name2Entry
                 name2Entry = Entry(master,bd = 3)
                 name2Entry.grid(row = 5, column = 1)
 
                 bdLabel = Label(master, text = "Birthday (YYYY-MM-DD)")
                 bdLabel.grid(row = 6, column = 0)
 
-                global bdEntry
+                __global bdEntry
                 bdEntry = Entry(master, bd = 3)
                 bdEntry.grid(row = 6, column = 1)
 
@@ -91,8 +91,8 @@ class NewAppReturningPage:
                                     print data #how to print the data selected
                         else:
                             tkMessageBox.showinfo("Returning Child","Please select a program from the list")
-                            
-                        
+
+
                 else: #user entered the child ID
                     ###Link me somewhere
                     print '' #placeholder, this should send user to childs information page
