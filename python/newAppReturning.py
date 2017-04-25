@@ -11,7 +11,7 @@ class NewAppReturningPage:
                 idLabel = Label(master, text = "ID")
                 idLabel.grid(row = 2, column = 0)
 
-                __global idEntry
+                global idEntry
                 idEntry = Entry(master, bd =3)
                 idEntry.grid(row = 2, column = 1)
 
@@ -22,7 +22,7 @@ class NewAppReturningPage:
                 programLabel.grid(row = 0, column = 3)
 
                 programList = ['none', 'Child Application', 'Camper Application']
-                __global programs
+                global programs
                 programs = StringVar()
                 programs.set(programList[0])
                 dropdownProgram = OptionMenu(master, programs, *programList)
@@ -32,21 +32,21 @@ class NewAppReturningPage:
                 nameLabel.grid(row = 4, column = 0)
 
 
-                __global nameEntry
+                global nameEntry
                 nameEntry = Entry(master,bd = 3)
                 nameEntry.grid(row = 4, column = 1)
 
                 name2Label = Label(master, text = "Last Name")
                 name2Label.grid(row = 5, column = 0)
 
-                __global name2Entry
+                global name2Entry
                 name2Entry = Entry(master,bd = 3)
                 name2Entry.grid(row = 5, column = 1)
 
                 bdLabel = Label(master, text = "Birthday (YYYY-MM-DD)")
                 bdLabel.grid(row = 6, column = 0)
 
-                __global bdEntry
+                global bdEntry
                 bdEntry = Entry(master, bd = 3)
                 bdEntry.grid(row = 6, column = 1)
 

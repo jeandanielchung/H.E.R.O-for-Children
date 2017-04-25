@@ -223,7 +223,7 @@ class Main():
         master = Frame(root)
         master.grid(row=0, column=0, sticky = NW)
 
-        nameHead = Label(master, text = "Nameame", font= "Verdana 10 underline")
+        nameHead = Label(master, text = "Name", font= "Verdana 10 underline")
         nameHead.grid(row = 1, column = 0)
 
         usernameHead = Label(master, text = "Username", font= "Verdana 10 underline")

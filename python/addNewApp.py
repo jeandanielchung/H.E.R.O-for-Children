@@ -16,7 +16,7 @@ class AddNewApp(tk.Tk):
 
         #get this program list from the DB
         programList = ['none', 'Child Application', 'Camper Application']
-        __global programs
+        global programs
         programs = StringVar()
         programs.set(programList[0])
         dropdownProgram = OptionMenu(master, programs, *programList)
@@ -26,14 +26,14 @@ class AddNewApp(tk.Tk):
         labelDate = Label(master, text = "Date Submitted (YYYY-MM-DD)")
         labelDate.grid(row = 1, column = 3)
 
-        __global entryDate
+        global entryDate
         entryDate = Entry(master, bd = 3)
         entryDate.grid(row = 1, column = 4)
 
         returningTxt = Label(master, text = "Returning Child?")
         returningTxt.grid(row = 2, column = 3)
 
-        __global v
+        global v
         v = StringVar()
         returningInq = Radiobutton(master, text="Yes", variable=v, value=1)
         returningInq.grid(row = 2,column = 4)
