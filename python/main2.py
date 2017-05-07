@@ -36,12 +36,16 @@ class Main():
 
     def LoginPage(self):
 
+        self.root.withdraw()
+
+        self.LoginPageRoot = Toplevel()
+        root = self.LoginPageRoot
+
         if self.PrevPage is 'HomePage':
             self.HomePageRoot.withdraw()
         self.PrevPage = 'LoginPage'
 
-        self.root.deiconify()
-        master=Frame(self.root)
+        master = Frame(root)
         master.grid(row=0,column=0, columnspan=4)
 
         root.title("Login Page")
@@ -97,7 +101,7 @@ class Main():
         self.HomePageRoot = Toplevel()
         root = self.HomePageRoot
         if self.PrevPage is 'LoginPage':
-            self.root.withdraw()
+            self.LoginPageRoot.withdraw()
         elif self.PrevPage is 'AdminUserPage':
             self.AdminUserPageRoot.withdraw()
         elif self.PrevPage is 'SearchPage':
@@ -653,14 +657,25 @@ class Main():
         root = self.SecondProfilePageRoot
         if self.PrevPage is 'FirstProfilePage':
             self.FirstProfilePageRoot.withdraw()
-        if self.prevSection is 1:
-            self.SecondProfilePageRoot1.withdraw()
-
-        self.prevSection = 0
         
         root.title("Second Level Profile Page")
-        master = Frame(root)
-        master.grid(row=0, column=0, sticky = NW)
+
+        self.canvas = Canvas(root)
+        master = Frame(self.canvas)
+
+        scrollbarY = Scrollbar(root, orient = "vertical", command = self.canvas.yview)
+        scrollbarY.pack(side = RIGHT, fill = Y)
+        scrollbarX = Scrollbar(root, orient = "horizontal", command = self.canvas.xview)
+        scrollbarX.pack(side = BOTTOM, fill = X)
+
+        self.canvas.configure(xscrollcommand = scrollbarX.set, yscrollcommand = scrollbarY.set)
+        self.canvas.pack(side = "left", fill = "both", expand = True)
+        self.canvas.create_window((4,4), window = master, anchor="nw", 
+                                  tags="master")
+
+        master.bind("<Configure>", self.onFrameConfigure)
+
+
 
         #Database Connection
         db = self.connect()
@@ -670,6 +685,7 @@ class Main():
         #back button frame + back button
         self.buttonframe = Frame(master)
         self.buttonframe.pack(side = "top", fill = "x")
+
 
         #fix alignment
         backButton = Button(self.buttonframe, text = "Back", command = lambda: self.backSecondProfilePage(id))
@@ -685,11 +701,9 @@ class Main():
         deleteButton = Button(self.buttonframe, text = "Delete Application", command = lambda: self.deleteChildApp(id, date))
         deleteButton.pack(side = "right")
 
-
-
 #Database dump frame
         self.ChildInfoSectionframe = Frame(master)
-        self.ChildInfoSectionframe.pack(fill = 'y', side = 'left')
+        self.ChildInfoSectionframe.pack(fill = 'y', side = 'left') 
 
 #Identifying Info Section
         #header
@@ -704,59 +718,6 @@ class Main():
         #date
         label = Label(self.ChildInfoSectionframe, text = "\nDate Submitted...................................................................................... " + str(date))
         label.pack(anchor = 'w')
-
-        #Continue
-        continueButton = Button(self.ChildInfoSectionframe, text = "Continue", command = lambda: self.continueButtonHandler(id, date)).pack(anchor = 'se')
-
-
-    def SecondProfilePage1(self, id, date):
-
-        #setup
-        self.SecondProfilePageRoot1 = Toplevel()
-        root = self.SecondProfilePageRoot1
-        if self.prevSection is 0:
-            self.SecondProfilePageRoot.withdraw()
-        elif self.prevSection is 2:
-            self.SecondProfilePageRoot2.withdraw()
-
-        self.prevSection = 1
-        
-        root.title("Second Level Profile Page")
-        master = Frame(root)
-        master.grid(row=0, column=0, sticky = NW)
-
-        #Database Connection
-        db = self.connect()
-        curr = db.cursor()
-
-        #Buttons
-        #back button frame + back button
-        self.buttonframe = Frame(master)
-        self.buttonframe.pack(side = "top", fill = "x")
-
-        #fix alignment
-        backButton = Button(self.buttonframe, text = "Back", command = lambda: self.backSecondProfilePage(id))
-        backButton.pack(side = "left")
-
-        #edit
-        editButton = Button(self.buttonframe, text = "Edit Application")
-        #TODO
-        #, command = lambda: controller.show_frame(EditProfile))
-        editButton.pack(side = "right")
-
-        #delete
-        deleteButton = Button(self.buttonframe, text = "Delete Application", command = lambda: self.deleteChildApp(id, date))
-        deleteButton.pack(side = "right")
-
-#Database dump frame
-        self.ChildInfoSectionframe = Frame(master)
-        self.ChildInfoSectionframe.pack(fill = 'x')
-
-    #Child info section
-        #header
-        labelChildInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nCHILD'S INFORMATION")
-        labelChildInfoSection.pack(fill = "x")
-        labelChildInfoSection.config(font=("Helvetica", 20))
 
         #first name
         curr.execute("SELECT Name_First FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
@@ -875,71 +836,6 @@ class Main():
             label = Label(self.ChildInfoSectionframe, text = "\nGender .................................................................................................. Unanswered")
         label.pack(anchor = 'w')
 
-#Close Database Connection
-        curr.close()
-        db.close()
-
-
-        #Bottom Buttons
-        self.bottoomButtonframe = Frame(master)
-        self.bottoomButtonframe.pack(side = "bottom", fill = "x")
-
-        #Continue
-        continueButton = Button(self.bottoomButtonframe, text = "Continue", command = lambda: self.continueButtonHandler(id, date)).pack(side = 'right')
-        #Previous
-        previousButton = Button(self.bottoomButtonframe, text = "Previous", command = lambda: self.previousButtonHandler(id, date)).pack(side = 'left')
-
-
-    def SecondProfilePage2(self, id, date):
-
-        #setup
-        self.SecondProfilePageRoot2 = Toplevel()
-        root = self.SecondProfilePageRoot2
-        if self.prevSection is 1:
-            self.SecondProfilePageRoot1.withdraw()
-        elif self.prevSection is 3:
-            self.SecondProfilePageRoot3.withdraw()
-        
-        self.prevSection = 2
-        
-        root.title("Second Level Profile Page")
-        master = Frame(root)
-        master.grid(row=0, column=0, sticky = NW)
-
-        #Database Connection
-        db = self.connect()
-        curr = db.cursor()
-
-        #Buttons
-        #back button frame + back button
-        self.buttonframe = Frame(master)
-        self.buttonframe.pack(side = "top", fill = "x")
-
-        #fix alignment
-        backButton = Button(self.buttonframe, text = "Back", command = lambda: self.backSecondProfilePage(id))
-        backButton.pack(side = "left")
-
-        #edit
-        editButton = Button(self.buttonframe, text = "Edit Application")
-        #TODO
-        #, command = lambda: controller.show_frame(EditProfile))
-        editButton.pack(side = "right")
-
-        #delete
-        deleteButton = Button(self.buttonframe, text = "Delete Application", command = lambda: self.deleteChildApp(id, date))
-        deleteButton.pack(side = "right")
-
-        #Database dump frame
-        self.ChildInfoSectionframe = Frame(master)
-        self.ChildInfoSectionframe.pack(fill = 'x')
-
-        #Child info section continued
-        #header
-        labelChildInfoSection = Label(self.ChildInfoSectionframe, text = "\n\nCHILD'S INFORMATION CONTINUED")
-        labelChildInfoSection.pack(fill = "x")
-        labelChildInfoSection.config(font=("Helvetica", 20))
-
-
         #HIV status
         curr.execute("SELECT HIV_Status FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
@@ -978,18 +874,6 @@ class Main():
         curr.close()
         db.close()
 
-
-        #Bottom Buttons
-        self.bottoomButtonframe = Frame(master)
-        self.bottoomButtonframe.pack(side = "bottom", fill = "x")
-
-        #Continue
-        continueButton = Button(self.bottoomButtonframe, text = "Continue", command = lambda: self.continueButtonHandler(id, date)).pack(side = 'right')
-        #Previous
-        previousButton = Button(self.bottoomButtonframe, text = "Previous", command = lambda: self.previousButtonHandler(id, date)).pack(side = 'left')
-
-
-
     def backSecondProfilePage(self, id):
         if self.prevSection is 1:
             self.SecondProfilePageRoot1.withdraw()
@@ -999,26 +883,6 @@ class Main():
         if self.PrevPage is 'FirstProfilePage':
             self.PrevPage = 'SecondProfilePage'
             self.FirstProfilePage(id)
-
-
-    def continueButtonHandler(self, id, date):
-
-        if self.prevSection is 0:
-            self.SecondProfilePage1(id, date)
-
-        elif self.prevSection is 1:
-            self.SecondProfilePage2(id, date)
-        
-        elif self.prevSection is 2:
-            self.root.destroy()
-
-
-    def previousButtonHandler(self, id, date):
-        if self.prevSection is 1:
-            self.SecondProfilePage(id, date)
-        
-        elif self.prevSection is 2:
-            self.SecondProfilePage1(id, date)
 
 
     def deleteChildApp(self, id, date):
@@ -1045,6 +909,10 @@ class Main():
         else:
             #Delete cancelled
             showinfo('No', 'Delete has been cancelled')
+
+    def onFrameConfigure(self, event):
+        '''Reset the scroll region to encompass the inner frame'''
+        self.canvas.configure(scrollregion = self.canvas.bbox("all"))
 
 
 root = Tk()
