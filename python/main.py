@@ -367,10 +367,6 @@ class SearchPage(tk.Frame):
         nameLabel = Label(master, text = "Search by Name", font= "Verdana 10 underline")
         nameLabel.grid(row = 4, column = 0)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8c2c84071b24ab98622578fe335ea3c7a6860836
         programList = ['Any', 'None', "Child Application", "Camp High Five Application"]
         global __programs
         __programs = StringVar(master)
@@ -401,12 +397,8 @@ class SearchPage(tk.Frame):
         __years.set("Year")
 
         #add back yearlist
-<<<<<<< HEAD
-        dropdownYear = OptionMenu(master, years, "Any", "None", *yearList)
-=======
 
         dropdownYear = OptionMenu(master, __years, "Any", "None", *yearList)
->>>>>>> 8c2c84071b24ab98622578fe335ea3c7a6860836
         dropdownYear.grid(row = 1, column = 2)
 
         categoriesList = ['None', 'Zip Code', 'City', "County", 'Referral Source', "Child's Age",
@@ -559,10 +551,7 @@ class SearchResultsPage(tk.Frame):
                         WHERE YEAR(Date_Submitted) = %s AND Address_Zip != 'NULL';""", (selectedYear,))
                     camp = curr.fetchall()
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 8c2c84071b24ab98622578fe335ea3c7a6860836
         total = len(child) + len(camp)
         count = Label(master, text = "Total: " + str(total))
         count.grid(row = 0, column = 4)
@@ -1652,10 +1641,7 @@ class EditProfile(tk.Frame):
         backButton = Button(self.buttonframe, text = "Back", command = lambda: controller.show_frame(SecondProfilePage))
         backButton.pack(side = "left")
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 8c2c84071b24ab98622578fe335ea3c7a6860836
         #home
         #TODO pass in username
         username = 'SonikaFinch'
@@ -6246,12 +6232,8 @@ class NewChildApp(tk.Frame):
         global __date
 
         __id = 1
-
-<<<<<<< HEAD
         __date = '2016-11-24'
 
-=======
->>>>>>> 8c2c84071b24ab98622578fe335ea3c7a6860836
 #Database Connection
         db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
         curr = db.cursor()

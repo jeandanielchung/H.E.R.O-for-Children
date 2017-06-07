@@ -7,8 +7,6 @@ CREATE DATABASE HERO;
 USE HERO;
 
 #User
-DROP TABLE IF EXISTS User;
-
 CREATE TABLE User (
   Name VARCHAR(60) NOT NULL,
   Username VARCHAR(25) NOT NULL,
@@ -17,8 +15,6 @@ CREATE TABLE User (
   PRIMARY KEY (Username));
 
 #Child
-DROP TABLE IF EXISTS Child;
-
 CREATE TABLE Child (
 	ID MEDIUMINT NOT NULL AUTO_INCREMENT,
 
@@ -27,8 +23,6 @@ CREATE TABLE Child (
 /******************************************************************************************************************************************************/
 
 #Child -> Child App
-DROP TABLE IF EXISTS Child_Application;
-
 CREATE TABLE Child_Application (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
@@ -160,7 +154,7 @@ CREATE TABLE Household_Information (
   ID MEDIUMINT,
   Date_Submitted DATE,
 
-# Count variable is to distinguish between which line
+  # Count variable is to distinguish between which line
   Count INT,
   Name VARCHAR(60),
   Relationship VARCHAR(25),
@@ -224,8 +218,6 @@ CREATE TABLE ChildApp_Emergency_Contact (
 
 
 #Chid -> Child App-> Statement of Understanding
-DROP TABLE IF EXISTS Statement_Of_Understanding;
-
 CREATE TABLE Statement_Of_Understanding (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
@@ -246,8 +238,6 @@ CREATE TABLE Statement_Of_Understanding (
 
 
 #Child -> Camper App
-DROP TABLE IF EXISTS Camp_Application;
-
 CREATE TABLE Camp_Application (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
@@ -281,9 +271,9 @@ CREATE TABLE Demographic_Information (
   First_Name VARCHAR(30),
   Last_Name VARCHAR(30),
   Middle_Initial CHAR(1),
-
-  Date_Of_Birth DATE,
+  
   Age INT,
+  Date_Of_Birth DATE,
   Gender ENUM('Male', 'Female'),
   Race VARCHAR(20),
   Primary_Language VARCHAR(20),
@@ -291,8 +281,8 @@ CREATE TABLE Demographic_Information (
   Address_Street VARCHAR(50),
   Address_City VARCHAR(30),
   Address_State CHAR(2),
-  Address_Zip INT,
   Address_County VARCHAR(30),
+  Address_Zip INT,
 
   Camper_Email VARCHAR(70),
   Parent_Email VARCHAR(70),
@@ -325,8 +315,6 @@ CREATE TABLE Demographic_Contacts (
 #
 # Child -> Camper Application -> Parent -> Emergency Contact Info
 #
-
-
 CREATE TABLE Parent_Emergency_Contact (
   ID MEDIUMINT,
   Date_Submitted DATE,
@@ -393,12 +381,12 @@ CREATE TABLE Allergies (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
 
-	Med_Allergy VARCHAR(20),
-	Med_Reaction VARCHAR(100),
-	Food_Allergy VARCHAR(20),
-	Food_Reaction VARCHAR(100),
-	Env_Allergy VARCHAR(20),
-	Env_Reaction VARCHAR(100),
+	Med_Allergy TINYINT(1),
+	Med_Reaction VARCHAR(200),
+	Food_Allergy TINYINT(1),
+	Food_Reaction VARCHAR(200),
+	Env_Allergy TINYINT(1),
+	Env_Reaction VARCHAR(200),
 
 	EpiPen TINYINT(1),
 
@@ -417,7 +405,8 @@ CREATE TABLE Dietary_Needs(
   Vegetarian TINYINT(1),
   Food_Restrictions VARCHAR(200),
   G_Tube ENUM('None','Medicine','Formula','Both'),
-  Formula_Supplements ENUM('None','By Mouth','By G-Tube'),
+  Formula_Supplement TINYINT(1),
+  Formula_Supplement_How ENUM('By Mouth','By G-Tube'),
   Formula_Type VARCHAR(30),
   Formula_Cans_Per_Day INT,
   Feeding_Pump TINYINT(1),
@@ -443,7 +432,6 @@ CREATE TABLE General_Health(
   Chicken_Pox TINYINT(1),
   Chicken_Pox_Date VARCHAR(20),
 
-# this section is for females only
   Menstrual_Cycle TINYINT(1),
   Menstrual_Difficulties VARCHAR(300),
 
@@ -473,8 +461,6 @@ CREATE TABLE Pyschosocial_and_Behavioral_info (
 
 
 # Child -> Camper App -> Parent -> Medications
-DROP TABLE IF EXISTS Medications;
-
 CREATE TABLE Parent_Medications (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
@@ -521,7 +507,6 @@ CREATE TABLE Medical_Care_Provider (
 
 
 #Child -> Camper App -> Medical Care Provider -> Medical History
-DROP TABLE IF EXISTS Medical_History;
 
 CREATE TABLE Medical_History (
 	ID MEDIUMINT NOT NULL,
@@ -530,15 +515,13 @@ CREATE TABLE Medical_History (
 	Management VARCHAR(500),
 	Nutritional_Supplements TINYINT(1),
 	Feeding_Care VARCHAR(500),
-	Formula_Type VARCHAR(50),
-	Formula_Enum ENUM('Oral', 'G-tube', 'N-G tube'),
+	Formula_Type ENUM('Oral', 'G-tube', 'N-G tube'),
 
 	PRIMARY KEY (ID, Date_Submitted),
 	FOREIGN KEY (ID, Date_Submitted) REFERENCES Medical_Care_Provider(ID, Date_Submitted) ON DELETE CASCADE );
 
 
 #Child -> Camper App -> Medical Care Provider -> Medical History -> Current Diagnosis
-DROP TABLE IF EXISTS Curr_Diagnosis;
 
 CREATE TABLE Med_Hist_Diagnosis (
 	ID MEDIUMINT NOT NULL,
@@ -551,13 +534,12 @@ CREATE TABLE Med_Hist_Diagnosis (
 
 #Child -> Camper App -> Medical Care Provider -> Medical History -> Current Diagnosis
 #if no allergies, their ID will not appear
-DROP TABLE IF EXISTS Allergies_Reactions;
 
 CREATE TABLE Med_Hist_Allergies (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
 
-	Type ENUM('Food' , 'Medication', 'Environmental', 'Other'),
+	Type ENUM('Food' , 'Medication', 'Environmental'),
 	Allergy VARCHAR(30),
 	Reaction VARCHAR(250),
 
@@ -570,12 +552,12 @@ CREATE TABLE Physical_Exam (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
 
-	Date_Completed DATE NOT NULL,
+	Date_Completed DATE,
 	Height VARCHAR(7),	# format #' ##''
 	Weight INT,
 	Pulse INT,
 	Resperations INT,
-	Blood_Pressure INT,
+	Blood_Pressure VARCHAR(100),
 	HEENT VARCHAR(100),
 	Skin VARCHAR(100),
 	Cardiovascular VARCHAR(100),
@@ -609,9 +591,22 @@ CREATE TABLE Cognitive_Development_Level (
 #Child -> Camper App -> Medical Care Provider -> Immunization Record FILE I/O !!
 
 
-#Child -> Camper App -> Medical Care Provider -> Tuberculosis Screening
-DROP TABLE IF EXISTS Tuberculosis_Screening;
+#Child -> Camper App -> Medical Care Provider -> Varicella Screening
+CREATE TABLE Varicella_Screening (
+  ID MEDIUMINT NOT NULL,
+  Date_Submitted DATE,
 
+  Two_Doses TINYINT(1),
+  Chicken_Pox TINYINT(1),
+  Chicken_Pox_Date DATE,
+  Varicella_Antibody TINYINT(1),
+  Varicella_Antibody_Date DATE,
+
+  PRIMARY KEY (ID, Date_Submitted),
+  FOREIGN KEY (ID, Date_Submitted) REFERENCES Medical_Care_Provider(ID, Date_Submitted) ON DELETE CASCADE );
+
+
+#Child -> Camper App -> Medical Care Provider -> Tuberculosis Screening
 CREATE TABLE Tuberculosis_Screening (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
@@ -637,9 +632,7 @@ CREATE TABLE MedCareProvider_Medications (
   FOREIGN KEY (ID, Date_Submitted) REFERENCES Medical_Care_Provider(ID, Date_Submitted) ON DELETE CASCADE );
 
 
-#
 # Child -> Camper Application -> Medical Provider -> Verification Statement
-#
 CREATE TABLE Medical_Provider_Verification_Statement (
   ID MEDIUMINT,
   Date_Submitted DATE,
@@ -672,8 +665,8 @@ CREATE TABLE HIV_Provider (
 /******************************************************************************************************************************************************/
 
 
-#Child -> Camp App -> HIV Provider -> heath history
-CREATE TABLE Heatlh_History (
+#Child -> Camp App -> HIV Provider -> health history
+CREATE TABLE Health_History (
 	ID MEDIUMINT NOT NULL,
 	Date_Submitted DATE,
 

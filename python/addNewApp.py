@@ -3,20 +3,17 @@ from Tkinter import *
 import MySQLdb
 import tkMessageBox
 
-class AddNewApp(tk.Tk):
-    def __init__(self, master):
-        self.master = master
-        master.title = "Add a New Application"
+    def AddNewAppPage(self):
 
+        self.AddNewAppPageRoot = Toplevel()
+        root = self.AddNewAppPageRoot
 
-        """Pull in a request from the database
-        about the programs that are offered
-        and then add them to a list and pull them into the programList"""
-
+        if self.PrevPage is 'HomePage':
+            self.HomePageRoot.withdraw()
+        self.PrevPage = 'AddNewAppPage'
 
         #get this program list from the DB
         programList = ['none', 'Child Application', 'Camper Application']
-        global programs
         programs = StringVar()
         programs.set(programList[0])
         dropdownProgram = OptionMenu(master, programs, *programList)
@@ -26,14 +23,12 @@ class AddNewApp(tk.Tk):
         labelDate = Label(master, text = "Date Submitted (YYYY-MM-DD)")
         labelDate.grid(row = 1, column = 3)
 
-        global entryDate
         entryDate = Entry(master, bd = 3)
         entryDate.grid(row = 1, column = 4)
 
         returningTxt = Label(master, text = "Returning Child?")
         returningTxt.grid(row = 2, column = 3)
 
-        global v
         v = StringVar()
         returningInq = Radiobutton(master, text="Yes", variable=v, value=1)
         returningInq.grid(row = 2,column = 4)
@@ -43,24 +38,20 @@ class AddNewApp(tk.Tk):
 
         v.set(0)
 
-        createButton = Button(master, text = "Create", command = self.create)
+        createButton = Button(master, text = "Create", command = lambda:self.createNewApp(programs, entryDate, v))
         createButton.grid(row = 3, column = 3)
 
-        closeButton = Button(master, text = "Back", command = self.close)
-        closeButton.grid(row  = 0, column = 0)
+        backButton = Button(master, text = "Back", command = lambda:self.HomePage())
+        backButton.grid(row  = 0, column = 0)
 
 
-    def create(self):
+    def createNewApp(self, programs, entryDate, v):
         #send to create page
         #add an application form to the DB
 
-        db = MySQLdb.connect(
-            host = "localhost",
-            user="root",
-            passwd="Mr10371!",
-            db="HERO" )
+       #Database Connection
+        db = self.connect()
         curr = db.cursor()
-
 
         if v.get() == '2':             # If they are not a returning child, add them and date submitted into Child()
             curr.execute("INSERT INTO Child() VALUES ();") #is this actually auto incrementing
@@ -90,15 +81,9 @@ class AddNewApp(tk.Tk):
         else:         #user failed to select Yes/No for returning Child
             tkMessageBox.showinfo("Add a New Application","Please select Yes or No for 'Returning User?'")
 
-        print "app created"
-
         curr.close()
         db.close()
 
-    def close(self):
-        #closes pages
-        self.master.destroy()
-
 master = Tk()
-my_gui = AddNewApp(master)
+my_gui = AddNewAppPage(master)
 master.mainloop()

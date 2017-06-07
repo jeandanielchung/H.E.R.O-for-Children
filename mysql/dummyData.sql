@@ -121,14 +121,14 @@ INSERT INTO Medical_Information (ID, Date_Submitted, Current_Medical_Conditions,
 	(2,'2016-12-12', 'HIV','She is young and hyperactive');
 
 
-INSERT INTO Allergies (ID,Date_Submitted, Food_Allergy, Food_Reaction, Env_Allergy, Env_Reaction) VALUES (1,'2016-11-24', 'Cheese', 'Poops smell bad', 'Grass', 'Gets an uncomfortable rash, but will not die');
-INSERT INTO Allergies (ID,Date_Submitted, Env_Allergy, Env_Reaction) VALUES (2,'2016-12-12', 'Bees', 'Swelling, but won"t die');
+INSERT INTO Allergies (ID,Date_Submitted, Food_Allergy, Food_Reaction, Env_Allergy, Env_Reaction) VALUES (1,'2016-11-24', 1, 'Cheese: Poops smell bad', 1, 'Grass: Gets an uncomfortable rash, but will not die');
+INSERT INTO Allergies (ID,Date_Submitted, Env_Allergy, Env_Reaction) VALUES (2,'2016-12-12', 1, 'Bees: Swelling, but won"t die');
 
 
 
-INSERT INTO Dietary_Needs (ID, Date_Submitted, Special_Dietary_Needs, Vegetarian, Food_Restrictions, G_Tube, Formula_Supplements, Formula_Type, Formula_Cans_Per_Day, Feeding_Pump, Feeding_Schedule) VALUES
-	(1,'2016-11-24', 1, 0, 'No cheese, but can have milk and yogurt', 'None', 'None', 'None', 0, 0, 'Breakfast, Lunch, and Dinner with some snacks'),
-	(2,'2016-12-12', 0, 1, 'Sugar makes her ADD worse', 'Medicine', 'By Mouth', 'Growth suppliments', 10, 0, 'Only breakfast and lunch, we do not want her to eat carbs late in the day');
+INSERT INTO Dietary_Needs (ID, Date_Submitted, Special_Dietary_Needs, Vegetarian, Food_Restrictions, G_Tube, Formula_Supplement, Formula_Supplement_How, Formula_Type, Formula_Cans_Per_Day, Feeding_Pump, Pump_Type, Feeding_Schedule) VALUES
+	(1,'2016-11-24', 1, 0, 'No cheese, but can have milk and yogurt', 'None', 1, 'By G-Tube', 'None', 0, 0, 'regular', 'Breakfast, Lunch, and Dinner with some snacks'),
+	(2,'2016-12-12', 0, 1, 'Sugar makes her ADD worse', 'Medicine', 1, 'By Mouth', 'Growth suppliments', 10, 0, 'idk', 'Only breakfast and lunch, we do not want her to eat carbs late in the day');
 
 
 
@@ -160,10 +160,10 @@ INSERT INTO Medical_Care_Provider(ID, Date_Submitted,Restrictions_And_Recommenda
 
 
 
-INSERT INTO Medical_History (ID, Date_Submitted, Management, Nutritional_Supplements, Feeding_Care, Formula_Type, Formula_Enum) VALUES
-	(1,'2016-11-24', 'He is a lot to manage', 1, 'He needs a lot of fiber', 'Apples and oatmeal, preferably together', 'Oral');
+INSERT INTO Medical_History (ID, Date_Submitted, Management, Nutritional_Supplements, Feeding_Care, Formula_Type) VALUES
+	(1,'2016-11-24', 'He is a lot to manage', 1, 'He needs a lot of fiber', 'Oral');
 INSERT INTO Medical_History VALUES
-	(2,'2016-12-12', 'She needs a lot of supervision', 1, 'She cannot have sugar', 'Low sugar', 'G-tube');
+	(2,'2016-12-12', 'She needs a lot of supervision', 1, 'She cannot have sugar', 'G-tube');
 
 
 
@@ -182,17 +182,23 @@ INSERT INTO Med_Hist_Allergies (ID, Date_Submitted, Type, Allergy, Reaction) VAL
 
 
 INSERT INTO Physical_Exam (ID, Date_Submitted, Date_Completed, Height, Weight, Pulse, Resperations, Blood_Pressure, HEENT, Skin, Cardiovascular, GU_GYN, Pulmonary, Glasses_HearingAids_PE, Abdomen, Lymph_Nodes, Extremities,Spine, Miscellaneous, Comments) VALUES
-	(1,'2016-11-24', '2016-10-31', '5" 6""', 140, 59, 30, 145, 'I do not remember what this is', 'Pale', 'Heart pumping', 'Doing great',
+	(1,'2016-11-24', '2016-10-31', '5" 6""', 140, 59, 30, '145', 'I do not remember what this is', 'Pale', 'Heart pumping', 'Doing great',
 		'No problems here', 'Has reading and near sighted glasses and hearing aids', 'Ripped abs', 'they are nodin', 'Arthritis in extremities',
 		'strong spine', 'graying hair and balding', 'overall doing great, just aging'),
-	(2,'2016-12-12', '2016-05-20', '4" 5"', 98, 68, 20, 130, 'Who knows', 'Tan, watch out for skin cancer', 'Heart is doing the thing', 'So good', 'really cool pulmonary', 'No glasses or hearing aids', 'flabby tummy', 'not as nodin as John', 'weak arms', 'spine is aight','really nice hair', 'is overall doing well');
+	(2,'2016-12-12', '2016-05-20', '4" 5"', 98, 68, 20, '130', 'Who knows', 'Tan, watch out for skin cancer', 'Heart is doing the thing', 'So good', 'really cool pulmonary', 'No glasses or hearing aids', 'flabby tummy', 'not as nodin as John', 'weak arms', 'spine is aight','really nice hair', 'is overall doing well');
 
 
 INSERT INTO Cognitive_Development_Level (ID, Date_Submitted, Development_Level, Other_Psychosocial_Information) VALUES (1,'2016-11-24',NULL,NULL), (2,'2016-12-12',NULL,NULL);
 
+INSERT INTO Varicella_Screening (ID, Date_Submitted, Two_Doses, Chicken_Pox, Chicken_Pox_Date, Varicella_Antibody, Varicella_Antibody_Date) VALUES
+	(1,'2016-11-24', 1, 1,'2016-02-15', 1, '2014-03-15'),
+	(2,'2016-12-12', 1, 1, '2013-03-13', 1, '2011-11-11');
 
 INSERT INTO Tuberculosis_Screening (ID, Date_Submitted, Type, Date_Screened, Result) VALUES
 	(1,'2016-11-24', 'Chest X-ray', '2016-02-15', 'No Tuberculosis here'),
+	(1,'2016-11-24', 'Tuberculin Skin Test', Null, Null),
+	(1,'2016-11-24', 'Quantiferon Testing', Null, Null),
+
 	(2,'2016-12-12', 'Tuberculin Skin Test', '2016-05-20', 'May have tuberculosis should test again');
 
 
@@ -210,7 +216,7 @@ INSERT INTO HIV_Provider(ID, Date_Submitted) VALUES
 	(1,'2016-11-24'), (2,'2016-12-12');
 
 
-INSERT INTO Heatlh_History (ID, Date_Submitted, Major_Surgical_History, Health_History, History_of_Noncompliance, Explanation) VALUES
+INSERT INTO Health_History (ID, Date_Submitted, Major_Surgical_History, Health_History, History_of_Noncompliance, Explanation) VALUES
 	(1,'2016-11-24','I aint been operated on', 'Chronic Cough', 0, 'He complies pretty well'),
 	(2,'2016-12-12', 'some people call me the terminator','ADD or ADHD', 1, 'She is rude and is not compliant');
 
