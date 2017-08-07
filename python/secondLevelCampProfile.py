@@ -81,7 +81,10 @@ class Example(tk.Frame):
         label = Label(DemographicSectionframe, text = "\nDate Submitted .......................................................................................................................... " + date)
         label.pack(anchor = 'w')
 
-#parent sections
+#
+#Parent sections
+#
+
 #Demographic info section
         #header
         labelDemographicSection = Label(DemographicSectionframe, text = "\n\nDEMOGRAPHIC INFORMATION")
@@ -310,27 +313,27 @@ class Example(tk.Frame):
                 curr.execute("SELECT Name FROM Demographic_Contacts WHERE ID = %s AND Date_Submitted = %s AND Type = %s;", (id, date, cType[0],))
                 val = curr.fetchall()[0][0]
                 if val is not None:
-                    label = Label(DemographicSectionframe, text = "\nContact Name ............................................................................................................................ " + val)
+                    label = Label(DemographicSectionframe, text = "Contact Name ............................................................................................................................ " + val)
                 else:
-                    label = Label(DemographicSectionframe, text = "\nContact Name ............................................................................................................................ Unanswered")
+                    label = Label(DemographicSectionframe, text = "Contact Name ............................................................................................................................ Unanswered")
                 label.pack(anchor = 'w')
 
                 #time pref
                 curr.execute("SELECT Time_Preference FROM Demographic_Contacts WHERE ID = %s AND Date_Submitted = %s AND Type = %s;", (id, date, cType[0],))
                 val = curr.fetchall()[0][0]
                 if val is not None:
-                    label = Label(DemographicSectionframe, text = "\nTime Preference ......................................................................................................................... " + val)
+                    label = Label(DemographicSectionframe, text = "Time Preference ......................................................................................................................... " + val)
                 else:
-                    label = Label(DemographicSectionframe, text = "\nTime Preference ......................................................................................................................... Unanswered")
+                    label = Label(DemographicSectionframe, text = "Time Preference ......................................................................................................................... Unanswered")
                 label.pack(anchor = 'w')
 
                 #phone number
                 curr.execute("SELECT Phone_Number FROM Demographic_Contacts WHERE ID = %s AND Date_Submitted = %s AND Type = %s;", (id, date, cType[0],))
                 val = curr.fetchall()[0][0]
                 if val is not None:
-                    label = Label(DemographicSectionframe, text = "\nPhone Number ............................................................................................................................ " + val)
+                    label = Label(DemographicSectionframe, text = "Phone Number ............................................................................................................................ " + val)
                 else:
-                    label = Label(DemographicSectionframe, text = "\nPhone Number ............................................................................................................................ Unanswered")
+                    label = Label(DemographicSectionframe, text = "Phone Number ............................................................................................................................ Unanswered")
                 label.pack(anchor = 'w')
         else:
             label = Label(DemographicSectionframe, text = "\nPhone Number Type ................................................................................................................... Unanswered")
@@ -342,7 +345,6 @@ class Example(tk.Frame):
             label = Label(DemographicSectionframe, text = "\nPhone Number ............................................................................................................................ Unanswered")
             label.pack(anchor = 'w')
 
-
 #Parent/ Guardian Emergency Contact Section
         #header
         labelEmergencySection = Label(DemographicSectionframe, text = "\n\nEMERGENCY CONTACT INFORMATION")
@@ -353,9 +355,10 @@ class Example(tk.Frame):
         #contacts
         curr.execute("SELECT Name FROM Parent_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         emergencyContacts = curr.fetchall()
+        contactNum = 0
         if emergencyContacts is not ():
-            contactNum = 1
             for contact in emergencyContacts:
+                contactNum += 1
 
                 #taken
                 label = Label(DemographicSectionframe, text = "\nEmergency Contact Name " + str(contactNum) + " ....................................................................................................... " + contact[0])
@@ -365,41 +368,49 @@ class Example(tk.Frame):
                 curr.execute("SELECT Relationship FROM Parent_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s AND Name = %s;", (id, date, contact[0]))
                 val = curr.fetchall()[0][0]
                 if val is not None:
-                    label = Label(DemographicSectionframe, text = "\nRelationship to Camper .............................................................................................................. " + val)
+                    label = Label(DemographicSectionframe, text = "Relationship to Camper .............................................................................................................. " + val)
                 else:
-                    label = Label(DemographicSectionframe, text = "\nRelationship to Camper .............................................................................................................. Unanswered")
+                    label = Label(DemographicSectionframe, text = "Relationship to Camper .............................................................................................................. Unanswered")
                 label.pack(anchor = 'w')
                             
                 #Daytime Phone
                 curr.execute("SELECT Daytime_Phone FROM Parent_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s AND Name = %s;", (id, date, contact[0]))
                 val = curr.fetchall()[0][0]
                 if val is not None:
-                    label = Label(DemographicSectionframe, text = "\nDaytime Phone ........................................................................................................................... " + val)
+                    label = Label(DemographicSectionframe, text = "Daytime Phone ........................................................................................................................... " + val)
                 else:
-                    label = Label(DemographicSectionframe, text = "\nDaytime Phone ........................................................................................................................... Unanswered")
+                    label = Label(DemographicSectionframe, text = "Daytime Phone ........................................................................................................................... Unanswered")
                 label.pack(anchor = 'w')
                 
                 #Evening Phone
                 curr.execute("SELECT Evening_Phone FROM Parent_Emergency_Contact WHERE ID = %s AND Date_Submitted = %s AND Name = %s;", (id, date, contact[0]))
                 val = curr.fetchall()[0][0]
                 if val is not None:
-                    label = Label(DemographicSectionframe, text = "\nEvening Phone ........................................................................................................................... " + val)
+                    label = Label(DemographicSectionframe, text = "Evening Phone ........................................................................................................................... " + val)
                 else:
-                    label = Label(DemographicSectionframe, text = "\nEvening Phone ........................................................................................................................... Unanswered")
+                    label = Label(DemographicSectionframe, text = "Evening Phone ........................................................................................................................... Unanswered")
                 label.pack(anchor = 'w')
+        
+        if contactNum < 1:
+            label = Label(DemographicSectionframe, text = "\nEmergency Contact Name 1 ....................................................................................................... Unanswered")
+            label.pack(anchor = 'w')
+            label = Label(DemographicSectionframe, text = "Relationship to Camper .............................................................................................................. Unanswered")
+            label.pack(anchor = 'w')
+            label = Label(DemographicSectionframe, text = "Daytime Phone ........................................................................................................................... Unanswered")
+            label.pack(anchor = 'w')
+            label = Label(DemographicSectionframe, text = "Evening Phone ........................................................................................................................... Unanswered")
+            label.pack(anchor = 'w')
 
-                contactNum += 1
+        if contactNum < 2:
+            label = Label(DemographicSectionframe, text = "\nEmergency Contact Name 2 ....................................................................................................... Unanswered")
+            label.pack(anchor = 'w')
+            label = Label(DemographicSectionframe, text = "Relationship to Camper .............................................................................................................. Unanswered")
+            label.pack(anchor = 'w')
+            label = Label(DemographicSectionframe, text = "Daytime Phone ........................................................................................................................... Unanswered")
+            label.pack(anchor = 'w')
+            label = Label(DemographicSectionframe, text = "Evening Phone ........................................................................................................................... Unanswered")
+            label.pack(anchor = 'w')
 
-        else:
-            label = Label(DemographicSectionframe, text = "\nEmergency Contact Name " + str(contactNum) + " ....................................................................................................... Unanswered")
-            label.pack(anchor = 'w')
-            label = Label(DemographicSectionframe, text = "\nRelationship to Camper .............................................................................................................. Unanswered")
-            label.pack(anchor = 'w')
-            label = Label(DemographicSectionframe, text = "\nDaytime Phone ........................................................................................................................... Unanswered")
-            label.pack(anchor = 'w')
-            label = Label(DemographicSectionframe, text = "\nEvening Phone ........................................................................................................................... Unanswered")
-            label.pack(anchor = 'w')
-            
 #Insurance Info Section
         #header
         labelInsuranceSection = Label(DemographicSectionframe, text = "\n\nINSURANCE INFORMATION")
@@ -434,7 +445,7 @@ class Example(tk.Frame):
         label.pack(anchor = 'w')
 
         #Group Number
-        curr.execute("SELECT Type_of_Health_Insurance FROM Insurance_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        curr.execute("SELECT Group_Number FROM Insurance_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         if val is not None:
             label = Label(DemographicSectionframe, text = "\nGroup Number ........................................................................................................................... " + val)
@@ -490,22 +501,17 @@ class Example(tk.Frame):
         labelMedInfoSection.pack(fill = "x")
         labelMedInfoSection.config(font=("Helvetica", 20))
 
-        #Conditions
+        #Conditions + Other
         curr.execute("SELECT Current_Medical_Conditions FROM Medical_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        val = curr.fetchall()[0][0]
-        if val is not None:
-            label = Label(DemographicSectionframe, text = "\nCurrent Medical Conditions ........................................................................................................ " + val)
+        conditions = curr.fetchall()[0][0]
+        curr.execute("SELECT Other FROM Medical_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        other = curr.fetchall()[0][0]
+        if conditions is not None and other is not None:
+            label = Label(DemographicSectionframe, text = "\nCurrent Medical Conditions ........................................................................................................ " + conditions + ": " + other)
+        elif conditions is not None:
+            label = Label(DemographicSectionframe, text = "\nCurrent Medical Conditions ........................................................................................................ " + conditions)
         else:
             label = Label(DemographicSectionframe, text = "\nCurrent Medical Conditions ........................................................................................................ Unanswered")
-        label.pack(anchor = 'w')
-        
-        #Conditions other
-        curr.execute("SELECT Other FROM Medical_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        val = curr.fetchall()[0][0]
-        if val is not None:
-            label = Label(DemographicSectionframe, text = "\nIf Other ...................................................................................................................................... " + val)
-        else:
-            label = Label(DemographicSectionframe, text = "\nIf Other ...................................................................................................................................... Unanswered")
         label.pack(anchor = 'w')
 
         #Conditions Explained
@@ -650,7 +656,10 @@ class Example(tk.Frame):
         curr.execute("SELECT Formula_Supplement FROM Dietary_Needs WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         if val is not None:
-            label = Label(DemographicSectionframe, text = "\nFormula Supplements ................................................................................................................ " + str(val))
+            if val:
+                label = Label(DemographicSectionframe, text = "\nFormula Supplements ................................................................................................................ Yes")
+            else:
+                label = Label(DemographicSectionframe, text = "\nFormula Supplements ................................................................................................................ No")
         else:
             label = Label(DemographicSectionframe, text = "\nFormula Supplements ................................................................................................................ Unanswered")
         label.pack(anchor = 'w')
@@ -686,10 +695,14 @@ class Example(tk.Frame):
         curr.execute("SELECT Feeding_Pump FROM Dietary_Needs WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         if val is not None:
-            label = Label(DemographicSectionframe, text = "\nFeeding Pump ............................................................................................................................ " + str(val))
+            if val:
+                label = Label(DemographicSectionframe, text = "\nFeeding Pump ............................................................................................................................ Yes")
+            else:
+                label = Label(DemographicSectionframe, text = "\nFeeding Pump ............................................................................................................................ No")
         else:
             label = Label(DemographicSectionframe, text = "\nFeeding Pump ............................................................................................................................ Unanswered")
         label.pack(anchor = 'w')
+
 
         #Feeding Pump Type
         curr.execute("SELECT Pump_Type FROM Dietary_Needs WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
@@ -715,7 +728,7 @@ class Example(tk.Frame):
         labelFoodNeedsSection.pack(fill = "x")
         labelFoodNeedsSection.config(font=("Helvetica", 20))
 
-        #Physical Limitations
+        #Physical Limitations + Other
         curr.execute("SELECT Physical_Limitations FROM General_Health WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         physLimit = curr.fetchall()[0][0]
         curr.execute("SELECT Other FROM General_Health WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
@@ -801,7 +814,7 @@ class Example(tk.Frame):
         labelBehaviorSection.pack(fill = "x")
         labelBehaviorSection.config(font=("Helvetica", 20))
 
-        #How long Camper known
+        #Camper knows
         curr.execute("SELECT Camper_Knows FROM Pyschosocial_and_Behavioral_info WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         if val is not None:
@@ -988,8 +1001,11 @@ class Example(tk.Frame):
         else:
             label = Label(DemographicSectionframe, text = "\nParental Consent and Release Form Signed ................................................................................. Unanswered")
         label.pack(anchor = 'w')
-                  
+
+#                  
 #Medical provider sections
+#
+
 #medical history
         #header
         labelMedicalProviderSection = Label(DemographicSectionframe, text = "\n\nMEDICAL HISTORY")
@@ -1326,7 +1342,7 @@ class Example(tk.Frame):
             label = Label(DemographicSectionframe, text = "\nVaricella antibody ....................................................................................................................... Unanswered")
         label.pack(anchor = 'w')
 
-        #Chicken_Pox_Date
+        #Varicella_Antibody_Date
         curr.execute("SELECT Varicella_Antibody_Date FROM Varicella_Screening WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         if val is not None:
@@ -1559,7 +1575,10 @@ class Example(tk.Frame):
             label = Label(DemographicSectionframe, text = "\nEmergency Contact .................................................................................................. Unanswered")
         label.pack(anchor = 'w')
 
+#
 #hiv provider sections
+#
+
 #health history
         #header
         labelHealthHistorySection = Label(DemographicSectionframe, text = "\n\nHEALTH HISTORY INFORMATION FROM HIV PROVIDER")
@@ -1720,9 +1739,38 @@ class Example(tk.Frame):
             label = Label(DemographicSectionframe, text = "Viral Load ................................................................................................................................... Unanswered")
         label.pack(anchor = 'w')
 
+
+
 #Close Database Connection
         curr.close()
         db.close()
+
+#check string entry is a number
+    def is_number(self, s):
+        try:
+            int(s)
+            return True
+        except ValueError:
+            return False
+
+#check string entry is a date (YYYY-MM-DD)
+    def is_date(self, s):
+        if len(s) != 10:
+            return False
+        if (s[4] != s[7]) or (s[4] != '-') or (not self.is_number(s[0:4])) or (not self.is_number(s[5:7])) or (not self.is_number(s[-2:])):
+            return False
+        if (1 > int(s[0:4])) or (1 > int(s[5:7])) or (int(s[5:7]) > 12) or (1 > int(s[-2:])):
+            return False
+        if int(s[5:7]) == 02:
+            if (int(s[-2:]) > 29):
+                return False
+        elif (int(s[5:7]) == 04) or (int(s[5:7]) == 06) or (int(s[5:7]) == 9) or (int(s[5:7]) == 11):
+            if (int(s[-2:]) > 30): 
+                return False
+        elif int(s[-2:]) > 31:
+            return False
+
+        return True
 
     def back(self):
         #Go back to 1st level profile page

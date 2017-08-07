@@ -99,6 +99,8 @@ INSERT INTO Demographic_Information (ID, Date_Submitted, First_Name, Last_Name, 
 
 INSERT INTO Demographic_Contacts (ID, Date_Submitted, Type, Name, Time_Preference, Phone_Number) VALUES
 	(1,'2016-11-24', 'Home', 'Karla Osman', 'Evening', '7709736653'),
+	(1,'2016-11-24', 'Cell', NULL, NULL, NULL),
+	(1,'2016-11-24', 'Work', 'Patrice', 'Day', '8312331996'),
 	(2,'2016-12-12', 'Cell', 'Ted Lamprich', 'Day', '3188901234');
 
 

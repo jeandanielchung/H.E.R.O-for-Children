@@ -51,6 +51,10 @@ class Example(tk.Frame):
         DemographicSectionframe.pack(fill = 'y', side = 'left') 
         r = 0
 
+#
+#Parent sections
+#
+
 #Demographic info section
         #header
         labelDemographicSection = Label(DemographicSectionframe, text = "\n\nDEMOGRAPHIC INFORMATION")
@@ -1381,6 +1385,10 @@ class Example(tk.Frame):
         No.grid(row = r, column = 1, sticky = 'e')
         label.grid(row = r, column = 0)
 
+#                  
+#Medical provider sections
+#
+
 #Medical provider
         #header
         labelMedicalProviderSection = Label(DemographicSectionframe, text = "\n\nMEDICAL PROVIDER INFORMATION")
@@ -1469,63 +1477,63 @@ class Example(tk.Frame):
         label.grid(row = r, column = 0)
 
         #reaction1
-        label = Label(DemographicSectionframe, text = "\nReaction 1 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 1 .................................................................................................................................. ")
         foodReaction1 = Entry(DemographicSectionframe)
         r = r+1
         foodReaction1.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy2
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 2 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 2 .................................................................................................................................... ")
         foodAllergy2 = Entry(DemographicSectionframe)
         r = r+1
         foodAllergy2.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction2
-        label = Label(DemographicSectionframe, text = "\nReaction 2 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 2 .................................................................................................................................. ")
         foodReaction2 = Entry(DemographicSectionframe)
         r = r+1
         foodReaction2.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy3
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 3 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 3 .................................................................................................................................... ")
         foodAllergy3 = Entry(DemographicSectionframe)
         r = r+1
         foodAllergy3.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction3
-        label = Label(DemographicSectionframe, text = "\nReaction 3 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 3 .................................................................................................................................. ")
         foodReaction3 = Entry(DemographicSectionframe)
         r = r+1
         foodReaction3.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy4
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 4 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 4 .................................................................................................................................... ")
         foodAllergy4 = Entry(DemographicSectionframe)
         r = r+1
         foodAllergy4.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction4
-        label = Label(DemographicSectionframe, text = "\nReaction 4 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 4 .................................................................................................................................. ")
         foodReaction4 = Entry(DemographicSectionframe)
         r = r+1
         foodReaction4.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy5
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 5 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 5 .................................................................................................................................... ")
         foodAllergy5 = Entry(DemographicSectionframe)
         r = r+1
         foodAllergy5.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction5
-        label = Label(DemographicSectionframe, text = "\nReaction 5 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 5 .................................................................................................................................. ")
         foodReaction5 = Entry(DemographicSectionframe)
         r = r+1
         foodReaction5.grid(row = r, column = 1)
@@ -1544,63 +1552,63 @@ class Example(tk.Frame):
         label.grid(row = r, column = 0)
 
         #reaction1
-        label = Label(DemographicSectionframe, text = "\nReaction 1 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 1 .................................................................................................................................. ")
         medReaction1 = Entry(DemographicSectionframe)
         r = r+1
         medReaction1.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy2
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 2 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 2 .................................................................................................................................... ")
         medAllergy2 = Entry(DemographicSectionframe)
         r = r+1
         medAllergy2.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction2
-        label = Label(DemographicSectionframe, text = "\nReaction 2 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 2 .................................................................................................................................. ")
         medReaction2 = Entry(DemographicSectionframe)
         r = r+1
         medReaction2.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy3
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 3 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 3 .................................................................................................................................... ")
         medAllergy3 = Entry(DemographicSectionframe)
         r = r+1
         medAllergy3.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction3
-        label = Label(DemographicSectionframe, text = "\nReaction 3 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 3 .................................................................................................................................. ")
         medReaction3 = Entry(DemographicSectionframe)
         r = r+1
         medReaction3.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy4
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 4 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 4 .................................................................................................................................... ")
         medAllergy4 = Entry(DemographicSectionframe)
         r = r+1
         medAllergy4.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction4
-        label = Label(DemographicSectionframe, text = "\nReaction 4 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 4 .................................................................................................................................. ")
         medReaction4 = Entry(DemographicSectionframe)
         r = r+1
         medReaction4.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy5
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 5 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 5 .................................................................................................................................... ")
         medAllergy5 = Entry(DemographicSectionframe)
         r = r+1
         medAllergy5.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction5
-        label = Label(DemographicSectionframe, text = "\nReaction 5 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 5 .................................................................................................................................. ")
         medReaction5 = Entry(DemographicSectionframe)
         r = r+1
         medReaction5.grid(row = r, column = 1)
@@ -1619,63 +1627,63 @@ class Example(tk.Frame):
         label.grid(row = r, column = 0)
 
         #reaction1
-        label = Label(DemographicSectionframe, text = "\nReaction 1 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 1 .................................................................................................................................. ")
         envReaction1 = Entry(DemographicSectionframe)
         r = r+1
         envReaction1.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy2
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 2 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 2 .................................................................................................................................... ")
         envAllergy2 = Entry(DemographicSectionframe)
         r = r+1
         envAllergy2.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction2
-        label = Label(DemographicSectionframe, text = "\nReaction 2 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 2 .................................................................................................................................. ")
         envReaction2 = Entry(DemographicSectionframe)
         r = r+1
         envReaction2.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy3
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 3 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 3 .................................................................................................................................... ")
         envAllergy3 = Entry(DemographicSectionframe)
         r = r+1
         envAllergy3.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction3
-        label = Label(DemographicSectionframe, text = "\nReaction 3 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 3 .................................................................................................................................. ")
         envReaction3 = Entry(DemographicSectionframe)
         r = r+1
         envReaction3.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy4
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 4 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 4 .................................................................................................................................... ")
         envAllergy4 = Entry(DemographicSectionframe)
         r = r+1
         envAllergy4.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction4
-        label = Label(DemographicSectionframe, text = "\nReaction 4 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 4 .................................................................................................................................. ")
         envReaction4 = Entry(DemographicSectionframe)
         r = r+1
         envReaction4.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #allergy5
-        label = Label(DemographicSectionframe, text = "\n\nAllergy 5 .................................................................................................................................... ")
+        label = Label(DemographicSectionframe, text = "\nAllergy 5 .................................................................................................................................... ")
         envAllergy5 = Entry(DemographicSectionframe)
         r = r+1
         envAllergy5.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
 
         #reaction5
-        label = Label(DemographicSectionframe, text = "\nReaction 5 .................................................................................................................................. ")
+        label = Label(DemographicSectionframe, text = "Reaction 5 .................................................................................................................................. ")
         envReaction5 = Entry(DemographicSectionframe)
         r = r+1
         envReaction5.grid(row = r, column = 1)
@@ -2295,6 +2303,10 @@ class Example(tk.Frame):
         r = r+1
         medProvVerState8.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
+
+#
+#hiv provider sections
+#
 
 #health history
         #header
@@ -3875,6 +3887,10 @@ class Example(tk.Frame):
         medProvVerState8 = medProvVerStateArr[8].get()
         if medProvVerState8 == '':
             medProvVerState8 = None
+
+#
+#HIV_Provider section
+#
 
 #health history
         healthHistory0 = healthHistoryArr[0].get()
