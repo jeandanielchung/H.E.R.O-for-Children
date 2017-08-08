@@ -4,6 +4,7 @@ from tkMessageBox import *
 import tkMessageBox
 import MySQLdb
 
+#TODO: add in camp pages
 #TODO: add exit buttons
 #TODO: Fix edit so that none are global and it is passing params instead (see childInfo0)
 #TODO: pass in proper params for id in adding to database
@@ -4315,7 +4316,7 @@ class Main():
                 criteria = Label(master, text = criteriaText)
                 criteria.grid(row = r, column = 3)
 
-                profBut = Button(master, text = "See Profile")
+                profBut = Button(master, text = "See Profile", command = lambda ID = num[0]: self.FirstProfilePage(ID))
                 profBut.grid(row = r, column = 4)
                 r = r+1
 
@@ -4359,7 +4360,7 @@ class Main():
                 criteria = Label(master, text = criteriaText)
                 criteria.grid(row = r, column = 3)
 
-                profBut = Button(master, text = "See Profile")
+                profBut = Button(master, text = "See Profile", command = lambda ID = num[0]: self.FirstProfilePage(ID))
                 profBut.grid(row = r, column = 4)
                 r = r+1
 
@@ -4544,7 +4545,6 @@ class Main():
         r = r+1
         if (child):
             for num in child:
-
                 ID = Label(master, text = num[0])
                 ID.grid(row = r, column = 0)
 
@@ -4562,8 +4562,9 @@ class Main():
                     )
                 Name.grid(row = r, column = 2)
 
-                profBut = Button(master, text = "See Profile")
+                profBut = Button(master, text = "See Profile", command = lambda ID = num[0]: self.FirstProfilePage(ID))
                 profBut.grid(row = r, column = 4)
+
                 r = r+1
         
         else:
@@ -4594,7 +4595,7 @@ class Main():
                     )
                 Name.grid(row = r, column = 2)
 
-                profBut = Button(master, text = "See Profile", command = lambda: self.FirstProfilePage(num[0]))
+                profBut = Button(master, text = "See Profile", command = lambda ID = num[0]: self.FirstProfilePage(ID))
                 profBut.grid(row = r, column = 4)
                 r = r+1
 
@@ -4658,7 +4659,7 @@ class Main():
             dateLabel = Label(master, text= childDate[0]).grid(row=r, column=1)
 
             # Details button will take you to another page
-            details = Button(master, text="See Details", command=lambda: self.seeDetails(id, childDate[0])).grid(row=r, column=5)
+            details = Button(master, text="See Details", command=lambda childDate = childDate[0]: self.seeDetails(id, childDate)).grid(row=r, column=5)
             r = r + 1
 
         #camp app
@@ -4673,7 +4674,7 @@ class Main():
             dateLabel = Label(master, text= campDate[0]).grid(row=r, column=1)
 
             # Details button will take you to another page
-            details = Button(master, text="See Details", command=lambda: self.seeDetails(id, campDate[0])).grid(row=r, column=5)
+            details = Button(master, text="See Details", command=lambda campDate = campDate[0]: self.seeDetails(id, campDate)).grid(row=r, column=5)
             r = r + 1
 
         curr.close()
