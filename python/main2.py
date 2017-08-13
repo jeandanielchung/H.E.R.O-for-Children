@@ -4,13 +4,13 @@ from tkMessageBox import *
 import tkMessageBox
 import MySQLdb
 
-#TODO: add exit buttons
-#TODO: Fix edit so that none are global and it is passing params instead (see childInfo0)
-#TODO: pass in proper params for id in adding to database
+#TODO: Fix edit so that none are global and it is passing params instead (see childInfo0 & childInfo1)
 #TODO: edit child checkboxes make it "if var is not None" and then create UI (see edit camper app)
 #TODO: figure out fixing if they use a contraction ex: doesn't
 #TODO: add lables for "PARENT SECTION", "MEDICAL PROVIDOR SECTION", "HIV PROVIDOR SECTION"
 #TODO: Handle feedback for data errors that's too long!! in edit child. ex: VARCHAR(30)
+#TODO: Immunization PDF
+#TODO: deal with demographic contacts
 
 class Main():
 
@@ -24,7 +24,6 @@ class Main():
         self.LoginPage()
         self.username = ""
         self.session['login'] = False
-
     def connect(self):
         try:
             db = MySQLdb.connect(
@@ -32,13 +31,26 @@ class Main():
                 user="root",
                 passwd = "Darling",
                 db="HERO")
+            exitOK = False
             return db
         except:
             tkMessageBox.showinfo("Error!","Check your internet connection.")
 
+    def disConnect(self, curr, db):
+        curr.close()
+        db.close()
+
+        exitOK = True
+            
+    def exit(self):
+        if exitOK:
+            self.root.destroy()
+
 #******************************************************************************************************************************************************
 
     def LoginPage(self):
+        global exitOK
+        exitOK = True
 
         self.root.withdraw()
 
@@ -72,12 +84,16 @@ class Main():
 
         loginButton = Button(master, text = "login", command = lambda: self.login(entryUsername.get(), entryPassword.get(),))
         loginButton.grid(row = 3, column = 2)
+        
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 0)
 
     def login(self, username, password):
 
        #Database Connection
         db = self.connect()
         curr = db.cursor()
+
 
         curr.execute("SELECT * FROM User WHERE Username = %s AND Password = SHA1(%s)", (username, password,))
         result = curr.fetchone()
@@ -87,14 +103,13 @@ class Main():
             self.session['username'] = username
             self.session['credentials'] = result[3]            
             
-            curr.close()
-            db.close()
+            self.disConnect(curr, db)
             
             self.HomePage()
         else:
             tkMessageBox.showinfo("Login Page", "Either password or username was incorrect, try again")
-            curr.close()
-            db.close()
+            self.disConnect(curr, db)
+
 
 #******************************************************************************************************************************************************
 
@@ -118,6 +133,9 @@ class Main():
 
         username = self.session['username']
         credentials = self.session['credentials']
+
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
         
         logoutButton = Button(master, text = "Log Out", command=lambda: self.LoginPage())
         logoutButton.grid(row = 0, column = 0)
@@ -182,6 +200,9 @@ class Main():
 
         v.set(0)
 
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
+
         createButton = Button(master, text = "Create", command = lambda:self.createNewApp(programs, entryDate, v))
         createButton.grid(row = 4, column = 4, sticky = 'w')
 
@@ -194,11 +215,11 @@ class Main():
 
         Date = entryDate.get()
         program =  programs.get()
-        
-        if Date is '' or program is '':
+
+        if Date is '' or program is '' or program == 'none':
             tkMessageBox.showinfo("Add a New Applicaiton","Please fill in program and date")
 
-        if not self.is_date(Date):
+        elif not self.is_date(Date):
             tkMessageBox.showinfo("Add a New Applicaiton", "Submission Unsucessful\n\nIncompatible entry in Date Submitted\n\nDate must be if YYYY-MM-DD format\nAnd must be a real date.")
             goodData = 0
 
@@ -215,8 +236,9 @@ class Main():
             curr.execute("SELECT MAX(ID) FROM Child;")
             ID = curr.fetchall()[0][0]
 
+            self.disConnect(curr, db)
+
             #Add the ID and Date_Submitted into the program specified by the user
-            #Needs a check for valid date format
             if program == 'Child Application':
                 self.NewChildProfilePage(ID, Date)
 
@@ -248,43 +270,46 @@ class Main():
 
         #5 columns at least 3 rows
         idLabel = Label(master, text = "ID")
-        idLabel.grid(row = 2, column = 0)
+        idLabel.grid(row = 2, column = 2)
 
         idEntry = Entry(master, bd =3)
-        idEntry.grid(row = 2, column = 1)
+        idEntry.grid(row = 2, column = 3)
 
         divider = Label(master, text = "Or", font= "Verdana 10 underline")
-        divider.grid(row = 3, column = 1)
+        divider.grid(row = 3, column = 3)
 
         programLabel = Label(master, text = "Program Previously Enrolled In: ")
-        programLabel.grid(row = 0, column = 3)
+        programLabel.grid(row = 0, column = 4)
 
         programList = ['none', 'Child Application', 'Camper Application']
         programs = StringVar()
         programs.set(programList[0])
         dropdownProgram = OptionMenu(master, programs, *programList)
-        dropdownProgram.grid(row = 0, column = 4)
+        dropdownProgram.grid(row = 0, column = 5)
 
         nameLabel = Label(master, text = "First Name")
-        nameLabel.grid(row = 4, column = 0)
+        nameLabel.grid(row = 4, column = 2)
 
         nameEntry = Entry(master,bd = 3)
-        nameEntry.grid(row = 4, column = 1)
+        nameEntry.grid(row = 4, column = 3)
 
         name2Label = Label(master, text = "Last Name")
-        name2Label.grid(row = 5, column = 0)
+        name2Label.grid(row = 5, column = 2)
 
         name2Entry = Entry(master,bd = 3)
-        name2Entry.grid(row = 5, column = 1)
+        name2Entry.grid(row = 5, column = 3)
 
         bdLabel = Label(master, text = "Birthday (YYYY-MM-DD)")
-        bdLabel.grid(row = 6, column = 0)
+        bdLabel.grid(row = 6, column = 2)
 
         bdEntry = Entry(master, bd = 3)
-        bdEntry.grid(row = 6, column = 1)
+        bdEntry.grid(row = 6, column = 3)
 
         continueButton = Button(master, text = "Continue", command = lambda:self.Continue(idEntry, programs, nameEntry, name2Entry, bdEntry, newProgram, entryDate))
-        continueButton.grid(row = 7, column = 3)
+        continueButton.grid(row = 7, column = 4)
+
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
 
         back = Button(master, text = "Back", command = lambda:self.AddNewAppPage())
         back.grid(row = 0, column = 0)
@@ -825,17 +850,19 @@ class Main():
         
         #5 columns at least 3 rows
         nameHead = Label(master, text = "Name", font= "Verdana 10 underline")
-        nameHead.grid(row = 1, column = 0)
+        nameHead.grid(row = 1, column = 2)
 
         progHead = Label(master, text = "Program", font= "Verdana 10 underline")
-        progHead.grid(row = 1, column = 1)
+        progHead.grid(row = 1, column = 3)
 
         yearHead = Label(master, text = "Year", font= "Verdana 10 underline")
-        yearHead.grid(row = 1, column = 2)
+        yearHead.grid(row = 1, column = 4)
+
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
 
         backButton = Button(master, text = "Back", command = lambda:self.NewAppReturningPage(newProgram, entryDate))
         backButton.grid(row = 0, column = 0)
-
 
         for num in range(len(childNameDate)):
                 
@@ -850,16 +877,16 @@ class Main():
                     lastName = childNameDate[num][1]
                 
                 name = Label(master, text = firstName+' '+lastName)
-                name.grid(row = 2 + num, column = 0)
+                name.grid(row = 2 + num, column = 2)
 
                 prog = Label(master, text = "Child Application")
-                prog.grid(row = 2 + num, column = 1)
+                prog.grid(row = 2 + num, column = 3)
 
                 year = Label(master, text = childNameDate[num][2])
-                year.grid(row = 2 + num, column = 2)
+                year.grid(row = 2 + num, column = 4)
 
-                profBut = Button(master, text = "Select", command = lambda: self.NewChildProfilePage(childNameDate[num][3], entryDate))
-                profBut.grid(row = 2 + num, column = 3)
+                profBut = Button(master, text = "Select", command = lambda: self.nameBirthEntryContinue(childNameDate[num][3], entryDate, newProgram))
+                profBut.grid(row = 2 + num, column = 5)
 
         for num in range(len(camperNameDate)):
                 
@@ -874,23 +901,30 @@ class Main():
                     lastName = camperNameDate[num][1]
                 
                 name = Label(master, text = firstName+' '+lastName)
-                name.grid(row = 2 + num +len(childNameDate), column = 0)
+                name.grid(row = 2 + num +len(childNameDate), column = 2)
 
                 prog = Label(master, text = "Camper Application")
-                prog.grid(row = 2 + num +len(childNameDate), column = 1)
+                prog.grid(row = 2 + num +len(childNameDate), column = 3)
 
                 year = Label(master, text = camperNameDate[num][2])
-                year.grid(row = 2 + num +len(childNameDate), column = 2)
+                year.grid(row = 2 + num +len(childNameDate), column = 4)
 
-                profBut = Button(master, text = "Select", command = lambda: NewCampProfilePage(camperNameDate[num][3], entryDate))
-                profBut.grid(row = 2 + num +len(childNameDate), column = 3)
+                profBut = Button(master, text = "Select", command = lambda: self.nameBirthEntryContinue(camperNameDate[num][3], entryDate, newProgram))
+                profBut.grid(row = 2 + num +len(childNameDate), column = 5)
 
         total = len(childNameDate)+len(camperNameDate)
                 
  
         #print total number of matches
         count = Label(master, text = "Total Matches: " + str(total))
-        count.grid(row = 0, column = 3)
+        count.grid(row = 0, column = 5)
+
+    def nameBirthEntryContinue(self, id, date, program):
+        if (program == 'Child Application'):
+            self.NewChildProfilePage(id, date)
+
+        else:
+            self.NewCampProfilePage(id, date)
 
 #******************************************************************************************************************************************************
     
@@ -919,7 +953,7 @@ class Main():
                                   tags="master")
 
         master.bind("<Configure>", self.onFrameConfigure)
-        root.geometry("740x1000")
+        root.geometry("1000x1000")
 
 #Buttons
         #frame
@@ -929,6 +963,9 @@ class Main():
         #back
         backButton = Button(buttonframe, text = "Back", command = lambda:self.backNewChildProfilePage(id, date))
         backButton.pack(side = "left")
+
+        exitButton = Button(buttonframe, text = "Exit", command=lambda: self.exit())
+        exitButton.pack(side = "left")
 
 #Database dump frame
         DemographicSectionframe = Frame(master)
@@ -5390,6 +5427,10 @@ class Main():
         backButton = Button(buttonframe, text = "Back", command = lambda:self.backNewChildProfilePage(id, date))
         backButton.pack(side = "left")
 
+        #exit
+        exitButton = Button(buttonframe, text = "Exit", command=lambda: self.exit())
+        exitButton.pack(side = "left")
+
 #Database dump frame
         ChildInfoSectionframe = Frame(master)
         ChildInfoSectionframe.pack(fill = 'y', side = 'left') 
@@ -7328,8 +7369,7 @@ class Main():
                 tkMessageBox.showinfo("New Profile", "Submission Unsucessful\n\nA Child application \nSubmitted on: " + date + "\nFor ID number: " + str(id) + " \nAlready exists in the system")
 
 #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #check string entry is a number
     def is_number(self, s):
@@ -7378,14 +7418,17 @@ class Main():
 
         username = self.session['username']
         
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
+
         back = Button(master, text = "Back", command = lambda: self.HomePage())
         back.grid(row = 0, column = 0)
 
         addButton = Button(master, text = "Add", command=lambda: self.AddUserPage())
-        addButton.grid(row = 1, column = 1, padx = 225, pady = 10)
+        addButton.grid(row = 1, column = 2, padx = 225, pady = 10)
         
         deleteButton = Button(master, text = "Delete", command = lambda: self.DeleteUserPage())
-        deleteButton.grid(row = 2, column = 1, padx = 225, pady = 10)
+        deleteButton.grid(row = 2, column = 2, padx = 225, pady = 10)
 
 #******************************************************************************************************************************************************
 
@@ -7399,27 +7442,38 @@ class Main():
         master = Frame(root)
         master.grid(row=0, column=0, sticky = NW)
 
-        name = Label(master, text="Name").grid(row=1)
+        name = Label(master, text="Name")
+        name.grid(row=1, column=2)
         nameEntry = Entry(master)
-        nameEntry.grid(row=1, column=1)
+        nameEntry.grid(row=1, column=3)
 
-        username = Label(master, text="Username").grid(row=2)
+        username = Label(master, text="Username")
+        username.grid(row=2, column=2)
         usernameEntry = Entry(master)
-        usernameEntry.grid(row=2, column=1)
+        usernameEntry.grid(row=2, column=3)
 
-        password = Label(master, text="Password").grid(row=3)
+        password = Label(master, text="Password")
+        password.grid(row=3, column=2)
         passwordEntry = Entry(master)
-        passwordEntry.grid(row=3, column=1)
+        passwordEntry.grid(row=3, column=3)
 
-        level = Label(master, text="Type").grid(row=4)
+        level = Label(master, text="Type")
+        level.grid(row=4, column=2)
         levelEntry = StringVar(master)
         levelEntry.set("Regular")
-        menu = OptionMenu(master, levelEntry, 'Administrator', 'Manager', 'Regular').grid(row=4, column=1)
+        menu = OptionMenu(master, levelEntry, 'Administrator', 'Manager', 'Regular')
+        menu.grid(row=4, column=3)
 
         add = Button(master, text="Add User", command = lambda: self.addUser(nameEntry.get(), usernameEntry.get(), 
-            passwordEntry.get(), levelEntry.get())).grid(row=6, column=3)
-        back = Button(master, text="Back", command = lambda: self.AdminUserPage()).grid(row=6, column=0)
-
+            passwordEntry.get(), levelEntry.get()))
+        add.grid(row=6, column=3)
+        
+        back = Button(master, text="Back", command = lambda: self.AdminUserPage())
+        back.grid(row=0, column=0)
+        
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
+    
     def addUser(self, name, username, password, level):
 
         db = self.connect()
@@ -7428,7 +7482,7 @@ class Main():
         curr.execute("""SELECT Username FROM User WHERE Username = %s""", (username,))
         check = curr.fetchall()
 
-        if check is None:
+        if check is ():
             curr.execute("""INSERT INTO User VALUES (%s, %s, SHA1(%s), %s);""", (name, username, password, level,))
             tkMessageBox.showinfo("Add User", "Update Successful!")
 
@@ -7436,8 +7490,7 @@ class Main():
             tkMessageBox.showinfo("Add User", "Update Unsuccessful\nThis username is taken")
 
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 
 #******************************************************************************************************************************************************
@@ -7464,14 +7517,16 @@ class Main():
         #back button
         self.back = Button(master, text = "Back", command = lambda: self.AdminUserPage())
         self.back.grid(row = 0, column = 0)
+        
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
 
         #database fetch
         db = MySQLdb.connect(host = "localhost", user="root", passwd = "Darling", db="HERO")
         curr = db.cursor()
         curr.execute("SELECT * FROM User")
         results = curr.fetchall()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
         count = 0
         deleteButtonArr = [0 for x in range(len(results))]
@@ -7496,8 +7551,7 @@ class Main():
         curr.execute("DELETE FROM User WHERE Username = %s", (username,))
         db.commit()
 
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
         tkMessageBox.showinfo("Delete User","User "+username+" has been deleted.")
         
@@ -7524,27 +7578,27 @@ class Main():
         master = Frame(root)
         master.grid(row=0, column=0, sticky = NW)
 
-        db = MySQLdb.connect(host="localhost", user="root", passwd="Darling", db="HERO")
+        db = self.connect()
         curr = db.cursor()
 
         curr.execute("SELECT COUNT(ID) FROM Child;")
         total = curr.fetchall()[0][0]
-
+        
         count = Label(master, text = "Total: " + str(total))
-        count.grid(row = 0, column = 4)
+        count.grid(row = 0, column = 6)
 
         catLabel = Label(master, text = "Search by Category", font= "Verdana 10 underline")
-        catLabel.grid(row = 2, column = 0)
+        catLabel.grid(row = 2, column = 2)
 
         nameLabel = Label(master, text = "Search by Name", font= "Verdana 10 underline")
-        nameLabel.grid(row = 4, column = 0)
+        nameLabel.grid(row = 4, column = 2)
 
         programList = ['None', "Child Application", "Camp High Five Application"]
         programs = StringVar(root)
         programs.set('Program') 
 
         dropdownProgram = OptionMenu(master, programs, *programList)
-        dropdownProgram.grid(row = 1, column = 1)
+        dropdownProgram.grid(row = 1, column = 3)
 
         
         #grab all data submitted, remove duplicates, set to yearList
@@ -7566,7 +7620,7 @@ class Main():
 
         #add back yearlist
         dropdownYear = OptionMenu(master, years, "None", *yearList)
-        dropdownYear.grid(row = 1, column = 2)
+        dropdownYear.grid(row = 1, column = 4)
 
         categoriesList = ['None', 'Zip Code', 'City', "County", 'Referral Source', "Child's Age",
                     "Child's Gender", "Child's Race/Ethnicity",
@@ -7579,33 +7633,35 @@ class Main():
         categories.set("Category")
 
         dropdownCategories = OptionMenu(master, categories, *categoriesList)
-        dropdownCategories.grid(row = 3, column = 1)
+        dropdownCategories.grid(row = 3, column = 3)
         catEntry = Entry(master, width=15)
-        catEntry.grid(row = 3, column = 2)
+        catEntry.grid(row = 3, column = 4)
 
         txt = Label(master, text = "First Name:")
-        txt.grid(row = 5, column = 1)
+        txt.grid(row = 5, column = 3)
 
         firstName = Entry(master, width=15)
-        firstName.grid(row = 5, column = 2)
+        firstName.grid(row = 5, column = 4)
         
         txt = Label(master, text = "Last Name:")
-        txt.grid(row = 6, column = 1)
+        txt.grid(row = 6, column = 3)
 
         lastName = Entry(master, width=15)
-        lastName.grid(row = 6, column = 2)
+        lastName.grid(row = 6, column = 4)
 
         searchCatButton = Button(master, text = "Search", command = lambda: self.SearchCatPage(programs.get(), years.get(), categories.get(), catEntry.get()))
-        searchCatButton.grid(row = 3, column = 3)
+        searchCatButton.grid(row = 3, column = 5)
+
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
 
         back = Button(master, text = "Back", command = lambda:self.HomePage())
         back.grid(row = 0, column = 0)
 
         searchNameButton = Button(master, text = "Search", command = lambda: self.SearchNamePage(programs.get(), years.get(), firstName.get(), lastName.get()))
-        searchNameButton.grid(row = 5, column = 3)
+        searchNameButton.grid(row = 5, column = 5)
 
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
         
 #******************************************************************************************************************************************************
 
@@ -8698,29 +8754,31 @@ class Main():
                     child = curr.fetchall()
         
 
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
         
         #need to implement dynamic tracking of count
         countText = len(child) + len(camp)
         count = Label(master, text = "Total: " + str(countText))
-        count.grid(row = 0, column = 4)
+        count.grid(row = 0, column = 6)
 
         back = Button(master, text = "Back", command = lambda:self.SearchPage())
         back.grid(row = 0, column = 0)
+        
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
 
         r = 2
         idHead = Label(master, text = "ID", font= "Verdana 10 underline")
-        idHead.grid(row = r, column = 0)
+        idHead.grid(row = r, column = 2)
 
         dateHead = Label(master, text = "Date Submitted", font= "Verdana 10 underline")
-        dateHead.grid(row = r, column = 1)
+        dateHead.grid(row = r, column = 3)
 
         nameHead = Label(master, text = "Name", font= "Verdana 10 underline")
-        nameHead.grid(row = r, column = 2)
+        nameHead.grid(row = r, column = 4)
 
         critHead = Label(master, text = "Criteria", font= "Verdana 10 underline")
-        critHead.grid(row = r, column = 3)
+        critHead.grid(row = r, column = 5)
 
         r = r+1
         childHead = Label(master, text = "Child App", font= "Verdana 10 underline")
@@ -8731,10 +8789,10 @@ class Main():
             for num in child:
 
                 ID = Label(master, text = num[0])
-                ID.grid(row = r, column = 0)
+                ID.grid(row = r, column = 2)
 
                 Date_Submitted = Label(master, text = num[1])
-                Date_Submitted.grid(row = r, column = 1)
+                Date_Submitted.grid(row = r, column = 3)
 
                 nameText = ''
                 if (num[2] is not None):
@@ -8745,7 +8803,7 @@ class Main():
                     nameText += num[3]
                 Name = Label(master, text = nameText
                     )
-                Name.grid(row = r, column = 2)
+                Name.grid(row = r, column = 4)
 
                 criteriaText = ''
                 if (len(num) > 4):
@@ -8757,15 +8815,15 @@ class Main():
                     criteriaText = criteriaText[:-2]
                 
                 criteria = Label(master, text = criteriaText)
-                criteria.grid(row = r, column = 3)
+                criteria.grid(row = r, column = 5)
 
                 profBut = Button(master, text = "See Profile", command = lambda ID = num[0]: self.FirstProfilePage(ID))
-                profBut.grid(row = r, column = 4)
+                profBut.grid(row = r, column = 6)
                 r = r+1
 
         else:
                 childNope = Label(master, text = "None")
-                childNope.grid(row = r, column = 0)
+                childNope.grid(row = r, column = 2)
 
         r = r+1
         campHead = Label(master, text = "Camper App", font= "Verdana 10 underline")
@@ -8775,10 +8833,10 @@ class Main():
         if(camp):
             for num in camp:
                 ID = Label(master, text = num[0])
-                ID.grid(row = r, column = 0)
+                ID.grid(row = r, column = 2)
 
                 Date_Submitted = Label(master, text = num[1])
-                Date_Submitted.grid(row = r, column = 1)
+                Date_Submitted.grid(row = r, column = 3)
 
                 nameText = ''
                 if (num[2] is not None):
@@ -8789,7 +8847,7 @@ class Main():
                     nameText += num[3]
                 Name = Label(master, text = nameText
                     )
-                Name.grid(row = r, column = 2)
+                Name.grid(row = r, column = 4)
 
                 criteriaText = ''
                 if (len(num) > 4):
@@ -8801,15 +8859,15 @@ class Main():
                     criteriaText = criteriaText[:-2]
                 
                 criteria = Label(master, text = criteriaText)
-                criteria.grid(row = r, column = 3)
+                criteria.grid(row = r, column = 5)
 
                 profBut = Button(master, text = "See Profile", command = lambda ID = num[0]: self.FirstProfilePage(ID))
-                profBut.grid(row = r, column = 4)
+                profBut.grid(row = r, column = 6)
                 r = r+1
 
         else:
                 campNope = Label(master, text = "None")
-                campNope.grid(row = r, column = 0)
+                campNope.grid(row = r, column = 2)
 
     def SearchNamePage(self, selectedProgram, selectedYear, firstName, lastName):
 
@@ -8957,27 +9015,29 @@ class Main():
                         WHERE First_Name = %s AND Last_Name = %s AND YEAR(Date_Submitted) = %s;""", (firstName, lastName, selectedYear,))
                     camp = curr.fetchall()
 
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
         #need to implement dynamic tracking of count
         countText = len(child) + len(camp)
         count = Label(master, text = "Total: " + str(countText))
-        count.grid(row = 0, column = 4)
+        count.grid(row = 0, column = 6)
 
         back = Button(master, text = "Back", command = lambda:self.SearchPage())
         back.grid(row = 0, column = 0)
 
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
+
         r = 2
         idHead = Label(master, text = "ID", font= "Verdana 10 underline")
-        idHead.grid(row = r, column = 0)
+        idHead.grid(row = r, column = 2)
 
         dateHead = Label(master, text = "Date Submitted", font= "Verdana 10 underline")
-        dateHead.grid(row = r, column = 1)
+        dateHead.grid(row = r, column = 3)
 
 
         nameHead = Label(master, text = "Name", font= "Verdana 10 underline")
-        nameHead.grid(row = r, column = 2)
+        nameHead.grid(row = r, column = 4)
 
         r = r+1
         childHead = Label(master, text = "Child App", font= "Verdana 10 underline")
@@ -8987,10 +9047,10 @@ class Main():
         if (child):
             for num in child:
                 ID = Label(master, text = num[0])
-                ID.grid(row = r, column = 0)
+                ID.grid(row = r, column = 2)
 
                 Date_Submitted = Label(master, text = num[1])
-                Date_Submitted.grid(row = r, column = 1)
+                Date_Submitted.grid(row = r, column = 3)
 
                 nameText = ''
                 if (num[2] is not None):
@@ -9001,16 +9061,16 @@ class Main():
                     nameText += num[3]
                 Name = Label(master, text = nameText
                     )
-                Name.grid(row = r, column = 2)
+                Name.grid(row = r, column = 4)
 
                 profBut = Button(master, text = "See Profile", command = lambda ID = num[0]: self.FirstProfilePage(ID))
-                profBut.grid(row = r, column = 4)
+                profBut.grid(row = r, column = 6)
 
                 r = r+1
         
         else:
                 childNope = Label(master, text = "None")
-                childNope.grid(row = r, column = 0)
+                childNope.grid(row = r, column = 2)
 
         r = r+1
         campHead = Label(master, text = "Camper App", font= "Verdana 10 underline")
@@ -9020,10 +9080,10 @@ class Main():
         if(camp):
             for num in camp:
                 ID = Label(master, text = num[0])
-                ID.grid(row = r, column = 0)
+                ID.grid(row = r, column = 2)
 
                 Date_Submitted = Label(master, text = num[1])
-                Date_Submitted.grid(row = r, column = 1)
+                Date_Submitted.grid(row = r, column = 3)
 
                 nameText = ''
                 if (num[2] is not None):
@@ -9034,15 +9094,15 @@ class Main():
                     nameText += num[3]
                 Name = Label(master, text = nameText
                     )
-                Name.grid(row = r, column = 2)
+                Name.grid(row = r, column = 4)
 
                 profBut = Button(master, text = "See Profile", command = lambda ID = num[0]: self.FirstProfilePage(ID))
-                profBut.grid(row = r, column = 4)
+                profBut.grid(row = r, column = 6)
                 r = r+1
 
         else:
                 campNope = Label(master, text = "None")
-                campNope.grid(row = r, column = 0)
+                campNope.grid(row = r, column = 2)
 
 #******************************************************************************************************************************************************
 
@@ -9084,15 +9144,18 @@ class Main():
         back = Button(master, text="Back", command = lambda: self.SearchPage())
         back.grid(row=0, column=0)
 
+        exitButton = Button(master, text = "Exit", command=lambda: self.exit())
+        exitButton.grid(row = 0, column = 1)
+
         delete = Button(master, text="Delete", command=lambda: self.deleteProfile(id))
-        delete.grid(row=0, column=10)
+        delete.grid(row=0, column=12)
 
         #name title
         firstNameLabel = Label(master, text= name_first, font="Arial 12 underline").grid(row=1, column=3)
         lastNameLabel = Label(master, text= name_last, font="Arial 12 underline").grid(row=1, column=4)
 
         #child app
-        childAppLabel = Label(master, text= "Child Applications").grid(row=2, column=0)
+        childAppLabel = Label(master, text= "Child Applications").grid(row=2, column=2)
 
         curr.execute("SELECT Date_Submitted FROM Child_Application WHERE ID = %s;", (id,))
         childDateArr = curr.fetchall()
@@ -9100,14 +9163,15 @@ class Main():
         r = 3
         for childDate in childDateArr:
             #date of program attended
-            dateLabel = Label(master, text= childDate[0]).grid(row=r, column=1)
+            dateLabel = Label(master, text= childDate[0]).grid(row=r, column=3)
 
             # Details button will take you to another page
-            details = Button(master, text="See Details", command=lambda childDate = childDate[0]: self.SecondChildProfilePage(id, childDate)).grid(row=r, column=5)
+            details = Button(master, text="See Details", command=lambda childDate = childDate[0]: self.SecondChildProfilePage(id, childDate))
+            details.grid(row=r, column=7)
             r = r + 1
 
         #camp app
-        campAppLabel = Label(master, text= "Camp Applications").grid(row=r, column=0)
+        campAppLabel = Label(master, text= "Camp Applications").grid(row=r, column=2)
 
         curr.execute("SELECT Date_Submitted FROM Camp_Application WHERE ID = %s;", (id,))
         campDateArr = curr.fetchall()
@@ -9116,15 +9180,15 @@ class Main():
         for campDate in campDateArr:
 
             #date of program attended
-            dateLabel = Label(master, text= campDate[0]).grid(row=r, column=1)
+            dateLabel = Label(master, text= campDate[0])
+            dateLabel.grid(row=r, column=3)
 
             # Details button will take you to another page
-            details = Button(master, text="See Details", command=lambda campDate = campDate[0]: self.SecondCampProfilePage(id, campDate
-                )).grid(row=r, column=5)
+            details = Button(master, text="See Details", command=lambda campDate = campDate[0]: self.SecondCampProfilePage(id, campDate))
+            details.grid(row=r, column=7)
             r = r + 1
 
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def deleteProfile(self, id):
 
@@ -9135,8 +9199,7 @@ class Main():
             curr = db.cursor()
             curr.execute("DELETE FROM Child WHERE ID = %s;", (id,))
             db.commit()
-            curr.close()
-            db.close()
+            self.disConnect(curr, db)
 
             tkMessageBox.showinfo("Delete Profile","Profile deletion was successful.")
 
@@ -9147,8 +9210,6 @@ class Main():
             showinfo('No', 'Delete has been cancelled')
 
 #******************************************************************************************************************************************************
-#TODO: Immunization PDF
-#TODO: deal with demographic contacts!!!
 
     def SecondCampProfilePage(self, id, date):
 
@@ -9177,7 +9238,7 @@ class Main():
                                   tags="master")
 
         master.bind("<Configure>", self.onFrameConfigure)
-        root.geometry("740x1000")
+        root.geometry("1000x1000")
 
         #Database Connection
         db = self.connect()
@@ -9188,10 +9249,12 @@ class Main():
         buttonframe = Frame(master)
         buttonframe.pack(side = "top", fill = "x")
 
-
         #fix alignment
         backButton = Button(buttonframe, text = "Back", command = lambda: self.FirstProfilePage(id))
         backButton.pack(side = "left")
+
+        exitButton = Button(buttonframe, text = "Exit", command=lambda: self.exit())
+        exitButton.pack(side = "left")
 
         #edit
         editButton = Button(buttonframe, text = "Edit Application", command = lambda: self.EditCampProfilePage(id, date))
@@ -10880,8 +10943,7 @@ class Main():
 
 
 #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 
 #******************************************************************************************************************************************************
@@ -10925,10 +10987,12 @@ class Main():
         buttonframe = Frame(master)
         buttonframe.pack(side = "top", fill = "x")
 
-
         #fix alignment
         backButton = Button(buttonframe, text = "Back", command = lambda: self.FirstProfilePage(id))
         backButton.pack(side = "left")
+
+        exitButton = Button(buttonframe, text = "Exit", command=lambda: self.exit())
+        exitButton.pack(side = "left")
 
         #edit
         editButton = Button(buttonframe, text = "Edit Application", command = lambda: self.EditChildProfilePage(id, date))
@@ -10944,9 +11008,9 @@ class Main():
 
 #Identifying Info Section
         #header
-        labelChildInfoSection = Label(ChildInfoSectionframe, text = "\nIDENTIFYING INFORMATION")
-        labelChildInfoSection.pack(fill = "x")
-        labelChildInfoSection.config(font=("Helvetica", 20))
+        labelIdentifyingInfoSection = Label(ChildInfoSectionframe, text = "\nIDENTIFYING INFORMATION")
+        labelIdentifyingInfoSection.pack(fill = "x")
+        labelIdentifyingInfoSection.config(font=("Helvetica", 20))
 
         #id
         label = Label(ChildInfoSectionframe, text = "\nChild ID.................................................................................................. " + str(id))
@@ -10955,6 +11019,12 @@ class Main():
         #date
         label = Label(ChildInfoSectionframe, text = "\nDate Submitted...................................................................................... " + str(date))
         label.pack(anchor = 'w')
+
+#childs information section
+        #header
+        labelChildInfoSection = Label(ChildInfoSectionframe, text = "\nCHILD'S INFORMATION")
+        labelChildInfoSection.pack(fill = "x")
+        labelChildInfoSection.config(font=("Helvetica", 20))
 
         #first name
         curr.execute("SELECT Name_First FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
@@ -11402,7 +11472,7 @@ class Main():
         else:
             label = Label(ChildInfoSectionframe, text = "\nE-mail ................................................................................................... Unanswered")
         label.pack(anchor = 'w')
-        
+
 #Absent Parent Info
         #header
         labelParentInfoSection = Label(ChildInfoSectionframe, text = "\n\nABSENT PARENT INFORMATION")
@@ -11480,7 +11550,7 @@ class Main():
         else:
             label = Label(ChildInfoSectionframe, text = "\nHIV Status ............................................................................................. Unanswered")
         label.pack(anchor = 'w')
-        
+
 #Household Info
         #header
         labelParentInfoSection = Label(ChildInfoSectionframe, text = "\n\nHOUSEHOLD INFORMATION")
@@ -11561,7 +11631,7 @@ class Main():
             else:
                 label = Label(ChildInfoSectionframe, text = "\nSource of Family Income ....................................................................... Unanswered")
         label.pack(anchor = 'w')
-         
+
  #In Case of Emergency Contact
         #header
         labelParentInfoSection = Label(ChildInfoSectionframe, text = "\n\nIN CASE OF EMERGENCY CONTACT")
@@ -11657,7 +11727,7 @@ class Main():
         else:
             label = Label(ChildInfoSectionframe, text = "\nAlternate Phone Number ....................................................................... Unanswered")
         label.pack(anchor = 'w')
-                    
+
 #H.E.R.O. Programs
         #header
         labelParentInfoSection = Label(ChildInfoSectionframe, text = "\n\nH.E.R.O. FOR CHILDREN PROGRAMS")
@@ -11685,7 +11755,7 @@ class Main():
         else:
             label = Label(ChildInfoSectionframe, text = "\nProgram(s) you would be interested in your child to participating in ...... Unanswered")
         label.pack(anchor = 'w')
-                    
+
 #Referral Needs
         #header
         labelParentInfoSection = Label(ChildInfoSectionframe, text = "\n\nREFERRAL NEEDS")
@@ -11704,7 +11774,7 @@ class Main():
         else:
             label = Label(ChildInfoSectionframe, text = "\nReferral Needs ........................................................................................ Unanswered")
         label.pack(anchor = 'w')
-                    
+
 #Statement of Understanding
         #header
         labelParentInfoSection = Label(ChildInfoSectionframe, text = "\n\nSTATEMENT OF UNDERSTANDING")
@@ -11794,7 +11864,7 @@ class Main():
         else:
             label = Label(ChildInfoSectionframe, text = "Statement 7 .......................................................................................... Unanswered")
         label.pack(anchor = 'w')
-        
+
 #Signature
         #header
         labelParentInfoSection = Label(ChildInfoSectionframe, text = "\n\nSIGNATURE")
@@ -11814,8 +11884,7 @@ class Main():
         label.pack(anchor = 'w')
 
 #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #******************************************************************************************************************************************************
 
@@ -11843,7 +11912,7 @@ class Main():
                                   tags="master")
 
         master.bind("<Configure>", self.onFrameConfigure)
-        root.geometry("740x1000")
+        root.geometry("1000x1000")
 
         #Database Connection
         db = self.connect()
@@ -11857,7 +11926,10 @@ class Main():
         #back
         backButton = Button(buttonframe, text = "Back", command = lambda:self.SecondCampProfilePage(id, date))
         backButton.pack(side = "left")
-        
+
+        exitButton = Button(buttonframe, text = "Exit", command=lambda: self.exit())
+        exitButton.pack(side = "left")
+
         #delete
         deleteButton = Button(buttonframe, text = "Delete Application", command = lambda:self.deleteCampApp(id, date))
         deleteButton.pack(side = "right")
@@ -17404,8 +17476,7 @@ class Main():
 #************************************************************************************************************************
 
 #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def deleteCampApp(self, id, date):
         if askyesno('Verify', 'Really delete?'):
@@ -17419,8 +17490,7 @@ class Main():
             db.commit()
             
             #Close Database Connection
-            curr.close()
-            db.close()
+            self.disConnect(curr, db)
             
             #UI feedback
             showwarning('Delete', 'Application Deleted')
@@ -17458,8 +17528,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo1(self, demInfo1, id, date):
         #Database Connection
@@ -17480,8 +17549,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo2(self, newWidget, id, date):
         #Database Connection
@@ -17501,8 +17569,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo3(self, newWidget, id, date):
         #Database Connection
@@ -17522,8 +17589,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo4(self, newWidget, id, date):
 
@@ -17544,8 +17610,7 @@ class Main():
             
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo5(self, newWidget, id, date):
         #Open Database Connection
@@ -17560,8 +17625,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo6(self, newWidget, id, date):
         #Database Connection
@@ -17581,8 +17645,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo7(self, newWidget, id, date):
         #Database Connection
@@ -17602,8 +17665,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo8(self, newWidget, id, date):
         #Database Connection
@@ -17623,8 +17685,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo9(self, newWidget, id, date):
         #Database Connection
@@ -17644,8 +17705,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo10(self, newWidget, id, date):
         #Database Connection
@@ -17665,8 +17725,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo11(self, newWidget, id, date):
         #Database Connection
@@ -17686,8 +17745,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo12(self, newWidget, id, date):
         #Database Connection
@@ -17707,8 +17765,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo13(self, newWidget, id, date):
         #Database Connection
@@ -17728,8 +17785,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo14(self, newWidget, id, date):
         #Database Connection
@@ -17749,8 +17805,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo15(self, newWidget, id, date):
         #Database Connection
@@ -17770,8 +17825,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo16(self, newWidget, id, date):
         #Database Connection
@@ -17791,8 +17845,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo17(self, newWidget, id, date):
         #Database Connection
@@ -17812,8 +17865,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo18(self, newWidget, id, date):
         #Database Connection
@@ -17830,8 +17882,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo19(self, newWidget, id, date):
         #Database Connection
@@ -17848,8 +17899,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDemInfo20(self, newWidget, id, date):
         #Open Database Connection
@@ -17864,8 +17914,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
     
     def updateDemInfo21(self, demTrans0, demTrans1, demTrans2, demTrans3,
             demTrans4, demTrans5, id, date):
@@ -17902,8 +17951,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #demographic contacts ************************************************************************************************************************
     def updateContactDemInfo10(self, newWidget, id, date):
@@ -17924,8 +17972,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
         
     def updateContactDemInfo11(self, demContactInfoTime10, demContactInfoTime11, id, date):
         #Open Database Connection
@@ -17949,8 +17996,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateContactDemInfo12(self, newWidget, id, date):
         #Database Connection
@@ -17970,8 +18016,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateContactDemInfo20(self, newWidget, id, date):
         #Database Connection
@@ -17991,8 +18036,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
         
     def updateContactDemInfo21(self, demContactInfoTime20, demContactInfoTime21, id, date):
         #Open Database Connection
@@ -18016,8 +18060,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateContactDemInfo22(self, newWidget, id, date):
         #Database Connection
@@ -18037,8 +18080,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateContactDemInfo30(self, newWidget, id, date):
         #Database Connection
@@ -18058,8 +18100,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
         
     def updateContactDemInfo31(self, demContactInfoTime30, demContactInfoTime31, id, date):
         #Open Database Connection
@@ -18083,8 +18124,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateContactDemInfo32(self, newWidget, id, date):
         #Database Connection
@@ -18104,8 +18144,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Parent/ Guardian Emergency Contact Section ************************************************************************************************************************
     def updateEmergencyInfo0(self, newWidget, count, id, date):
@@ -18142,8 +18181,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateEmergencyInfo1(self, newWidget, count, id, date):
         #Database Connection
@@ -18176,8 +18214,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 
     def updateEmergencyInfo2(self, newWidget, count, id, date):
@@ -18211,8 +18248,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateEmergencyInfo3(self, newWidget, count, id, date):
         #Database Connection
@@ -18245,8 +18281,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Insurance Info Section ************************************************************************************************************************
     def updateInsuranceInfo0(self, newWidget, id, date):
@@ -18262,8 +18297,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateInsuranceInfo1(self, newWidget, id, date):
         #Database Connection
@@ -18283,8 +18317,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateInsuranceInfo2(self, newWidget, id, date):
         #Database Connection
@@ -18304,8 +18337,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 
     def updateInsuranceInfo3(self, newWidget, id, date):
@@ -18326,8 +18358,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Medical Provider Section ************************************************************************************************************************
     def updateMedProviderInfo0(self, newWidget, id, date):
@@ -18348,8 +18379,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProviderInfo1(self, newWidget, id, date):
         #Database Connection
@@ -18369,8 +18399,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProviderInfo2(self, newWidget, id, date):
         #Database Connection
@@ -18390,8 +18419,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProviderInfo3(self, newWidget, id, date):
         #Database Connection
@@ -18411,8 +18439,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Medical Information Section ************************************************************************************************************************
     def updateMedInfoCurr(self, medInfoCurr0, medInfoCurr1, medInfoCurr2, medInfoCurr3, medInfoCurr4,
@@ -18471,8 +18498,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedInfo1(self, newWidget, id, date):
         #Database Connection
@@ -18492,8 +18518,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Allergies Section ************************************************************************************************************************
     def updateAllergyInfo0(self, newWidget, id, date):
@@ -18511,8 +18536,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateAllergyInfo1(self, newWidget, id, date):
         #Database Connection
@@ -18532,8 +18556,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateAllergyInfo2(self, newWidget, id, date):
         #Database Connection
@@ -18550,8 +18573,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateAllergyInfo3(self, newWidget, id, date):
         #Database Connection
@@ -18571,8 +18593,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
     
     def updateAllergyInfo4(self, newWidget, id, date):
         #Database Connection
@@ -18589,8 +18610,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateAllergyInfo5(self, newWidget, id, date):
         #Database Connection
@@ -18610,8 +18630,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
     
     def updateAllergyInfo6(self, newWidget, id, date):
         #Database Connection
@@ -18628,8 +18647,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Dietary Needs Section ************************************************************************************************************************
     def updateDietaryNeedsInfo0(self, newWidget, id, date):
@@ -18647,8 +18665,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDietaryNeedsInfo1(self, newWidget, id, date):
         #Database Connection
@@ -18665,8 +18682,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDietaryNeedsInfo2(self, newWidget, id, date):
         #Database Connection
@@ -18686,8 +18702,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDietaryNeedsInfo3(self, newWidget, id, date):
         #Open Database Connection
@@ -18702,8 +18717,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDietaryNeedsInfo4(self, newWidget, id, date):
         #Database Connection
@@ -18720,8 +18734,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDietaryNeedsInfo5(self, newWidget, id, date):
         #Open Database Connection
@@ -18736,8 +18749,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDietaryNeedsInfo6(self, newWidget, id, date):
         #Database Connection
@@ -18757,8 +18769,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDietaryNeedsInfo7(self, newWidget, id, date):
         #Database Connection
@@ -18778,8 +18789,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDietaryNeedsInfo8(self, newWidget, id, date):
         #Database Connection
@@ -18796,8 +18806,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDietaryNeedsInfo9(self, newWidget, id, date):
         #Database Connection
@@ -18817,8 +18826,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateDietaryNeedsInfo10(self, newWidget, id, date):
         #Database Connection
@@ -18838,8 +18846,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #General health ************************************************************************************************************************
     def genHealthLimit(self, genHealthLimit0, genHealthLimit1, genHealthLimit2, genHealthLimit3, genHealthLimit4,
@@ -18898,8 +18905,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateGenHealth1(self, newWidget, id, date):
         #Database Connection
@@ -18916,8 +18922,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateGenHealth2(self, newWidget, id, date):
         #Database Connection
@@ -18934,8 +18939,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateGenHealth3(self, newWidget, id, date):
         #Database Connection
@@ -18952,8 +18956,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 
     def updateGenHealth4(self, newWidget, id, date):
@@ -18974,8 +18977,7 @@ class Main():
             
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateGenHealth5(self, newWidget, id, date):
         #Database Connection
@@ -18992,8 +18994,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateGenHealth6(self, newWidget, id, date):
         #Database Connection
@@ -19013,8 +19014,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Behavior ************************************************************************************************************************
     def updateBehavior0(self, newWidget, id, date):
@@ -19032,8 +19032,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateBehavior1(self, newWidget, id, date):
         #Open Database Connection
@@ -19048,8 +19047,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateBehaviorExperiances(self, behaviorExperiances0, behaviorExperiances1, behaviorExperiances2, behaviorExperiances3, behaviorExperiances4,
             behaviorExperiances5, behaviorExperiances6, behaviorExperiances7, behaviorExperiances8, behaviorExperiances9, id, date):
@@ -19098,8 +19096,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateBehavior2(self, newWidget, id, date):
         #Database Connection
@@ -19116,8 +19113,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateBehavior3(self, newWidget, id, date):
         #Database Connection
@@ -19137,8 +19133,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateBehaviorInterests(self, behaviorInterests0, behaviorInterests1, behaviorInterests2, behaviorInterests3, behaviorInterests4,
             behaviorInterests5, behaviorInterests6, behaviorInterests7, behaviorInterests8, behaviorInterests9,
@@ -19197,8 +19192,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateBehavior4(self, newWidget, id, date):
         #Database Connection
@@ -19218,8 +19212,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Medication Info ************************************************************************************************************************
     def updateMed0(self, newWidget, count, id, date):
@@ -19256,8 +19249,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMed1(self, newWidget, count, id, date):
         #Database Connection
@@ -19290,8 +19282,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 
     def updateMed2(self, newWidget, count, id, date):
@@ -19325,8 +19316,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Preliminary signatures ************************************************************************************************************************
     def updateParentSig0(self, newWidget, id, date):
@@ -19344,8 +19334,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateParentSig1(self, newWidget, id, date):
         #Database Connection
@@ -19362,8 +19351,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateParentSig2(self, newWidget, id, date):
         #Database Connection
@@ -19380,8 +19368,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateParentSig3(self, newWidget, id, date):
         #Database Connection
@@ -19398,8 +19385,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateParentSig4(self, newWidget, id, date):
         #Database Connection
@@ -19416,8 +19402,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateParentSig5(self, newWidget, id, date):
         #Database Connection
@@ -19434,8 +19419,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #
 #Medical provider sections
@@ -19479,8 +19463,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvider5(self, newWidget, id, date):
         #Database Connection
@@ -19500,8 +19483,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvider6(self, newWidget, id, date):
         #Database Connection
@@ -19518,8 +19500,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvider7(self, newWidget, id, date):
         #Database Connection
@@ -19539,8 +19520,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvider8(self, newWidget, id, date):
         #Open Database Connection
@@ -19555,8 +19535,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
     
     def updateMedHistAllergy(self, newWidget, type, count, id, date):
         #Database Connection
@@ -19598,8 +19577,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedHistReaction(self, newWidget, type, count, id, date):
         #Database Connection
@@ -19638,8 +19616,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedHistReaction(self, newWidget, type, count, id, date):
         #Database Connection
@@ -19678,8 +19655,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #physical ************************************************************************************************************************
     def updatePhysical0(self, newWidget, id, date):
@@ -19700,8 +19676,7 @@ class Main():
             
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical1(self, newWidget, id, date):
         #Database Connection
@@ -19721,8 +19696,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical2(self, newWidget, id, date):
         #Database Connection
@@ -19742,8 +19716,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical3(self, newWidget, id, date):
         #Database Connection
@@ -19763,8 +19736,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical4(self, newWidget, id, date):
         #Database Connection
@@ -19784,8 +19756,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical5(self, newWidget, id, date):
         #Database Connection
@@ -19805,8 +19776,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical6(self, newWidget, id, date):
         #Database Connection
@@ -19826,8 +19796,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical7(self, newWidget, id, date):
         #Database Connection
@@ -19847,8 +19816,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical8(self, newWidget, id, date):
         #Database Connection
@@ -19868,8 +19836,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical9(self, newWidget, id, date):
         #Database Connection
@@ -19889,8 +19856,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical10(self, newWidget, id, date):
         #Database Connection
@@ -19910,8 +19876,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical11(self, newWidget, id, date):
         #Database Connection
@@ -19931,8 +19896,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical12(self, newWidget, id, date):
         #Database Connection
@@ -19952,8 +19916,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical13(self, newWidget, id, date):
         #Database Connection
@@ -19973,8 +19936,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical14(self, newWidget, id, date):
         #Database Connection
@@ -19994,8 +19956,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical15(self, newWidget, id, date):
         #Database Connection
@@ -20015,8 +19976,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical16(self, newWidget, id, date):
         #Database Connection
@@ -20036,8 +19996,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updatePhysical17(self, newWidget, id, date):
         #Database Connection
@@ -20057,8 +20016,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #cognative development level ************************************************************************************************************************
     def updateCogDev0(self, newWidget, id, date):
@@ -20074,8 +20032,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateCogDev1(self, newWidget, id, date):
         #Database Connection
@@ -20095,8 +20052,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Varicella screening ************************************************************************************************************************
     def updateVaricella0(self, newWidget, id, date):
@@ -20114,8 +20070,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateVaricella1(self, newWidget, id, date):
         #Database Connection
@@ -20132,8 +20087,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateGenHealth2(self, newWidget, id, date):
         #Database Connection
@@ -20153,8 +20107,7 @@ class Main():
             
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateVaricella3(self, newWidget, id, date):
         #Database Connection
@@ -20171,8 +20124,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateGenHealth4(self, newWidget, id, date):
         #Database Connection
@@ -20192,8 +20144,7 @@ class Main():
             
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #tuberculosis screening ************************************************************************************************************************
     def updateTuberculosis1(self, newWidget, type, id, date):
@@ -20214,8 +20165,7 @@ class Main():
             
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateTuberculosis2(self, newWidget, type, id, date):
         #Database Connection
@@ -20235,8 +20185,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Restrictions_And_Recommendations ************************************************************************************************************************
     def updateRestrictionsRec(self, newWidget, type, id, date):
@@ -20257,8 +20206,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #medcare provider medications ************************************************************************************************************************
     def updateMedProMed1(self, newWidget, count, id, date):
@@ -20311,8 +20259,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProMed2(self, newWidget, count, id, date):
         #Database Connection
@@ -20361,8 +20308,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 
     def updateMedProMed3(self, newWidget, count, id, date):
@@ -20412,8 +20358,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #medcare provider verification statement ************************************************************************************************************************
     def updateMedProvVerState0(self, newWidget, id, date):
@@ -20431,8 +20376,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvVerState1(self, newWidget, id, date):
         #Database Connection
@@ -20452,8 +20396,7 @@ class Main():
             
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvVerState2(self, newWidget, id, date):
         #Database Connection
@@ -20473,8 +20416,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvVerState3(self, newWidget, id, date):
         #Database Connection
@@ -20494,8 +20436,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvVerState4(self, newWidget, id, date):
         #Database Connection
@@ -20515,8 +20456,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvVerState5(self, newWidget, id, date):
         #Database Connection
@@ -20536,8 +20476,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvVerState6(self, newWidget, id, date):
         #Database Connection
@@ -20557,8 +20496,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvVerState7(self, newWidget, id, date):
         #Database Connection
@@ -20578,8 +20516,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateMedProvVerState8(self, newWidget, id, date):
         #Database Connection
@@ -20599,8 +20536,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #
 #HIV provider sections
@@ -20625,8 +20561,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateHealthHistory1(self, healthHistory1, healthHistory2, healthHistory3, healthHistory4, healthHistory5, healthHistory6, healthHistory7, 
         healthHistory8, healthHistory9, healthHistory10, healthHistory11, healthHistory12, healthHistory13, healthHistory14, healthHistory15, 
@@ -20709,8 +20644,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateHealthHistory2(self, newWidget, id, date):
         #Database Connection
@@ -20727,8 +20661,7 @@ class Main():
 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateHealthHistory3(self, newWidget, id, date):
         #Database Connection
@@ -20748,8 +20681,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #lab data ************************************************************************************************************************
     def updateLab0(self, newWidget, id, date):
@@ -20770,8 +20702,7 @@ class Main():
             
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateLab1(self, newWidget, id, date):
         #Database Connection
@@ -20791,8 +20722,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateLab2(self, newWidget, id, date):
         #Database Connection
@@ -20812,8 +20742,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateLab3(self, newWidget, id, date):
         #Database Connection
@@ -20833,8 +20762,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateLab4(self, newWidget, id, date):
         #Database Connection
@@ -20854,8 +20782,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateLab5(self, newWidget, id, date):
         #Database Connection
@@ -20875,8 +20802,7 @@ class Main():
             
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateLab6(self, newWidget, id, date):
         #Database Connection
@@ -20896,8 +20822,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateLab7(self, newWidget, id, date):
         #Database Connection
@@ -20917,8 +20842,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateLab8(self, newWidget, id, date):
         #Database Connection
@@ -20938,8 +20862,7 @@ class Main():
             
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateLab9(self, newWidget, id, date):
         #Database Connection
@@ -20959,8 +20882,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateLab10(self, newWidget, id, date):
         #Database Connection
@@ -20980,8 +20902,7 @@ class Main():
                 
         #Close Database Connection
         db.commit()
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 
 #******************************************************************************************************************************************************
@@ -21010,7 +20931,7 @@ class Main():
                                   tags="master")
 
         master.bind("<Configure>", self.onFrameConfigure)
-        root.geometry("740x1000")
+        root.geometry("1000x1000")
 
         #Database Connection
         db = self.connect()
@@ -21024,7 +20945,10 @@ class Main():
         #back
         backButton = Button(buttonframe, text = "Back", command = lambda:self.SecondChildProfilePage(id, date))
         backButton.pack(side = "left")
-        
+
+        exitButton = Button(buttonframe, text = "Exit", command=lambda: self.exit())
+        exitButton.pack(side = "left")
+
         #delete
         deleteButton = Button(buttonframe, text = "Delete Application", command = lambda:self.deleteChildApp(id, date))
         deleteButton.pack(side = "right")
@@ -21044,7 +20968,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
-        #global childInfo0
         childInfo0 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21064,7 +20987,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
-        global childInfo1
         childInfo1 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21072,7 +20994,7 @@ class Main():
         else:
             childInfo1.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo1())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo1(childInfo1, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21084,7 +21006,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nNickname .............................................................................................. ")
-        global childInfo2
         childInfo2 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21092,7 +21013,7 @@ class Main():
         else:
             childInfo2.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo2())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo2(childInfo2, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21104,7 +21025,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nHome Address ....................................................................................... ")
-        global childInfo3
         childInfo3 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21112,7 +21032,7 @@ class Main():
         else:
             childInfo3.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo3())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo3(childInfo3, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21124,7 +21044,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nCity ....................................................................................................... ")
-        global childInfo4
         childInfo4 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21132,7 +21051,7 @@ class Main():
         else:
             childInfo4.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo4())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo4(childInfo4, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21144,7 +21063,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nCounty .................................................................................................. ")
-        global childInfo5
         childInfo5 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21152,7 +21070,7 @@ class Main():
         else:
             childInfo5.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo5())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo5(childInfo5, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21164,7 +21082,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nZip ........................................................................................................ ")
-        global childInfo6
         childInfo6 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21172,7 +21089,7 @@ class Main():
         else:
             childInfo6.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo6())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo6(childInfo6, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21184,7 +21101,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nHome Phone .......................................................................................... ")
-        global childInfo7
         childInfo7 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21192,7 +21108,7 @@ class Main():
         else:
             childInfo7.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo7())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo7(childInfo7, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21204,7 +21120,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nParent/Guardian's Cell Phone ................................................................ ")
-        global childInfo8
         childInfo8 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21212,7 +21127,7 @@ class Main():
         else:
             childInfo8.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo8())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo8(childInfo8, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21224,7 +21139,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nParent/Guardian's e-mail address .......................................................... ")
-        global childInfo9
         childInfo9 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21232,7 +21146,7 @@ class Main():
         else:
             childInfo9.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo9())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo9(childInfo9, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21244,7 +21158,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nAge ....................................................................................................... ")
-        global childInfo10
         childInfo10 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21252,7 +21165,7 @@ class Main():
         else:
             childInfo10.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo10())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo10(childInfo10, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21264,7 +21177,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nDate of Birth (YYYY-MM-DD) ................................................................ ")
-        global childInfo11
         childInfo11 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21272,7 +21184,7 @@ class Main():
         else:
             childInfo11.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo11())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo11(childInfo11, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21285,7 +21197,6 @@ class Main():
         curr.execute("SELECT Gender FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global childInfo12
         childInfo12 = StringVar()
         
         choices = ['Male','Female']
@@ -21294,7 +21205,7 @@ class Main():
         if val is not None:
             childInfo12.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo12())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo12(childInfo12, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21307,7 +21218,6 @@ class Main():
         curr.execute("SELECT HIV_Status FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global childInfo13
         childInfo13 = StringVar()
         
         choices = ['HIV Positive','HIV Negative']
@@ -21316,7 +21226,7 @@ class Main():
         if val is not None:
             childInfo13.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo13())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo13(childInfo13, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21331,7 +21241,6 @@ class Main():
 
         curr.execute("SELECT Aware FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
-        global childInfo14
         childInfo14 = IntVar()
 
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = childInfo14, value=1)
@@ -21343,7 +21252,7 @@ class Main():
             else:
                 childInfo14.set(1)
  
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo14())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo14(childInfo14, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21356,7 +21265,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "If no, please provide a reason why child is not aware .............................. ")
-        global childInfo15
         childInfo15 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21364,7 +21272,7 @@ class Main():
         else:
             childInfo15.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo15())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo15(childInfo15, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21376,7 +21284,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nReferral Source ..................................................................................... ")
-        global childInfo16
         childInfo16 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21384,7 +21291,7 @@ class Main():
         else:
             childInfo16.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo16())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo16(childInfo16, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21396,7 +21303,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nSchool Attending .................................................................................. ")
-        global childInfo17
         childInfo17 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21404,7 +21310,7 @@ class Main():
         else:
             childInfo17.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo17())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo17(childInfo17, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21416,7 +21322,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nGrade Level ........................................................................................... ")
-        global childInfo18
         childInfo18 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21424,7 +21329,7 @@ class Main():
         else:
             childInfo18.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo18())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo18(childInfo18, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21437,7 +21342,6 @@ class Main():
         curr.execute("SELECT Ethnicity FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global childInfo19
         childInfo19 = StringVar()
         
         choices = ['White/Caucasian','Black/African-American','Hispanic/Latino',
@@ -21447,7 +21351,7 @@ class Main():
         if val is not None:
             childInfo19.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo19())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo19(childInfo19, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21459,7 +21363,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "If Other ................................................................................................. ")
-        global childInfo20
         childInfo20 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21467,7 +21370,7 @@ class Main():
         else:
             childInfo20.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo20())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo20(childInfo20, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21485,7 +21388,6 @@ class Main():
 
         curr.execute("SELECT ADD_ADHD FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
-        global childInfo21
         childInfo21 = IntVar()
 
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = childInfo21, value=1)
@@ -21497,7 +21399,7 @@ class Main():
             else:
                 childInfo21.set(1)
  
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo21())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo21(childInfo21, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21511,7 +21413,6 @@ class Main():
 
         curr.execute("SELECT Learning_Disability FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
-        global childInfo22
         childInfo22 = IntVar()
 
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = childInfo22, value=1)
@@ -21523,7 +21424,7 @@ class Main():
             else:
                 childInfo22.set(1)
  
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo22())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo22(childInfo22, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21537,7 +21438,6 @@ class Main():
 
         curr.execute("SELECT Developmental_Disability FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
-        global childInfo23
         childInfo23 = IntVar()
 
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = childInfo23, value=1)
@@ -21549,7 +21449,7 @@ class Main():
             else:
                 childInfo23.set(1)
  
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo23())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo23(childInfo23, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21563,7 +21463,6 @@ class Main():
 
         curr.execute("SELECT Mental_Health_Issues FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
-        global childInfo24
         childInfo24 = IntVar()
 
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = childInfo24, value=1)
@@ -21575,7 +21474,7 @@ class Main():
             else:
                 childInfo24.set(1)
  
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo24())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo24(childInfo24, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21589,7 +21488,6 @@ class Main():
 
         curr.execute("SELECT Other_Medical_Condition FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
-        global childInfo25
         childInfo25 = IntVar()
 
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = childInfo25, value=1)
@@ -21601,7 +21499,7 @@ class Main():
             else:
                 childInfo25.set(1)
  
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo25())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo25(childInfo25, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21615,7 +21513,6 @@ class Main():
 
         curr.execute("SELECT Victim_of_Abuse FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
-        global childInfo26
         childInfo26 = IntVar()
 
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = childInfo26, value=1)
@@ -21627,7 +21524,7 @@ class Main():
             else:
                 childInfo26.set(1)
  
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo26())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo26(childInfo26, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21641,7 +21538,6 @@ class Main():
 
         curr.execute("SELECT Criminal_Justice_System FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
-        global childInfo27
         childInfo27 = IntVar()
 
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = childInfo27, value=1)
@@ -21653,7 +21549,7 @@ class Main():
             else:
                 childInfo27.set(1)
  
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo27())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo27(childInfo27, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21667,7 +21563,6 @@ class Main():
         curr.execute("SELECT Legal_Custody FROM Childs_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global childInfo28
         childInfo28 = StringVar()
 
         choices = ['Mother','Father','Both Parents','Aunt/Uncle','Grandparent','Pending Court Action','Other']        
@@ -21676,7 +21571,7 @@ class Main():
         if val is not None:
             childInfo28.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo28())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo28(childInfo28, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21688,7 +21583,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "If Other ................................................................................................. ")
-        global childInfo29
         childInfo29 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21696,7 +21590,7 @@ class Main():
         else:
             childInfo29.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo29())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildInfo29(childInfo29, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -23486,8 +23380,7 @@ class Main():
         label.grid(row = r, column = 0)
 
 #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Child Info ************************************************************************************************************************
     def updateChildInfo0(self, childInfo0, id, date):
@@ -23508,10 +23401,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo1(self):
+    def updateChildInfo1(self, childInfo1, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23529,10 +23421,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo2(self):
+    def updateChildInfo2(self, childInfo2, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23550,10 +23441,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo3(self):
+    def updateChildInfo3(self, childInfo3, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23571,10 +23461,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo4(self):
+    def updateChildInfo4(self, childInfo4, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23592,10 +23481,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo5(self):
+    def updateChildInfo5(self, childInfo5, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23613,10 +23501,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo6(self):
+    def updateChildInfo6(self, childInfo6, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23636,10 +23523,9 @@ class Main():
 
             
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo7(self):
+    def updateChildInfo7(self, childInfo7, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23657,10 +23543,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo8(self):
+    def updateChildInfo8(self, childInfo8, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23678,10 +23563,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo9(self):
+    def updateChildInfo9(self, childInfo9, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23699,10 +23583,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo10(self):
+    def updateChildInfo10(self, childInfo10, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23720,7 +23603,7 @@ class Main():
         else:
             tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nAge must be only numbers.")
 
-    def updateChildInfo11(self):
+    def updateChildInfo11(self, childInfo11, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23739,10 +23622,9 @@ class Main():
             tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nDate must be if YYYY-MM-DD format\nAnd must be a real date.")
             
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo12(self):
+    def updateChildInfo12(self, childInfo12, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23758,10 +23640,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo13(self):
+    def updateChildInfo13(self, childInfo13, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23776,10 +23657,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo14(self):
+    def updateChildInfo14(self, childInfo14, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23797,10 +23677,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo15(self):
+    def updateChildInfo15(self, childInfo15, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23818,10 +23697,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo16(self):
+    def updateChildInfo16(self, childInfo16, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23839,10 +23717,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo17(self):
+    def updateChildInfo17(self, childInfo17, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23860,10 +23737,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo18(self):
+    def updateChildInfo18(self, childInfo18, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23881,10 +23757,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo19(self):
+    def updateChildInfo19(self, childInfo19, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23900,10 +23775,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo20(self):
+    def updateChildInfo20(self, childInfo20, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23921,10 +23795,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo21(self):
+    def updateChildInfo21(self, childInfo21, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23942,10 +23815,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo22(self):
+    def updateChildInfo22(self, childInfo22, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23963,10 +23835,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo23(self):
+    def updateChildInfo23(self, childInfo23, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23984,10 +23855,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo24(self):
+    def updateChildInfo24(self, childInfo24, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24005,10 +23875,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo25(self):
+    def updateChildInfo25(self, childInfo25, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24026,10 +23895,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo26(self):
+    def updateChildInfo26(self, childInfo26, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24047,10 +23915,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo27(self):
+    def updateChildInfo27(self, childInfo27, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24068,10 +23935,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo28(self):
+    def updateChildInfo28(self, childInfo28, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24087,10 +23953,9 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
-    def updateChildInfo29(self):
+    def updateChildInfo29(self, childInfo29, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24108,8 +23973,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Parent Info ************************************************************************************************************************
 
@@ -24131,8 +23995,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo1(self):
 
@@ -24152,8 +24015,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo2(self):
 
@@ -24173,8 +24035,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo3(self):
 
@@ -24210,8 +24071,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo5(self):
 
@@ -24229,8 +24089,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo6(self):
 
@@ -24248,8 +24107,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo7(self):
 
@@ -24267,8 +24125,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo8(self):
 
@@ -24286,8 +24143,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo9(self):
 
@@ -24307,8 +24163,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo10(self):
 
@@ -24328,8 +24183,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo11(self):
 
@@ -24349,8 +24203,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo12(self):
 
@@ -24370,8 +24223,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo13(self):
 
@@ -24391,8 +24243,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo14(self):
 
@@ -24412,8 +24263,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildparentInfo15(self):
 
@@ -24433,8 +24283,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Absent Parent Info ************************************************************************************************************************
 
@@ -24456,8 +24305,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildabsParentInfo1(self):
 
@@ -24477,8 +24325,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildabsParentInfo2(self):
 
@@ -24498,8 +24345,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildabsParentInfo3(self):
 
@@ -24519,8 +24365,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildabsParentInfo4(self):
 
@@ -24540,8 +24385,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildabsParentInfo5(self):
 
@@ -24561,8 +24405,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildabsParentInfo6(self):
 
@@ -24598,8 +24441,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Household Info ************************************************************************************************************************
 
@@ -24692,8 +24534,7 @@ class Main():
             tkMessageBox.showinfo("Edit Profile", "Update Successful!")
         
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildfamIncome0(self):
         #Open Database Connection
@@ -24710,8 +24551,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildfamIncome1(self):
         #Open Database Connection
@@ -24728,8 +24568,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateChildfamIncome2(self):
         #Open Database Connection
@@ -24748,8 +24587,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #In Case of Emergency Contact ************************************************************************************************************************
     def updateChildemergencyInfo0(self):
@@ -24769,8 +24607,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close() 
+        self.disConnect(curr, db) 
 
     def updateChildemergencyInfo1(self):
         #Open Database Connection
@@ -24789,8 +24626,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close() 
+        self.disConnect(curr, db) 
 
     def updateChildemergencyInfo2(self):
         #Open Database Connection
@@ -24809,8 +24645,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close() 
+        self.disConnect(curr, db) 
 
     def updateChildemergencyInfo3(self):
         #Open Database Connection
@@ -24829,8 +24664,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close() 
+        self.disConnect(curr, db) 
 
     def updateChildemergencyInfo4(self):
         #Open Database Connection
@@ -24849,8 +24683,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close() 
+        self.disConnect(curr, db) 
 
     def updateChildemergencyInfo5(self):
         #Open Database Connection
@@ -24869,8 +24702,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close() 
+        self.disConnect(curr, db) 
 
 
     def updateChildemergencyInfo6(self):
@@ -24894,8 +24726,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close() 
+        self.disConnect(curr, db) 
 
     def updateChildemergencyInfo7(self):
         #Open Database Connection
@@ -24914,8 +24745,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close() 
+        self.disConnect(curr, db) 
 
     def updateChildemergencyInfo8(self):
         #Open Database Connection
@@ -24934,8 +24764,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close() 
+        self.disConnect(curr, db) 
 
     def updateChildemergencyInfo9(self):
         #Open Database Connection
@@ -24954,8 +24783,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #H.E.R.O. Programs ************************************************************************************************************************
 
@@ -24993,8 +24821,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 
     def updateChildPrograms1(self):
@@ -25032,8 +24859,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Referral Needs ************************************************************************************************************************
 
@@ -25081,8 +24907,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 #Statement of Understanding & signeture **************************************************************************************************************
 
@@ -25142,8 +24967,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
     def updateSignature(self):
         #Open Database Connection
@@ -25163,8 +24987,7 @@ class Main():
         tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
-        curr.close()
-        db.close()
+        self.disConnect(curr, db)
 
 
 #check string entry is a number
@@ -25209,8 +25032,7 @@ class Main():
             db.commit()
 
             #Close Database Connection
-            curr.close()
-            db.close()
+            self.disConnect(curr, db)
 
             #UI feedback
             showwarning('Delete', 'Application Deleted')
