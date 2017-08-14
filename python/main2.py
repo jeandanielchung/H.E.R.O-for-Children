@@ -4,13 +4,8 @@ from tkMessageBox import *
 import tkMessageBox
 import MySQLdb
 
-#TODO: Fix edit so that none are global and it is passing params instead (see childInfo0 & childInfo1)
-#TODO: edit child checkboxes make it "if var is not None" and then create UI (see edit camper app)
-#TODO: figure out fixing if they use a contraction ex: doesn't
-#TODO: add lables for "PARENT SECTION", "MEDICAL PROVIDOR SECTION", "HIV PROVIDOR SECTION"
 #TODO: Handle feedback for data errors that's too long!! in edit child. ex: VARCHAR(30)
 #TODO: Immunization PDF
-#TODO: deal with demographic contacts
 
 class Main():
 
@@ -975,9 +970,14 @@ class Main():
 #
 #Parent sections
 #
+        #header
+        labelDemographicSection = Label(DemographicSectionframe, text = "\n\nPARENT SECTION")
+        labelDemographicSection.grid(row = r, columnspan = 2)
+        labelDemographicSection.config(font=("Helvetica", 25))
 
 #Demographic info section
         #header
+        r=r+1
         labelDemographicSection = Label(DemographicSectionframe, text = "\n\nDEMOGRAPHIC INFORMATION")
         labelDemographicSection.grid(row = r, columnspan = 2)
         labelDemographicSection.config(font=("Helvetica", 20))
@@ -2309,6 +2309,11 @@ class Main():
 #                  
 #Medical provider sections
 #
+        #header
+        r = r+1
+        labelDemographicSection = Label(DemographicSectionframe, text = "\n\nMEDICAL PROVIDER SECTION")
+        labelDemographicSection.grid(row = r, columnspan = 2)
+        labelDemographicSection.config(font=("Helvetica", 25))
 
 #Medical provider
         #header
@@ -3228,6 +3233,11 @@ class Main():
 #
 #hiv provider sections
 #
+        #header
+        r = r+1
+        labelDemographicSection = Label(DemographicSectionframe, text = "\n\nHIV PROVIDER SECTION")
+        labelDemographicSection.grid(row = r, columnspan = 2)
+        labelDemographicSection.config(font=("Helvetica", 25))
 
 #health history
         #header
@@ -9129,7 +9139,7 @@ class Main():
         #Get the name from the database
         curr.execute("SELECT Name_First, Name_Last FROM Childs_Information WHERE ID = %s;", (id,))
         name = curr.fetchall()
-        if name is None:
+        if name is () or name is None:
             curr.execute("SELECT First_Name, Last_Name FROM Demographic_Information WHERE ID = %s;", (id,))
             name = curr.fetchall()        
 
@@ -9285,6 +9295,10 @@ class Main():
 #
 #Parent sections
 #
+        #header
+        labelDemographicSection = Label(DemographicSectionframe, text = "\n\nPARENT SECTION")
+        labelDemographicSection.pack(fill = "x")
+        labelDemographicSection.config(font=("Helvetica", 25))
 
 #Demographic info section
         #header
@@ -10207,6 +10221,11 @@ class Main():
 #Medical provider sections
 #
 
+        #header
+        labelDemographicSection = Label(DemographicSectionframe, text = "\n\nMEDICAL PROVIDER SECTION")
+        labelDemographicSection.pack(fill = "x")
+        labelDemographicSection.config(font=("Helvetica", 25))
+
 #medical history
         #header
         labelMedicalProviderSection = Label(DemographicSectionframe, text = "\n\nMEDICAL HISTORY")
@@ -10779,6 +10798,11 @@ class Main():
 #
 #hiv provider sections
 #
+
+        #header
+        labelDemographicSection = Label(DemographicSectionframe, text = "\n\nHIV PROVIDER SECTION")
+        labelDemographicSection.pack(fill = "x")
+        labelDemographicSection.config(font=("Helvetica", 25))
 
 #health history
         #header
@@ -11895,6 +11919,8 @@ class Main():
         root = self.EditCampProfilePageRoot
         if self.PrevPage is 'SecondCampProfilePage':
             self.SecondCampProfilePageRoot.withdraw()
+        elif self.PrevPage is 'EditCampProfilePageTwo':
+            self.EditCampProfilePageTwoRoot.withdraw()
         self.PrevPage = 'EditCampProfilePage'
         root.title("Edit Camp Profile Page")
 
@@ -11934,6 +11960,10 @@ class Main():
         deleteButton = Button(buttonframe, text = "Delete Application", command = lambda:self.deleteCampApp(id, date))
         deleteButton.pack(side = "right")
 
+        #next
+        nextButton = Button(buttonframe, text = "Next Page", command = lambda:self.EditCampProfilePageTwo(id, date))
+        nextButton.pack(side = "right")
+
 #Database dump frame
         DemographicSectionframe = Frame(master)
         DemographicSectionframe.pack(fill = 'y', side = 'left') 
@@ -11942,6 +11972,11 @@ class Main():
 #
 #parent sections
 #
+        #header
+        labelDemographicSection = Label(DemographicSectionframe, text = "\n\nPARENT SECTION")
+        labelDemographicSection.grid(row = r, columnspan = 2)
+        labelDemographicSection.config(font=("Helvetica", 25))
+        r=r+1
 
 #Demographic info section ************************************************************************************************************************
         #header
@@ -12503,7 +12538,7 @@ class Main():
 
         #Name
         curr.execute("SELECT Name FROM Demographic_Contacts WHERE ID = %s AND Date_Submitted = %s AND Type = 'Home';", (id, date,))
-        val = curr.fetchall()[0][0]
+        val = curr.fetchall()
 
         label = Label(DemographicSectionframe, text = "Contact Name ............................................................................................................................ ")
         demContactInfo20 = Entry(DemographicSectionframe)
@@ -14895,9 +14930,69 @@ class Main():
         No.grid(row = r, column = 1, sticky = 'e')
         label.grid(row = r, column = 0)
 
+        #next
+        r = r+1
+        nextButton = Button(DemographicSectionframe, text = "Next Page", command = lambda:self.EditCampProfilePageTwo(id, date))
+        nextButton.grid(row = r, column = 2, sticky="E")
+
+#******************************************************************************************************************************************************
+
+    def EditCampProfilePageTwo(self, id, date):
+        #setup
+        self.EditCampProfilePageTwoRoot = Toplevel()
+        root = self.EditCampProfilePageTwoRoot
+        self.EditCampProfilePageRoot.withdraw()
+        self.PrevPage = 'EditCampProfilePageTwo'
+        root.title("Edit Camp Profile Page")
+
+        self.canvas = Canvas(root)
+        master = Frame(self.canvas)
+
+        scrollbarY = Scrollbar(root, orient = "vertical", command = self.canvas.yview)
+        scrollbarY.pack(side = RIGHT, fill = Y)
+        scrollbarX = Scrollbar(root, orient = "horizontal", command = self.canvas.xview)
+        scrollbarX.pack(side = BOTTOM, fill = X)
+
+        self.canvas.configure(xscrollcommand = scrollbarX.set, yscrollcommand = scrollbarY.set)
+        self.canvas.pack(side = "left", fill = "both", expand = True)
+        self.canvas.create_window((4,4), window = master, anchor="nw", 
+                                  tags="master")
+
+        master.bind("<Configure>", self.onFrameConfigure)
+        root.geometry("1000x1000")
+
+        #Database Connection
+        db = self.connect()
+        curr = db.cursor()
+
+#Buttons
+        #frame
+        buttonframe = Frame(master)
+        buttonframe.pack(side = "top", fill = "x")
+
+        #back
+        prevButton = Button(buttonframe, text = "Prev Page", command = lambda:self.EditCampProfilePage(id, date))
+        prevButton.pack(side = "left")
+
+        exitButton = Button(buttonframe, text = "Exit", command=lambda: self.exit())
+        exitButton.pack(side = "left")
+
+        #delete
+        deleteButton = Button(buttonframe, text = "Delete Application", command = lambda:self.deleteCampApp(id, date))
+        deleteButton.pack(side = "right")
+
+#Database dump frame
+        DemographicSectionframe = Frame(master)
+        DemographicSectionframe.pack(fill = 'y', side = 'left') 
+        r = 0
+
 #
 #Medical provider sections
 #
+        #header
+        labelDemographicSection = Label(DemographicSectionframe, text = "\n\nMEDICAL PROVIDER SECTION")
+        labelDemographicSection.grid(row = r, columnspan = 2)
+        labelDemographicSection.config(font=("Helvetica", 25))
 
 #medical history ************************************************************************************************************************
         #header
@@ -17028,6 +17123,12 @@ class Main():
 #HIV provider sections
 #
 
+        #header
+        r=r+1
+        labelDemographicSection = Label(DemographicSectionframe, text = "\n\nHIV PROVIDER SECTION")
+        labelDemographicSection.grid(row = r, columnspan = 2)
+        labelDemographicSection.config(font=("Helvetica", 25))
+
 #health history ************************************************************************************************************************
         #header
         labelContactsSection = Label(DemographicSectionframe, text = "\n\nHEALTH HISTORY INFORMATION FROM HIV PROVIDER")
@@ -17472,6 +17573,10 @@ class Main():
         buttonUpdate.grid(row = r, column = 2)
         lab10.grid(row = r, column = 1)
         label.grid(row = r, column = 0)
+        
+        r = r+1
+        prevButtonTwo = Button(DemographicSectionframe, text = "Prev Page", command = lambda:self.EditCampProfilePage(id, date))
+        prevButtonTwo.grid(row = r, column = 0, sticky = "W")
 
 #************************************************************************************************************************
 
@@ -21609,7 +21714,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
-        global parentInfo0
         parentInfo0 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21617,7 +21721,7 @@ class Main():
         else:
             parentInfo0.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo0())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo0(parentInfo0, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21629,7 +21733,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
-        global parentInfo1
         parentInfo1 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21637,7 +21740,7 @@ class Main():
         else:
             parentInfo1.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo1())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo1(parentInfo1, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21649,7 +21752,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nRelationship to child ............................................................................. ")
-        global parentInfo2
         parentInfo2 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21657,7 +21759,7 @@ class Main():
         else:
             parentInfo2.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo2())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo2(parentInfo2, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21669,7 +21771,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nAge ....................................................................................................... ")
-        global parentInfo3
         parentInfo3 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21677,7 +21778,7 @@ class Main():
         else:
             parentInfo3.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo3())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo3(parentInfo3, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21690,7 +21791,6 @@ class Main():
         curr.execute("SELECT HIV_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global parentInfo4
         parentInfo4 = StringVar()
         
         choices = ['HIV Positive','HIV Negative']
@@ -21699,7 +21799,7 @@ class Main():
         if val is not None:
             parentInfo4.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo4())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo4(parentInfo4, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21712,7 +21812,6 @@ class Main():
         curr.execute("SELECT Adoptive_Parent FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global parentInfo5
         parentInfo5 = StringVar()
         
         choices = ['Yes','No','Not Applicable']
@@ -21721,7 +21820,7 @@ class Main():
         if val is not None:
             parentInfo5.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo5())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo5(parentInfo5, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21734,7 +21833,6 @@ class Main():
         curr.execute("SELECT Marital_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global parentInfo6
         parentInfo6 = StringVar()
         
         choices = ['Married','Single','Separated','Divorced','Widowed']
@@ -21743,7 +21841,7 @@ class Main():
         if val is not None:
             parentInfo6.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo6())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo6(parentInfo6, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21756,7 +21854,6 @@ class Main():
         curr.execute("SELECT Education_Completed FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global parentInfo7
         parentInfo7 = StringVar()
         
         choices = ['HS','GED','Some College','Associates Degree','Bachelor Degree','Master Degree','Doctorate']
@@ -21765,7 +21862,7 @@ class Main():
         if val is not None:
             parentInfo7.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo7())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo7(parentInfo7, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21778,7 +21875,6 @@ class Main():
         curr.execute("SELECT Employment_Status FROM Parent_Guardian_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global parentInfo8
         parentInfo8 = StringVar()
         
         choices = ['Full-Time','Part-Time','Unemployed','Disability']
@@ -21787,7 +21883,7 @@ class Main():
         if val is not None:
             parentInfo8.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo8())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo8(parentInfo8, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21803,7 +21899,6 @@ class Main():
         label.grid(row = r, column = 0, sticky = 'w')
         label = Label(ChildInfoSectionframe, text = "please provide Company Name ............................................................. ")
 
-        global parentInfo9
         parentInfo9 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21811,7 +21906,7 @@ class Main():
         else:
             parentInfo9.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo9())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo9(parentInfo9, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21823,7 +21918,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nAddress ................................................................................................ ")
-        global parentInfo10
         parentInfo10 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21831,7 +21925,7 @@ class Main():
         else:
             parentInfo10.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo10())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo10(parentInfo10, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21843,7 +21937,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nCity ...................................................................................................... ")
-        global parentInfo11
         parentInfo11 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21851,7 +21944,7 @@ class Main():
         else:
             parentInfo11.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo11())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo11(parentInfo11, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21863,7 +21956,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nState .................................................................................................... ")
-        global parentInfo12
         parentInfo12 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21871,7 +21963,7 @@ class Main():
         else:
             parentInfo12.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo12())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo12(parentInfo12, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21883,7 +21975,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nZip ........................................................................................................ ")
-        global parentInfo13
         parentInfo13 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21891,7 +21982,7 @@ class Main():
         else:
             parentInfo13.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo13())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo13(parentInfo13, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21903,7 +21994,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nWork Phone .......................................................................................... ")
-        global parentInfo14
         parentInfo14 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21911,7 +22001,7 @@ class Main():
         else:
             parentInfo14.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo14())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo14(parentInfo14, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21923,7 +22013,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nE-mail ................................................................................................... ")
-        global parentInfo15
         parentInfo15 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21931,7 +22020,7 @@ class Main():
         else:
             parentInfo15.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo15())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildparentInfo15(parentInfo15, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21950,7 +22039,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
-        global absParentInfo0
         absParentInfo0 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21958,7 +22046,7 @@ class Main():
         else:
             absParentInfo0.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo0())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo0(absParentInfo0, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21970,7 +22058,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
-        global absParentInfo1
         absParentInfo1 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21978,7 +22065,7 @@ class Main():
         else:
             absParentInfo1.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo1())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo1(absParentInfo1, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -21990,7 +22077,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nTelephone .............................................................................................. ")
-        global absParentInfo2
         absParentInfo2 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -21998,7 +22084,7 @@ class Main():
         else:
             absParentInfo2.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo2())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo2(absParentInfo2, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22010,7 +22096,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nHome Address ....................................................................................... ")
-        global absParentInfo3
         absParentInfo3 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22018,7 +22103,7 @@ class Main():
         else:
             absParentInfo3.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo3())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo3(absParentInfo3, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22030,7 +22115,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nCity ....................................................................................................... ")
-        global absParentInfo4
         absParentInfo4 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22038,7 +22122,7 @@ class Main():
         else:
             absParentInfo4.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo4())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo4(absParentInfo4, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22050,7 +22134,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nCounty .................................................................................................. ")
-        global absParentInfo5
         absParentInfo5 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22058,7 +22141,7 @@ class Main():
         else:
             absParentInfo5.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo5())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo5(absParentInfo5, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22070,7 +22153,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nZip ......................................................................................................... ")
-        global absParentInfo6
         absParentInfo6 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22078,7 +22160,7 @@ class Main():
         else:
             absParentInfo6.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo6())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo6(absParentInfo6, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22091,7 +22173,6 @@ class Main():
         curr.execute("SELECT HIV_Status FROM Absent_Parent_Information WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global absParentInfo7
         absParentInfo7 = StringVar()
         
         choices = ['HIV Positive','HIV Negative', 'Unkown']
@@ -22100,7 +22181,7 @@ class Main():
         if val is not None:
             absParentInfo7.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo7())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildabsParentInfo7(absParentInfo7, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22123,7 +22204,8 @@ class Main():
         r = r+1
         label = Label(ChildInfoSectionframe, text = '\nPerson 1')
         label.grid(row = r, column = 0, sticky = 'w')
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(1))
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(1,
+            houseInfo10, houseInfo11, houseInfo12, houseInfo13, houseInfo14, id, date))
         buttonUpdate.grid(row = r, column = 2)
 
         person = 1
@@ -22134,7 +22216,6 @@ class Main():
         curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo10
         houseInfo10 = Entry(ChildInfoSectionframe)
 
         if (val is ()) or (val[0][0] is None):
@@ -22152,7 +22233,6 @@ class Main():
         curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo11
         houseInfo11 = Entry(ChildInfoSectionframe)
 
         if (val is ()) or (val[0][0] is None):
@@ -22170,7 +22250,6 @@ class Main():
         curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo12
         houseInfo12 = StringVar()
         
         choices = ['Male', 'Female']
@@ -22189,7 +22268,6 @@ class Main():
         curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo13
         houseInfo13 = Entry(ChildInfoSectionframe)
 
         if (val is ()) or (val[0][0] is None):
@@ -22207,7 +22285,6 @@ class Main():
         curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo14
         houseInfo14 = StringVar()
         
         choices = ['HIV Positive','HIV Negative','Unknown']
@@ -22224,7 +22301,8 @@ class Main():
         r = r+1
         label = Label(ChildInfoSectionframe, text = '\nPerson 2')
         label.grid(row = r, column = 0, sticky = 'w')
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(2))
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(2,
+            houseInfo20, houseInfo21, houseInfo22, houseInfo23, houseInfo24, id, date))
         buttonUpdate.grid(row = r, column = 2)
 
         person = 2
@@ -22235,7 +22313,6 @@ class Main():
         curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo20
         houseInfo20 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22253,7 +22330,6 @@ class Main():
         curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo21
         houseInfo21 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22271,7 +22347,6 @@ class Main():
         curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo22
         houseInfo22 = StringVar()
         
         choices = ['Male', 'Female']
@@ -22290,7 +22365,6 @@ class Main():
         curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo23
         houseInfo23 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22308,7 +22382,6 @@ class Main():
         curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo24
         houseInfo24 = StringVar()
         
         choices = ['HIV Positive','HIV Negative','Unknown']
@@ -22325,7 +22398,8 @@ class Main():
         r = r+1
         label = Label(ChildInfoSectionframe, text = '\nPerson 3')
         label.grid(row = r, column = 0, sticky = 'w')
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(3))
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(3,
+            houseInfo30, houseInfo31, houseInfo32, houseInfo33, houseInfo34, id, date))
         buttonUpdate.grid(row = r, column = 2)
 
 
@@ -22337,7 +22411,6 @@ class Main():
         curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo30
         houseInfo30 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22355,7 +22428,6 @@ class Main():
         curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo31
         houseInfo31 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22373,7 +22445,6 @@ class Main():
         curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo32
         houseInfo32 = StringVar()
         
         choices = ['Male', 'Female']
@@ -22392,7 +22463,6 @@ class Main():
         curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo33
         houseInfo33 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22410,7 +22480,6 @@ class Main():
         curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo34
         houseInfo34 = StringVar()
         
         choices = ['HIV Positive','HIV Negative','Unknown']
@@ -22427,7 +22496,8 @@ class Main():
         r = r+1
         label = Label(ChildInfoSectionframe, text = '\nPerson 4')
         label.grid(row = r, column = 0, sticky = 'w')
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(4))
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(4,
+            houseInfo40, houseInfo41, houseInfo42, houseInfo43, houseInfo44, id, date))
         buttonUpdate.grid(row = r, column = 2)
 
         person = 4
@@ -22438,7 +22508,6 @@ class Main():
         curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo40
         houseInfo40 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22456,7 +22525,6 @@ class Main():
         curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo41
         houseInfo41 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22474,7 +22542,6 @@ class Main():
         curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo42
         houseInfo42 = StringVar()
         
         choices = ['Male', 'Female']
@@ -22493,7 +22560,6 @@ class Main():
         curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo43
         houseInfo43 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22511,7 +22577,6 @@ class Main():
         curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo44
         houseInfo44 = StringVar()
         
         choices = ['HIV Positive','HIV Negative','Unknown']
@@ -22528,7 +22593,8 @@ class Main():
         r = r+1
         label = Label(ChildInfoSectionframe, text = '\nPerson 5')
         label.grid(row = r, column = 0, sticky = 'w')
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(5))
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(5,
+            houseInfo50, houseInfo51, houseInfo52, houseInfo53, houseInfo54, id, date))
         buttonUpdate.grid(row = r, column = 2)
 
         person = 5
@@ -22539,7 +22605,6 @@ class Main():
         curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo50
         houseInfo50 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22557,7 +22622,6 @@ class Main():
         curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo51
         houseInfo51 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22575,7 +22639,6 @@ class Main():
         curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo52
         houseInfo52 = StringVar()
         
         choices = ['Male', 'Female']
@@ -22594,7 +22657,6 @@ class Main():
         curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo53
         houseInfo53 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22612,7 +22674,6 @@ class Main():
         curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo54
         houseInfo54 = StringVar()
         
         choices = ['HIV Positive','HIV Negative','Unknown']
@@ -22629,7 +22690,8 @@ class Main():
         r = r+1
         label = Label(ChildInfoSectionframe, text = '\nPerson 6')
         label.grid(row = r, column = 0, sticky = 'w')
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(6))
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildhouseInfo(6,
+            houseInfo60, houseInfo61, houseInfo62, houseInfo63, houseInfo64, id, date))
         buttonUpdate.grid(row = r, column = 2)
 
         person = 6
@@ -22640,7 +22702,6 @@ class Main():
         curr.execute("SELECT Name FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo60
         houseInfo60 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22658,7 +22719,6 @@ class Main():
         curr.execute("SELECT Relationship FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo61
         houseInfo61 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22676,7 +22736,6 @@ class Main():
         curr.execute("SELECT Sex FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo62
         houseInfo62 = StringVar()
         
         choices = ['Male', 'Female']
@@ -22695,7 +22754,6 @@ class Main():
         curr.execute("SELECT Age FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo63
         houseInfo63 = Entry(ChildInfoSectionframe)
         
         if (val is ()) or (val[0][0] is None):
@@ -22713,7 +22771,6 @@ class Main():
         curr.execute("SELECT HIV_Status FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, person,))
         val = curr.fetchall()
 
-        global houseInfo64
         houseInfo64 = StringVar()
         
         choices = ['HIV Positive','HIV Negative','Unknown']
@@ -22733,7 +22790,6 @@ class Main():
         curr.execute("SELECT Fam_Annual_Income FROM Fam_Annual_Income WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global famIncome0
         famIncome0 = StringVar()
         
         choices = ['$0-10,000','$10,001-15,000','$15,001-20,000','$20,000-25,000','$25,001-30,000','$30,001-35,000','$35,001-40,000','$40,001-45,000','$50,000+']
@@ -22742,7 +22798,7 @@ class Main():
         if val is not None:
             famIncome0.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildfamIncome0())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildfamIncome0(famIncome0, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22755,7 +22811,6 @@ class Main():
         curr.execute("SELECT Source_Fam_Income FROM Source_Fam_Income WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global famIncome1
         famIncome1 = StringVar()
         
         choices = ['Employment','Government Support','Public Assistance', 'Unemployment Benefits','Medicaid','Social Security','Veterans Benefits','Other']
@@ -22764,7 +22819,7 @@ class Main():
         if val is not None:
             famIncome1.set(val)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildfamIncome1())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildfamIncome1(famIncome1, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22776,7 +22831,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "If Other ................................................................................................. ")
-        global famIncome2
         famIncome2 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22784,7 +22838,7 @@ class Main():
         else:
             famIncome2.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildfamIncome2())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildfamIncome2(famIncome2, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22803,7 +22857,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nFirst Name ............................................................................................ ")
-        global emergencyInfo0
         emergencyInfo0 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22811,7 +22864,7 @@ class Main():
         else:
             emergencyInfo0.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo0())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo0(emergencyInfo0, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22823,7 +22876,6 @@ class Main():
         val = curr.fetchall()[0][0]
         
         label = Label(ChildInfoSectionframe, text = "\nLast Name ............................................................................................. ")
-        global emergencyInfo1
         emergencyInfo1 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22831,7 +22883,7 @@ class Main():
         else:
             emergencyInfo1.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo1())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo1(emergencyInfo1, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22843,7 +22895,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nRelationship to child ............................................................................. ")
-        global emergencyInfo2
         emergencyInfo2 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22851,7 +22902,7 @@ class Main():
         else:
             emergencyInfo2.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo2())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo2(emergencyInfo2, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22863,7 +22914,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nHome Address ....................................................................................... ")
-        global emergencyInfo3
         emergencyInfo3 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22871,7 +22921,7 @@ class Main():
         else:
             emergencyInfo3.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo3())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo3(emergencyInfo3, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22883,7 +22933,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nCity ...................................................................................................... ")
-        global emergencyInfo4
         emergencyInfo4 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22891,7 +22940,7 @@ class Main():
         else:
             emergencyInfo4.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo4())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo4(emergencyInfo4, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22903,7 +22952,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nState ..................................................................................................... ")
-        global emergencyInfo5
         emergencyInfo5 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22911,7 +22959,7 @@ class Main():
         else:
             emergencyInfo5.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo5())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo5(emergencyInfo5, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22923,7 +22971,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nZip ........................................................................................................ ")
-        global emergencyInfo6
         emergencyInfo6 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22931,7 +22978,7 @@ class Main():
         else:
             emergencyInfo6.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo6())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo6(emergencyInfo6, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22943,7 +22990,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nHome Phone Number ............................................................................. ")
-        global emergencyInfo7
         emergencyInfo7 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22951,7 +22997,7 @@ class Main():
         else:
             emergencyInfo7.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo7())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo7(emergencyInfo7, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22963,7 +23009,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nCell Phone Number ............................................................................... ")
-        global emergencyInfo8
         emergencyInfo8 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22971,7 +23016,7 @@ class Main():
         else:
             emergencyInfo8.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo8())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo8(emergencyInfo8, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -22983,7 +23028,6 @@ class Main():
         val = curr.fetchall()[0][0]
 
         label = Label(ChildInfoSectionframe, text = "\nAlternate Phone Number ....................................................................... ")
-        global emergencyInfo9
         emergencyInfo9 = Entry(ChildInfoSectionframe)
 
         if val is not None:
@@ -22991,7 +23035,7 @@ class Main():
         else:
             emergencyInfo9.insert(0, 'Unanswered')
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo9())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildemergencyInfo9(emergencyInfo9, id, date))
 
         r = r+1
         buttonUpdate.grid(row = r, column = 2)
@@ -23010,14 +23054,14 @@ class Main():
         r = r+1
         label.grid(row = r, column = 0)
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildPrograms0())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildPrograms0(
+            programs0, programs1, programs2, programs3, programs4, id, date))
         buttonUpdate.grid(row = r, column = 2)
         
         curr.execute("SELECT HERO_Programs FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         var = curr.fetchall()[0][0]
 
         #Super HEROes Program
-        global programs0
         programs0 = IntVar()
         Checkbutton(ChildInfoSectionframe, text="Super HEROes Program", variable = programs0).grid(row = r,  column = 1, sticky = W)
 
@@ -23025,7 +23069,6 @@ class Main():
             programs0.set(1)
 
         #Bright HEROs Program
-        global programs1
         programs1 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Bright HEROs Program", variable = programs1).grid(row = r,  column = 1, sticky = W)
@@ -23034,7 +23077,6 @@ class Main():
             programs1.set(1)
             
         #Camp High Five
-        global programs2
         programs2 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Camp High Five", variable = programs2).grid(row = r,  column = 1, sticky = W)
@@ -23043,7 +23085,6 @@ class Main():
             programs2.set(1)
             
         #Holiday of HEROs
-        global programs3
         programs3 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Holiday of HEROs", variable = programs3).grid(row = r,  column = 1, sticky = W)
@@ -23052,7 +23093,6 @@ class Main():
             programs3.set(1)
             
         #Transition to Adulthood
-        global programs4
         programs4 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Transition to Adulthood", variable = programs4).grid(row = r,  column = 1, sticky = W)
@@ -23065,14 +23105,14 @@ class Main():
         r = r+1
         label.grid(row = r, column = 0)
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildPrograms1())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildPrograms1(
+            programs5, programs6, programs7, programs8, id, date))
         buttonUpdate.grid(row = r, column = 2)
         
         curr.execute("SELECT Future_Programs FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         var = curr.fetchall()[0][0]
         
         #Healthy HEROs (health curriculum)
-        global programs5
         programs5 = IntVar()
         Checkbutton(ChildInfoSectionframe, text="Healthy HEROs", variable = programs5).grid(row = r,  column = 1, sticky = SW)
 
@@ -23080,7 +23120,6 @@ class Main():
             programs5.set(1)
 
         #Career Development/Job Readiness
-        global programs6
         programs6 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Career Development/Job Readiness", variable = programs6).grid(row = r,  column = 1, sticky = W)
@@ -23089,7 +23128,6 @@ class Main():
             programs6.set(1)
             
         #Other
-        global programs7
         programs7 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Other", variable = programs7).grid(row = r,  column = 1, sticky = W)
@@ -23098,7 +23136,6 @@ class Main():
             programs7.set(1)
 
         #if other
-        global programs8
         programs8 = Entry(ChildInfoSectionframe, width = 19)
         programs8.grid(row = r, column = 1, sticky = E)
 
@@ -23122,14 +23159,14 @@ class Main():
         r = r+1
         label.grid(row = r, column = 0)
 
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildReferral())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildReferral(
+            Referral0, Referral1, Referral2, Referral3, Referral4, Referral5, Referral6, id, date))
         buttonUpdate.grid(row = r, column = 2)
         
         curr.execute("SELECT Referral FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         var = curr.fetchall()[0][0]
         
         #Food
-        global Referral0
         Referral0 = IntVar()
         Checkbutton(ChildInfoSectionframe, text="Food", variable = Referral0).grid(row = r,  column = 1, sticky = SW)
 
@@ -23137,7 +23174,6 @@ class Main():
             Referral0.set(1)
 
         #Transitional Housing/Shelter
-        global Referral1
         Referral1 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Transitional Housing/Shelter", variable = Referral1).grid(row = r,  column = 1, sticky = W)
@@ -23146,7 +23182,6 @@ class Main():
             Referral1.set(1)
 
         #Rent/Utilities Assistance
-        global Referral2
         Referral2 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Rent/Utilities Assistance", variable = Referral2).grid(row = r,  column = 1, sticky = W)
@@ -23155,7 +23190,6 @@ class Main():
             Referral2.set(1)
 
         #Clothing/Furniture
-        global Referral3
         Referral3 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Clothing/Furniture", variable = Referral3).grid(row = r,  column = 1, sticky = W)
@@ -23164,7 +23198,6 @@ class Main():
             Referral3.set(1)
 
         #Financial/Public Assistance
-        global Referral4
         Referral4 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Financial/Public Assistance", variable = Referral4).grid(row = r,  column = 1, sticky = W)
@@ -23173,7 +23206,6 @@ class Main():
             Referral4.set(1)
 
         #Other
-        global Referral5
         Referral5 = IntVar()
         r = r+1
         Checkbutton(ChildInfoSectionframe, text="Other", variable = Referral5).grid(row = r,  column = 1, sticky = W)
@@ -23182,7 +23214,6 @@ class Main():
             Referral5.set(1)
 
         #if other
-        global Referral6
         Referral6 = Entry(ChildInfoSectionframe, width = 19)
         Referral6.grid(row = r, column = 1, sticky = E)
 
@@ -23206,7 +23237,6 @@ class Main():
         curr.execute("SELECT Statement_One FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
 
-        global statement0
         statement0 = IntVar()
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = statement0, value=1)
         No = Radiobutton(ChildInfoSectionframe, text = "No", variable = statement0, value=2)
@@ -23218,7 +23248,8 @@ class Main():
                 statement0.set(1)
 
         r = r+1
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildStatement())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildStatement(
+            statement0, statement1, statement2, statement3, statement4, statement5, statement6, statement7, id, date))
         buttonUpdate.grid(row = r, column = 2)
         Yes.grid(row = r, column = 1, sticky = 'w')
         No.grid(row = r, column = 1, sticky = 'e')
@@ -23229,7 +23260,6 @@ class Main():
         curr.execute("SELECT Statement_Two FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
 
-        global statement1
         statement1 = IntVar()
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = statement1, value=1)
         No = Radiobutton(ChildInfoSectionframe, text = "No", variable = statement1, value=2)
@@ -23250,7 +23280,6 @@ class Main():
         curr.execute("SELECT Statement_Three FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
 
-        global statement2
         statement2 = IntVar()
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = statement2, value=1)
         No = Radiobutton(ChildInfoSectionframe, text = "No", variable = statement2, value=2)
@@ -23271,7 +23300,6 @@ class Main():
         curr.execute("SELECT Statement_Four FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
 
-        global statement3
         statement3 = IntVar()
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = statement3, value=1)
         No = Radiobutton(ChildInfoSectionframe, text = "No", variable = statement3, value=2)
@@ -23292,7 +23320,6 @@ class Main():
         curr.execute("SELECT Statement_Five FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
 
-        global statement4
         statement4 = IntVar()
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = statement4, value=1)
         No = Radiobutton(ChildInfoSectionframe, text = "No", variable = statement4, value=2)
@@ -23313,7 +23340,6 @@ class Main():
         curr.execute("SELECT Statement_Six FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
 
-        global statement5
         statement5 = IntVar()
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = statement5, value=1)
         No = Radiobutton(ChildInfoSectionframe, text = "No", variable = statement5, value=2)
@@ -23334,7 +23360,6 @@ class Main():
         curr.execute("SELECT Statement_Seven FROM Statement_Of_Understanding WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
 
-        global statement6
         statement6 = IntVar()
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = statement6, value=1)
         No = Radiobutton(ChildInfoSectionframe, text = "No", variable = statement6, value=2)
@@ -23361,7 +23386,6 @@ class Main():
         curr.execute("SELECT Signature FROM Child_Application WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        global signature
         signature = IntVar()
         Yes = Radiobutton(ChildInfoSectionframe, text = "Yes", variable = signature, value=1)
         No = Radiobutton(ChildInfoSectionframe, text = "No", variable = signature, value=2)
@@ -23373,7 +23397,7 @@ class Main():
                 signature.set(1)
 
         r = r+1
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildSignature())
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildSignature(signature, id, date))
         buttonUpdate.grid(row = r, column = 2)
         Yes.grid(row = r, column = 1, sticky = 'w')
         No.grid(row = r, column = 1, sticky = 'e')
@@ -23977,7 +24001,7 @@ class Main():
 
 #Parent Info ************************************************************************************************************************
 
-    def updateChildparentInfo0(self):
+    def updateChildparentInfo0(self, parentInfo0, id, date):
 
         #Database Connection
         db = self.connect()
@@ -23997,7 +24021,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo1(self):
+    def updateChildparentInfo1(self, parentInfo1, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24017,7 +24041,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo2(self):
+    def updateChildparentInfo2(self, parentInfo2, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24037,7 +24061,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo3(self):
+    def updateChildparentInfo3(self, parentInfo3, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24055,7 +24079,7 @@ class Main():
         else:
             tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nAge code must be only numbers.")
 
-    def updateChildparentInfo4(self):
+    def updateChildparentInfo4(self, parentInfo4, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24073,7 +24097,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo5(self):
+    def updateChildparentInfo5(self, parentInfo5, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24091,7 +24115,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo6(self):
+    def updateChildparentInfo6(self, parentInfo6, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24109,7 +24133,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo7(self):
+    def updateChildparentInfo7(self, parentInfo7, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24127,7 +24151,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo8(self):
+    def updateChildparentInfo8(self, parentInfo8, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24145,7 +24169,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo9(self):
+    def updateChildparentInfo9(self, parentInfo9, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24165,7 +24189,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo10(self):
+    def updateChildparentInfo10(self, parentInfo10, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24185,7 +24209,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo11(self):
+    def updateChildparentInfo11(self, parentInfo11, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24205,7 +24229,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo12(self):
+    def updateChildparentInfo12(self, parentInfo12, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24225,7 +24249,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo13(self):
+    def updateChildparentInfo13(self, parentInfo13, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24245,7 +24269,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo14(self):
+    def updateChildparentInfo14(self, parentInfo14, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24265,7 +24289,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildparentInfo15(self):
+    def updateChildparentInfo15(self, parentInfo15, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24287,7 +24311,7 @@ class Main():
 
 #Absent Parent Info ************************************************************************************************************************
 
-    def updateChildabsParentInfo0(self):
+    def updateChildabsParentInfo0(self, absParentInfo0, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24307,7 +24331,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildabsParentInfo1(self):
+    def updateChildabsParentInfo1(self, absParentInfo1, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24327,7 +24351,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildabsParentInfo2(self):
+    def updateChildabsParentInfo2(self, absParentInfo2, id, date):
 
         #Database Connection
         db = self.connect()
@@ -24347,7 +24371,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildabsParentInfo3(self):
+    def updateChildabsParentInfo3(self, absParentInfo3, id, date):
 
         #Open Database Connection
         db = self.connect()
@@ -24367,7 +24391,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildabsParentInfo4(self):
+    def updateChildabsParentInfo4(self, absParentInfo4, id, date):
 
         #Open Database Connection
         db = self.connect()
@@ -24387,7 +24411,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildabsParentInfo5(self):
+    def updateChildabsParentInfo5(self, absParentInfo5, id, date):
 
         #Open Database Connection
         db = self.connect()
@@ -24407,7 +24431,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildabsParentInfo6(self):
+    def updateChildabsParentInfo6(self, absParentInfo6, id, date):
 
         #Open Database Connection
         db = self.connect()
@@ -24425,7 +24449,7 @@ class Main():
         else:
             tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nZip code must be only numbers.")
 
-    def updateChildabsParentInfo7(self):
+    def updateChildabsParentInfo7(self, absParentInfo7, id, date):
 
         #Open Database Connection
         db = self.connect()
@@ -24445,54 +24469,18 @@ class Main():
 
 #Household Info ************************************************************************************************************************
 
-    def updateChildhouseInfo(self, count):
+    def updateChildhouseInfo(self, count, houseInfo0, houseInfo1, houseInfo2, houseInfo3, houseInfo4):
 
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
 
         #Execute
-        if count == 1:
-            newVal0 = houseInfo10.get()
-            newVal1 = houseInfo11.get()
-            newVal2 = houseInfo12.get()
-            newVal3 = houseInfo13.get()
-            newVal4 = houseInfo14.get()
-
-        elif count == 2:
-            newVal0 = houseInfo20.get()
-            newVal1 = houseInfo21.get()
-            newVal2 = houseInfo22.get()
-            newVal3 = houseInfo23.get()
-            newVal4 = houseInfo24.get()
-
-        elif count == 3:
-            newVal0 = houseInfo30.get()
-            newVal1 = houseInfo31.get()
-            newVal2 = houseInfo32.get()
-            newVal3 = houseInfo33.get()
-            newVal4 = houseInfo34.get()
-
-        elif count == 4:
-            newVal0 = houseInfo40.get()
-            newVal1 = houseInfo41.get()
-            newVal2 = houseInfo42.get()
-            newVal3 = houseInfo43.get()
-            newVal4 = houseInfo44.get()
-
-        elif count == 5:
-            newVal0 = houseInfo50.get()
-            newVal1 = houseInfo51.get()
-            newVal2 = houseInfo52.get()
-            newVal3 = houseInfo53.get()
-            newVal4 = houseInfo54.get()
-
-        elif count == 6:
-            newVal0 = houseInfo60.get()
-            newVal1 = houseInfo61.get()
-            newVal2 = houseInfo62.get()
-            newVal3 = houseInfo63.get()
-            newVal4 = houseInfo64.get()
+        newVal0 = houseInfo0.get()
+        newVal1 = houseInfo1.get()
+        newVal2 = houseInfo2.get()
+        newVal3 = houseInfo3.get()
+        newVal4 = houseInfo4.get()
 
         if (newVal0 == 'Unanswered') or (newVal0 == ''):
             newVal0 = None
@@ -24509,11 +24497,9 @@ class Main():
         elif (not self.is_number(newVal3)):
             goodData = 0
             tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nAge must be only numbers.")
-            #stop input to database !!!!!!@#@@#!@
 
         if newVal4 == '':
             newVal4 = None
-
 
         if goodData:
             curr.execute("SELECT * FROM Household_Information WHERE ID = %s AND Date_Submitted = %s AND Count = %s;", (id, date, count,))
@@ -24590,7 +24576,7 @@ class Main():
         self.disConnect(curr, db)
 
 #In Case of Emergency Contact ************************************************************************************************************************
-    def updateChildemergencyInfo0(self):
+    def updateChildemergencyInfo0(self, emergencyInfo0, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24609,7 +24595,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db) 
 
-    def updateChildemergencyInfo1(self):
+    def updateChildemergencyInfo1(self, emergencyInfo1, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24628,7 +24614,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db) 
 
-    def updateChildemergencyInfo2(self):
+    def updateChildemergencyInfo2(self, emergencyInfo2, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24647,7 +24633,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db) 
 
-    def updateChildemergencyInfo3(self):
+    def updateChildemergencyInfo3(self, emergencyInfo3, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24666,7 +24652,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db) 
 
-    def updateChildemergencyInfo4(self):
+    def updateChildemergencyInfo4(self, emergencyInfo4, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24685,7 +24671,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db) 
 
-    def updateChildemergencyInfo5(self):
+    def updateChildemergencyInfo5(self, emergencyInfo5, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24705,7 +24691,7 @@ class Main():
         self.disConnect(curr, db) 
 
 
-    def updateChildemergencyInfo6(self):
+    def updateChildemergencyInfo6(self, emergencyInfo6, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24728,7 +24714,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db) 
 
-    def updateChildemergencyInfo7(self):
+    def updateChildemergencyInfo7(self, emergencyInfo7, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24747,7 +24733,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db) 
 
-    def updateChildemergencyInfo8(self):
+    def updateChildemergencyInfo8(self, emergencyInfo8, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24766,7 +24752,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db) 
 
-    def updateChildemergencyInfo9(self):
+    def updateChildemergencyInfo9(self, emergencyInfo9, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24787,7 +24773,7 @@ class Main():
 
 #H.E.R.O. Programs ************************************************************************************************************************
 
-    def updateChildPrograms0(self):
+    def updateChildPrograms0(self, programs0, programs1, programs2, programs3, programs4, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24824,7 +24810,7 @@ class Main():
         self.disConnect(curr, db)
 
 
-    def updateChildPrograms1(self):
+    def updateChildPrograms1(self, programs5, programs6, programs7, programs8, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24863,7 +24849,7 @@ class Main():
 
 #Referral Needs ************************************************************************************************************************
 
-    def updateChildReferral(self):
+    def updateChildReferral(self, Referral0, Referral1, Referral2, Referral3, Referral4, Referral5, Referral6, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24911,7 +24897,7 @@ class Main():
 
 #Statement of Understanding & signeture **************************************************************************************************************
 
-    def updateChildStatement(self):
+    def updateChildStatement(self, statement0, statement1, statement2, statement3, statement4, statement5, statement6, statement7, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24969,7 +24955,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateSignature(self):
+    def updateChildSignature(self, signature, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
