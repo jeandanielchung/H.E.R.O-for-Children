@@ -101,7 +101,10 @@ INSERT INTO Demographic_Contacts (ID, Date_Submitted, Type, Name, Time_Preferenc
 	(1,'2016-11-24', 'Home', 'Karla Osman', 'Evening', '7709736653'),
 	(1,'2016-11-24', 'Cell', NULL, NULL, NULL),
 	(1,'2016-11-24', 'Work', 'Patrice', 'Day', '8312331996'),
-	(2,'2016-12-12', 'Cell', 'Ted Lamprich', 'Day', '3188901234');
+	
+	(2,'2016-12-12', 'Home', NULL, NULL, NULL),
+	(2,'2016-12-12', 'Cell', 'Ted Lamprich', 'Day', '3188901234'),
+	(2,'2016-12-12', 'Work', NULL, NULL, NULL);
 
 
 INSERT INTO Parent_Emergency_Contact (ID, Date_Submitted, Name, Relationship, Daytime_Phone, Evening_Phone) VALUES
@@ -201,8 +204,9 @@ INSERT INTO Tuberculosis_Screening (ID, Date_Submitted, Type, Date_Screened, Res
 	(1,'2016-11-24', 'Tuberculin Skin Test', Null, Null),
 	(1,'2016-11-24', 'Quantiferon Testing', Null, Null),
 
-	(2,'2016-12-12', 'Tuberculin Skin Test', '2016-05-20', 'May have tuberculosis should test again');
-
+	(2,'2016-12-12', 'Tuberculin Skin Test', '2016-05-20', 'May have tuberculosis should test again'),
+	(2,'2016-12-12', 'Chest X-ray', Null, Null),
+	(2,'2016-12-12', 'Quantiferon Testing', Null, Null);
 
 INSERT INTO MedCareProvider_Medications (ID, Date_Submitted, Medication_Name, Amount_Including_Dosage, Times_To_Give) VALUES
 	(1,'2016-11-24', 'Allegra', '30mg', 'before bed'),
