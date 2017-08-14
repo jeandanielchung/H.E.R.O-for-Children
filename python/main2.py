@@ -4,7 +4,6 @@ from tkMessageBox import *
 import tkMessageBox
 import MySQLdb
 
-#TODO: Handle feedback for data errors that's too long!! in edit child. ex: VARCHAR(30)
 #TODO: Immunization PDF
 
 class Main():
@@ -22807,43 +22806,78 @@ class Main():
 
         #Source of Family Income
         label = Label(ChildInfoSectionframe, text = "\nSource of Family Income ....................................................................... ")
+        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildfamIncome1(
+            famIncome1, famIncome2, famIncome3, famIncome4, famIncome5, famIncome6, famIncome7, famIncome8, famIncome9, id, date))
+
+        r = r+1
+        buttonUpdate.grid(row = r, column = 2)
+        label.grid(row = r, column = 0)
 
         curr.execute("SELECT Source_Fam_Income FROM Source_Fam_Income WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        famIncome1 = StringVar()
+        famIncome1 = IntVar()
+        Checkbutton(ChildInfoSectionframe, text = "Employment", variable = famIncome1).grid(row = r, column = 1, sticky = W)
         
-        choices = ['Employment','Government Support','Public Assistance', 'Unemployment Benefits','Medicaid','Social Security','Veterans Benefits','Other']
-        option = tk.OptionMenu(ChildInfoSectionframe, famIncome1, *choices)
-
-        if val is not None:
-            famIncome1.set(val)
-            
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildfamIncome1(famIncome1, id, date))
-
+        famIncome2 = IntVar()
         r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        option.grid(row = r, column = 1, ipadx = 70)
-        label.grid(row = r, column = 0)
+        Checkbutton(ChildInfoSectionframe, text = "Government Support", variable = famIncome2).grid(row = r, column = 1, sticky = W)
+        
+        famIncome3 = IntVar()
+        r = r+1
+        Checkbutton(ChildInfoSectionframe, text = "Public Assistance", variable = famIncome3).grid(row = r, column = 1, sticky = W)        
+        
+        famIncome4 = IntVar()
+        r = r+1
+        Checkbutton(ChildInfoSectionframe, text = "Unemployment Benefits", variable = famIncome4).grid(row = r, column = 1, sticky = W)
+                    
+        famIncome5 = IntVar()
+        r = r+1
+        Checkbutton(ChildInfoSectionframe, text = "Medicaid", variable = famIncome5).grid(row = r, column = 1, sticky = W)
+    
+        famIncome6 = IntVar()
+        r = r+1
+        Checkbutton(ChildInfoSectionframe, text = "Social Security", variable = famIncome6).grid(row = r, column = 1, sticky = W)
+        
+        famIncome7 = IntVar()
+        r = r+1
+        Checkbutton(ChildInfoSectionframe, text = "Veterans Benefits", variable = famIncome7).grid(row = r, column = 1, sticky = W)
+        
+        famIncome8 = IntVar()
+        r = r+1
+        Checkbutton(ChildInfoSectionframe, text = "Other", variable = famIncome8).grid(row = r, column = 1, sticky = W)
+
+
+        if (val is not None):
+            if "Employment" in val:
+                famIncome1.set(1)
+            if "Government Support" in val:
+                famIncome2.set(1)
+            if "Public Assistance" in val:
+                famIncome3.set(1)
+            if "Unemployment Benefits" in val:
+                famIncome4.set(1)
+            if "Medicaid" in val:
+                famIncome5.set(1)
+            if "Social Security" in val:
+                famIncome6.set(1)
+            if "Veterans Benefits" in val:
+                famIncome7.set(1)
+            if "Other" in val:
+                famIncome8.set(1)
 
         #Source of Family Income Other
         curr.execute("SELECT Other FROM Source_Fam_Income WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
         val = curr.fetchall()[0][0]
         
-        label = Label(ChildInfoSectionframe, text = "If Other ................................................................................................. ")
-        famIncome2 = Entry(ChildInfoSectionframe)
+        famIncome9 = Entry(ChildInfoSectionframe, width = 19)
 
         if val is not None:
-            famIncome2.insert(0, val)
+            famIncome9.insert(0, val)
         else:
-            famIncome2.insert(0, 'Unanswered')
+            famIncome9.insert(0, 'Unanswered')
             
-        buttonUpdate = Button(ChildInfoSectionframe, text = "Update", command = lambda:self.updateChildfamIncome2(famIncome2, id, date))
-
-        r = r+1
-        buttonUpdate.grid(row = r, column = 2)
-        famIncome2.grid(row = r, column = 1)
-        label.grid(row = r, column = 0)
+        famIncome9.grid(row = r, column = 1, sticky = E)
 
 #In Case of Emergency Contact ************************************************************************************************************************
         #header
@@ -23405,6 +23439,7 @@ class Main():
 
 #Close Database Connection
         self.disConnect(curr, db)
+        
 
 #Child Info ************************************************************************************************************************
     def updateChildInfo0(self, childInfo0, id, date):
@@ -23417,13 +23452,15 @@ class Main():
         newVal = childInfo0.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Childs_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
         
-        #feedback    
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
         #Close Database Connection
         self.disConnect(curr, db)
 
@@ -23437,13 +23474,14 @@ class Main():
         newVal = childInfo1.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Childs_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
         db.commit()
         
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
         #Close Database Connection
         self.disConnect(curr, db)
 
@@ -23457,13 +23495,15 @@ class Main():
         newVal = childInfo2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Name_Nickname = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Childs_Information SET Name_Nickname = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
             
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
         #Close Database Connection
         self.disConnect(curr, db)
 
@@ -23477,13 +23517,14 @@ class Main():
         newVal = childInfo3.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 50):
             curr.execute("UPDATE Childs_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 50 characters.")
         db.commit()
             
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
         #Close Database Connection
         self.disConnect(curr, db)
 
@@ -23497,13 +23538,14 @@ class Main():
         newVal = childInfo4.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Childs_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
+          
         #Close Database Connection
         self.disConnect(curr, db)
 
@@ -23517,12 +23559,13 @@ class Main():
         newVal = childInfo5.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_County = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Childs_Information SET Address_County = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -23538,6 +23581,7 @@ class Main():
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
             db.commit()
+            tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
         elif (self.is_number(newVal)):
             curr.execute("UPDATE Childs_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
             db.commit()
@@ -23559,12 +23603,14 @@ class Main():
         newVal = childInfo7.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Home_Phone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 10):
             curr.execute("UPDATE Childs_Information SET Home_Phone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 10 characters.")
         db.commit()
             
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -23579,13 +23625,14 @@ class Main():
         newVal = childInfo8.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Guardian_Phone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 10):
             curr.execute("UPDATE Childs_Information SET Guardian_Phone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 10 characters.")
         db.commit()
             
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
         #Close Database Connection
         self.disConnect(curr, db)
 
@@ -23599,12 +23646,13 @@ class Main():
         newVal = childInfo9.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Guardian_Email = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 70):
             curr.execute("UPDATE Childs_Information SET Guardian_Email = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 70 characters.")
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -23713,13 +23761,15 @@ class Main():
         newVal = childInfo15.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Why = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 100):
             curr.execute("UPDATE Childs_Information SET Why = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
-        db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 100 characters.")
 
+        db.commit()
+         
         #Close Database Connection
         self.disConnect(curr, db)
 
@@ -23733,8 +23783,12 @@ class Main():
         newVal = childInfo16.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Referral_Source = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 70):
             curr.execute("UPDATE Childs_Information SET Referral_Source = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 70 characters.")
         db.commit()
             
         #feedback
@@ -23753,13 +23807,14 @@ class Main():
         newVal = childInfo17.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET School_attending = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 50):
             curr.execute("UPDATE Childs_Information SET School_attending = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 50 characters.")
         db.commit()
             
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
         #Close Database Connection
         self.disConnect(curr, db)
 
@@ -23773,13 +23828,14 @@ class Main():
         newVal = childInfo18.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET School_grade_level = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 12):
             curr.execute("UPDATE Childs_Information SET School_grade_level = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 12 characters.")
         db.commit()
             
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
         #Close Database Connection
         self.disConnect(curr, db)
 
@@ -23811,13 +23867,14 @@ class Main():
         newVal = childInfo20.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Ethnicity_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Childs_Information SET Ethnicity_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
         db.commit()
             
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
         #Close Database Connection
         self.disConnect(curr, db)
 
@@ -23989,12 +24046,13 @@ class Main():
         newVal = childInfo29.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Childs_Information SET Custody_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 50):
             curr.execute("UPDATE Childs_Information SET Custody_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 50 characters.")
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24011,12 +24069,14 @@ class Main():
         newVal = parentInfo0.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Parent_Guardian_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Parent_Guardian_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24031,8 +24091,13 @@ class Main():
         newVal = parentInfo1.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Parent_Guardian_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Parent_Guardian_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
             
         #feedback
@@ -24051,12 +24116,14 @@ class Main():
         newVal = parentInfo2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Parent_Guardian_Information SET Relationship_to_Child = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Parent_Guardian_Information SET Relationship_to_Child = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24077,7 +24144,7 @@ class Main():
             db.commit()
             tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
         else:
-            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nAge code must be only numbers.")
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nAge must be only numbers.")
 
     def updateChildparentInfo4(self, parentInfo4, id, date):
 
@@ -24179,12 +24246,14 @@ class Main():
         newVal = parentInfo9.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Parent_Guardian_Information SET Employment_Company_Name = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 50):
             curr.execute("UPDATE Parent_Guardian_Information SET Employment_Company_Name = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 50 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24199,12 +24268,14 @@ class Main():
         newVal = parentInfo10.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Parent_Guardian_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 50):
             curr.execute("UPDATE Parent_Guardian_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 50 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24219,12 +24290,14 @@ class Main():
         newVal = parentInfo11.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Parent_Guardian_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Parent_Guardian_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24239,12 +24312,14 @@ class Main():
         newVal = parentInfo12.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Parent_Guardian_Information SET Address_State = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 2):
             curr.execute("UPDATE Parent_Guardian_Information SET Address_State = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 2 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24259,12 +24334,13 @@ class Main():
         newVal = parentInfo13.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Parent_Guardian_Information SET Address_Zip = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
+        elif (self.is_number(newVal)):
             curr.execute("UPDATE Parent_Guardian_Information SET Address_Zip = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Sucessful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nZip code must be only numbers.")
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24279,12 +24355,14 @@ class Main():
         newVal = parentInfo14.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Parent_Guardian_Information SET WorkPhone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 10):
             curr.execute("UPDATE Parent_Guardian_Information SET WorkPhone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 10 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24299,8 +24377,13 @@ class Main():
         newVal = parentInfo15.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Parent_Guardian_Information SET Email = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 70):
+            curr.execute("UPDATE Parent_Guardian_Information SET WorkPhone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
         else:
-            curr.execute("UPDATE Parent_Guardian_Information SET Email = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 70 characters.")
+
         db.commit()
             
         #feedback
@@ -24321,12 +24404,14 @@ class Main():
         newVal = absParentInfo0.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Absent_Parent_Information SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Absent_Parent_Information SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24341,12 +24426,14 @@ class Main():
         newVal = absParentInfo1.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Absent_Parent_Information SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Absent_Parent_Information SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24361,12 +24448,14 @@ class Main():
         newVal = absParentInfo2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Absent_Parent_Information SET Telephone = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 10):
             curr.execute("UPDATE Absent_Parent_Information SET Telephone = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 10 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24381,12 +24470,14 @@ class Main():
         newVal = absParentInfo3.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Absent_Parent_Information SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 50):
             curr.execute("UPDATE Absent_Parent_Information SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 50 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24401,12 +24492,14 @@ class Main():
         newVal = absParentInfo4.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Absent_Parent_Information SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Absent_Parent_Information SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24421,12 +24514,14 @@ class Main():
         newVal = absParentInfo5.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE Absent_Parent_Information SET Address_County = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE Absent_Parent_Information SET Address_County = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24469,7 +24564,7 @@ class Main():
 
 #Household Info ************************************************************************************************************************
 
-    def updateChildhouseInfo(self, count, houseInfo0, houseInfo1, houseInfo2, houseInfo3, houseInfo4):
+    def updateChildhouseInfo(self, count, houseInfo0, houseInfo1, houseInfo2, houseInfo3, houseInfo4, id, date):
 
         #Open Database Connection
         db = self.connect()
@@ -24484,9 +24579,15 @@ class Main():
 
         if (newVal0 == 'Unanswered') or (newVal0 == ''):
             newVal0 = None
-        
+        elif (len(newVal0) > 30):
+            goodData = 0
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nName maximum length is 30 characters.")
+
         if (newVal1 == 'Unanswered') or (newVal1 == ''):
             newVal1 = None
+        elif (len(newVal1) > 25):
+            goodData = 0
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nRelationship maximum length is 25 characters.")
 
         if newVal2 == '':
             newVal2 = None
@@ -24522,7 +24623,7 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildfamIncome0(self):
+    def updateChildfamIncome0(self, famIncome0, id, date):
         #Open Database Connection
         db = self.connect()
         curr = db.cursor()
@@ -24539,38 +24640,59 @@ class Main():
         #Close Database Connection
         self.disConnect(curr, db)
 
-    def updateChildfamIncome1(self):
-        #Open Database Connection
-        db = self.connect()
-        curr = db.cursor()
+    def updateChildfamIncome1(self, famIncome1, famIncome2, famIncome3, famIncome4, famIncome5, famIncome6, famIncome7, famIncome8, famIncome9, id, date):
 
-        #Execute
-        newVal = famIncome1.get()
-        if newVal != '':
-            curr.execute("UPDATE Source_Fam_Income SET Source_Fam_Income = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
-            db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        newVal = ''
 
-        #Close Database Connection
-        self.disConnect(curr, db)
+        if famIncome1.get():
+            newVal = newVal + 'Employment,'
 
-    def updateChildfamIncome2(self):
-        #Open Database Connection
-        db = self.connect()
-        curr = db.cursor()
+        if famIncome2.get():
+            newVal = newVal + 'Government Support,'
 
-        #Execute
-        newVal = famIncome2.get()
-        if (newVal == 'Unanswered') or (newVal == ''):
-            curr.execute("UPDATE Source_Fam_Income SET Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+        if famIncome3.get():
+            newVal = newVal + 'Public Assistance,'
+        
+        if famIncome4.get():
+            newVal = newVal + 'Unemployment Benefits,'
+        
+        if famIncome5.get():
+            newVal = newVal + 'Medicaid,'
+        
+        if famIncome6.get():
+            newVal = newVal + 'Social Security,'
+        
+        if famIncome7.get():
+            newVal = newVal + 'Veterans Benefits,'
+        
+        if famIncome8.get():
+            newVal = newVal + 'Other,'
+
+        if newVal == '':
+            newVal = None
         else:
-            curr.execute("UPDATE Source_Fam_Income SET Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            newVal = newVal[:-1]
+
+        otherSource = famIncome9.get()
+        if otherSource == '':
+            otherSource = None
+        
+        #Open Database Connection
+        db = self.connect()
+        curr = db.cursor()
+
+        #Execute
+        curr.execute("UPDATE Source_Fam_Income SET Source_Fam_Income = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+
+        if (otherSource == 'Unanswered') or (otherSource == ''):
+            curr.execute("UPDATE Source_Fam_Income SET Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif(len(otherSource) <= 30):
+            curr.execute("UPDATE Source_Fam_Income SET Other = %s WHERE ID = %s AND Date_Submitted = %s;", (otherSource, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24585,12 +24707,14 @@ class Main():
         newVal = emergencyInfo0.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_First = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_First = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db) 
@@ -24604,12 +24728,14 @@ class Main():
         newVal = emergencyInfo1.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_Last = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Name_Last = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db) 
@@ -24623,12 +24749,14 @@ class Main():
         newVal = emergencyInfo2.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Relationship_to_Child = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 25):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Relationship_to_Child = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 25 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db) 
@@ -24642,13 +24770,15 @@ class Main():
         newVal = emergencyInfo3.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Street = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 50):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_Street = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 50 characters.")
+
         db.commit()
             
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
-
         #Close Database Connection
         self.disConnect(curr, db) 
 
@@ -24661,12 +24791,14 @@ class Main():
         newVal = emergencyInfo4.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_City = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 30):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_City = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db) 
@@ -24680,12 +24812,14 @@ class Main():
         newVal = emergencyInfo5.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_State = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 2):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Address_State = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 2 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db) 
@@ -24723,12 +24857,14 @@ class Main():
         newVal = emergencyInfo7.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Home = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 10):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Home = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 10 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db) 
@@ -24742,12 +24878,14 @@ class Main():
         newVal = emergencyInfo8.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Cell = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 10):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Cell = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 10 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db) 
@@ -24761,12 +24899,14 @@ class Main():
         newVal = emergencyInfo9.get()
         if (newVal == 'Unanswered') or (newVal == ''):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Alt = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newVal) <= 10):
             curr.execute("UPDATE ChildApp_Emergency_Contact SET Phone_Alt = %s WHERE ID = %s AND Date_Submitted = %s;", (newVal, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 10 characters.")
+
         db.commit()
-            
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24836,13 +24976,14 @@ class Main():
         newValOther = programs8.get()
         if (newValOther == 'Unanswered') or (newValOther == ''):
             curr.execute("UPDATE Child_Application SET Future_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif (len(newValOther) >= 30):
             curr.execute("UPDATE Child_Application SET Future_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newValOther, id, date,))
-        
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
         db.commit()
 
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
         #Close Database Connection
         self.disConnect(curr, db)
@@ -24884,13 +25025,15 @@ class Main():
         newValOther = Referral6.get()
         if (newValOther == 'Unanswered') or (newValOther == ''):
             curr.execute("UPDATE Child_Application SET Referral_Other = NULL WHERE ID = %s AND Date_Submitted = %s;", (id, date,))
-        else:
-            curr.execute("UPDATE Child_Application SET Referral_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newValOther, id, date,))
-        
-        db.commit()
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
 
-        #feedback
-        tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        elif(len(newValOther) <= 30):
+            curr.execute("UPDATE Child_Application SET Referral_Other = %s WHERE ID = %s AND Date_Submitted = %s;", (newValOther, id, date,))
+            tkMessageBox.showinfo("Edit Profile", "Update Successful!")
+        else:    
+            tkMessageBox.showinfo("Edit Profile", "Update Unsucessful\n\nMaximum length is 30 characters.")
+
+        db.commit()
 
         #Close Database Connection
         self.disConnect(curr, db)
