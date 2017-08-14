@@ -1,18 +1,41 @@
 
-INSERT INTO Child VALUES ();
-INSERT INTO Child VALUES ();
 
-INSERT INTO Childs_Information VALUES 
-(1, '2016-11-24', 
-  'Sonika', 'Finch', 'Son', 
-  '123 Techwood Drive', 'Atlanta', 'Fulton', 30308, 
-  1234567890, 0987654321, 'guardian@gmail.com',
+INSERT INTO User VALUES ('Sonika', 'SonikaFinch', SHA1('I<3Dogs'), 'Administrator'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Jeremy', 'Jerm', SHA1('Farts2.0'), 'Regular'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Daniel', 'DChung', SHA1('poop'), 'Manager'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Elizabeth', 'Oz', SHA1('mypswd'), 'Regular'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Mateo', 'MRod', SHA1('mypswd'), 'Manager'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Cameron', 'Cam', SHA1('mypswd'), 'Manager'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Lillie', 'LZ', SHA1('mypswd'), 'Manager'); # need SHA1 for the password to decrypt it
+INSERT INTO User VALUES ('Test', 'a', SHA1('a'), 'Administrator'); # need SHA1 for the password to decrypt it
+
+
+
+INSERT INTO Child VALUES (); # empty because the only attribute right now is an auto-incremented ID
+INSERT INTO Child VALUES ();
+INSERT INTO Child VALUES ();
+/*
+INSERT INTO Childs_Information
+(ID, Date_Submitted,
+	Name_First, Name_Last, Name_Nickname,
+	Address_Street, Address_City, Address_County, Address_Zip,
+	Home_Phone, Guardian_Phone, Guardian_Email,
+	Age, Birthday, Gender, HIV_Status, Aware, Why, Referral_Source,
+	School_attending, School_grade_level,
+	Ethnicity, Ethnicity_Other, ADD_ADHD, Learning_Disability,
+	Developmental_Disability, Mental_Health_Issues,
+	Other_Medical_Condition, Victim_of_Abuse)
+VALUES
+(1, '2016-11-24',
+  'Sonika', 'Finch', 'Son',
+  '123 Techwood Drive', 'Atlanta', 'Fulton', 30308,
+  1234567890, 0987654321, 'guardian@gmail.com', 21,
   '1997-01-02', 'Female',
-  'HIV Negative', 1, 'idk why', 'no refferal',
+  'HIV Negative', 1, 'idk why', 'no Referral',
   'Gatech', 'Junior',
-  'Other', 'idk lol',
-  0, 1, 0, 1, 0, 1, 0, 'Mother', 'idk no other');
-
+  ('Other,Multi-racial'), 'idk lol',
+  0, 1, 0, 1, 0, 1);
+*/
 INSERT INTO Child_Application (ID,Date_Submitted,  Signature, Referral, Future_Programs, HERO_Programs) VALUES
 	(1,'2016-11-24', 1, 'Clothing/Furniture', 'Healthy HEROs', 'Camp High Five');
 
@@ -20,12 +43,12 @@ INSERT INTO Child_Application (ID,Date_Submitted, Signature, Referral, Future_Pr
 	(2,'2016-12-12', 0, 'Food', 'Other', 'Holiday of HEROs');
 
 
-INSERT INTO Childs_Information (ID, Date_Submitted, Name_First, Name_Last, Name_Nickname, Address_Street, Address_City,Address_County,Address_Zip, Home_Phone, Guardian_Phone, Guardian_Email, Birthday, Gender, HIV_Status, Aware, Why, Refferal_Source,School_attending,School_grade_level,Ethnicity,ADD_ADHD,Learning_Disability,Developmental_Disability,Mental_Health_Issues,Other_Medical_Condition,Victim_of_Abuse,Criminal_Justice_System,Legal_Custody)	VALUES
-	(1,'2016-11-24', 'John', 'Osman', 'Johnny Boy', '3567 Clubland Drive', 'Marietta', 'Cobb County', 30068,7709736653, 4044083543, 'osmangirls@bellsouth.net', '1958-11-24', 'Male','HIV Negative', 1,'Because he asked', 'His doctor', 'Langley High School', '9','White/Caucasian', 0, 1, 0,1, 0, 0,1, 'Mother');
+INSERT INTO Childs_Information (ID, Date_Submitted, Name_First, Name_Last, Name_Nickname, Address_Street, Address_City,Address_County,Address_Zip, Home_Phone, Guardian_Phone, Guardian_Email, Age, Birthday, Gender, HIV_Status, Aware, Why, Referral_Source,School_attending,School_grade_level,Ethnicity,ADD_ADHD,Learning_Disability,Developmental_Disability,Mental_Health_Issues,Other_Medical_Condition,Victim_of_Abuse,Criminal_Justice_System,Legal_Custody)	VALUES
+	(1,'2016-11-24', 'John', 'Osman', 'Johnny Boy', '3567 Clubland Drive', 'Marietta', 'Cobb County', 30068,'7709736653', '4044083543', 'osmangirls@bellsouth.net', 58, '1958-11-24', 'Male','HIV Negative', 1,'Because he asked', 'His doctor', 'Langley High School', '9','White/Caucasian', 0, 1, 0,1, 0, 0,1, 'Mother');
 
 
-INSERT INTO Childs_Information (ID, Date_Submitted, Name_First, Name_Last, Name_Nickname, Address_Street, Address_City,Address_County,Address_Zip, Home_Phone, Guardian_Phone, Guardian_Email, Birthday, Gender, HIV_Status, Aware, Why, Refferal_Source,School_attending,School_grade_level,Ethnicity,ADD_ADHD,Learning_Disability,Developmental_Disability,Mental_Health_Issues,Other_Medical_Condition,Victim_of_Abuse,Criminal_Justice_System,Legal_Custody,Custody_Other) VALUES
-	(2,'2016-12-12', 'Claire', 'Kennedy', 'ID', '123 Dumb Street', 'Monroe', 'Lincoln Parish', 12345, 3182345678, 3183456789,'imkarmenkenneday@gmail.com', '2007-12-12', 'Female', 'HIV Positive', 0, 'She is too dumb', 'Her doctor', 'Good Hope Elementary School','3rd grade', 'White/Caucasian', 1, 1, 1, 1, 0, 0,1, 'Both Parents', 'She is really annoying');
+INSERT INTO Childs_Information (ID, Date_Submitted, Name_First, Name_Last, Name_Nickname, Address_Street, Address_City,Address_County,Address_Zip, Home_Phone, Guardian_Phone, Guardian_Email, Age, Birthday, Gender, HIV_Status, Aware, Why, Referral_Source,School_attending,School_grade_level,Ethnicity,ADD_ADHD,Learning_Disability,Developmental_Disability,Mental_Health_Issues,Other_Medical_Condition,Victim_of_Abuse,Criminal_Justice_System,Legal_Custody,Custody_Other) VALUES
+	(2,'2016-12-12', 'Claire', 'Kennedy', 'ID', '123 Dumb Street', 'Monroe', 'Lincoln Parish', 12345, '3182345678', '3183456789','imkarmenkenneday@gmail.com', 9, '2007-12-12', 'Female', 'HIV Positive', 0, 'She is too dumb', 'Her doctor', 'Good Hope Elementary School','3rd grade', 'White/Caucasian', 1, 1, 1, 1, 0, 0,1, 'Both Parents', 'She is really annoying');
 
 
 
@@ -36,9 +59,9 @@ INSERT INTO Parent_Guardian_Information (ID,Date_Submitted,Name_First,Name_Last,
 
 
 INSERT INTO Absent_Parent_Information (ID, Date_Submitted, Name_First, Name_Last, Telephone) VALUES
-	(1,'2016-11-24', 'Joe', 'Smith',1234567890);
+	(1,'2016-11-24', 'Joe', 'Smith','1234567890');
 INSERT INTO Absent_Parent_Information (ID, Date_Submitted, Name_First, Name_Last, Telephone, Address_Street, Address_City, Address_County, Address_Zip, HIV_Status) VALUES
-	(2,'2016-12-12', 'John', 'Kennedy', 3185678901, '345 Really Dumb Street', 'Monroe', 'Lincoln Parish', 12345, 'HIV Positive');
+	(2,'2016-12-12', 'John', 'Kennedy', '3185678901', '345 Really Dumb Street', 'Monroe', 'Lincoln Parish', 12345, 'HIV Positive');
 
 
 INSERT INTO Household_Information (ID, Date_Submitted, Count, Name, Relationship, Sex, Age, HIV_Status) VALUES
@@ -55,7 +78,7 @@ INSERT INTO Source_Fam_Income (ID,Date_Submitted, Source_Fam_Income) VALUES
 	(1,'2016-11-24', 'Employment'), (2,'2016-12-12', 'Social Security');
 
 INSERT INTO ChildApp_Emergency_Contact (ID, Date_Submitted, Name_First, Name_Last, Relationship_to_Child, Address_Street, Address_City, Address_State, Address_Zip, Phone_Home, Phone_Cell,Phone_Alt) VALUES
-	(1,'2016-11-24', 'Karla', 'Osman', 'Mom', '3567 Clubland Drive', 'Marietta', 'GA', 30068, 7709736653, 4044083543, 6784776905), (2,'2016-12-12', 'Ted', 'Lamprich', 'Grandfather', '318 Goss Street', 'Farmerville', 'LA', '38234', 3188901234, 3185678901, 3182456789);
+	(1,'2016-11-24', 'Karla', 'Osman', 'Mom', '3567 Clubland Drive', 'Marietta', 'GA', 30068, '7709736653', '4044083543', '6784776905'), (2,'2016-12-12', 'Ted', 'Lamprich', 'Grandfather', '318 Goss Street', 'Farmerville', 'LA', '38234', '3188901234', '3185678901', '3182456789');
 
 
 INSERT INTO Statement_Of_Understanding (ID, Date_Submitted, Statement_One, Statement_Two, Statement_Three, Statement_Four, Statement_Five, Statement_Six, Statement_Seven)VALUES
@@ -75,13 +98,18 @@ INSERT INTO Demographic_Information (ID, Date_Submitted, First_Name, Last_Name, 
 
 
 INSERT INTO Demographic_Contacts (ID, Date_Submitted, Type, Name, Time_Preference, Phone_Number) VALUES
-	(1,'2016-11-24', 'Home', 'Karla Osman', 'Evening', 7709736653),
-	(2,'2016-12-12', 'Cell', 'Ted Lamprich', 'Day', 3188901234);
+	(1,'2016-11-24', 'Home', 'Karla Osman', 'Evening', '7709736653'),
+	(1,'2016-11-24', 'Cell', NULL, NULL, NULL),
+	(1,'2016-11-24', 'Work', 'Patrice', 'Day', '8312331996'),
+	
+	(2,'2016-12-12', 'Home', NULL, NULL, NULL),
+	(2,'2016-12-12', 'Cell', 'Ted Lamprich', 'Day', '3188901234'),
+	(2,'2016-12-12', 'Work', NULL, NULL, NULL);
 
 
 INSERT INTO Parent_Emergency_Contact (ID, Date_Submitted, Name, Relationship, Daytime_Phone, Evening_Phone) VALUES
-	(1,'2016-11-24', 'Karla Osman','mom', 7709736653, 4044083543),
-	(2,'2016-12-12', 'Ted Lamprich','dad', 3188901234, 3187893456);
+	(1,'2016-11-24', 'Karla Osman','mom', '7709736653', '4044083543'),
+	(2,'2016-12-12', 'Ted Lamprich','dad', '3188901234', '3187893456');
 
 
 INSERT INTO Insurance_Information (ID, Date_Submitted, Type_of_Health_Insurance, Policy_Number, Group_Number) VALUES
@@ -89,8 +117,8 @@ INSERT INTO Insurance_Information (ID, Date_Submitted, Type_of_Health_Insurance,
 
 
 INSERT INTO Medical_Provider_Information (ID, Date_Submitted, Medical_Provider_Name, Phone_Office, Pharmacy_Name, Phone_Pharmacy) VALUES
-	(1,'2016-11-24', 'Dr. Locata', 6781234556, 'Publix Pharmacy', 7701234567),
-	(2,'2016-12-12', 'Dr. Pickles', 3184567890, 'Kroger Pharmacy', 3182344455);
+	(1,'2016-11-24', 'Dr. Locata', '6781234556', 'Publix Pharmacy', '7701234567'),
+	(2,'2016-12-12', 'Dr. Pickles', '3184567890', 'Kroger Pharmacy', '3182344455');
 
 
 INSERT INTO Medical_Information (ID, Date_Submitted, Current_Medical_Conditions, Medical_Condition_Explanation) VALUES
@@ -98,14 +126,14 @@ INSERT INTO Medical_Information (ID, Date_Submitted, Current_Medical_Conditions,
 	(2,'2016-12-12', 'HIV','She is young and hyperactive');
 
 
-INSERT INTO Allergies (ID,Date_Submitted, Food_Allergy, Food_Reaction, Env_Allergy, Env_Reaction) VALUES (1,'2016-11-24', 'Cheese', 'Poops smell bad', 'Grass', 'Gets an uncomfortable rash, but will not die');
-INSERT INTO Allergies (ID,Date_Submitted, Env_Allergy, Env_Reaction) VALUES (2,'2016-12-12', 'Bees', 'Swelling, but won"t die');
+INSERT INTO Allergies (ID,Date_Submitted, Food_Allergy, Food_Reaction, Env_Allergy, Env_Reaction) VALUES (1,'2016-11-24', 1, 'Cheese: Poops smell bad', 1, 'Grass: Gets an uncomfortable rash, but will not die');
+INSERT INTO Allergies (ID,Date_Submitted, Env_Allergy, Env_Reaction) VALUES (2,'2016-12-12', 1, 'Bees: Swelling, but won"t die');
 
 
 
-INSERT INTO Dietary_Needs (ID, Date_Submitted, Special_Dietary_Needs, Vegetarian, Food_Restrictions, G_Tube, Formula_Supplements, Formula_Type, Formula_Cans_Per_Day, Feeding_Pump, Feeding_Schedule) VALUES
-	(1,'2016-11-24', 1, 0, 'No cheese, but can have milk and yogurt', 'None', 'None', 'None', 0, 0, 'Breakfast, Lunch, and Dinner with some snacks'),
-	(2,'2016-12-12', 0, 1, 'Sugar makes her ADD worse', 'Medicine', 'By Mouth', 'Growth suppliments', 10, 0, 'Only breakfast and lunch, we do not want her to eat carbs late in the day');
+INSERT INTO Dietary_Needs (ID, Date_Submitted, Special_Dietary_Needs, Vegetarian, Food_Restrictions, G_Tube, Formula_Supplement, Formula_Supplement_How, Formula_Type, Formula_Cans_Per_Day, Feeding_Pump, Pump_Type, Feeding_Schedule) VALUES
+	(1,'2016-11-24', 1, 0, 'No cheese, but can have milk and yogurt', 'None', 1, 'By G-Tube', 'None', 0, 0, 'regular', 'Breakfast, Lunch, and Dinner with some snacks'),
+	(2,'2016-12-12', 0, 1, 'Sugar makes her ADD worse', 'Medicine', 1, 'By Mouth', 'Growth suppliments', 10, 0, 'idk', 'Only breakfast and lunch, we do not want her to eat carbs late in the day');
 
 
 
@@ -137,10 +165,10 @@ INSERT INTO Medical_Care_Provider(ID, Date_Submitted,Restrictions_And_Recommenda
 
 
 
-INSERT INTO Medical_History (ID, Date_Submitted, Management, Nutritional_Supplements, Feeding_Care, Formula_Type, Formula_Enum) VALUES
-	(1,'2016-11-24', 'He is a lot to manage', 1, 'He needs a lot of fiber', 'Apples and oatmeal, preferably together', 'Oral');
+INSERT INTO Medical_History (ID, Date_Submitted, Management, Nutritional_Supplements, Feeding_Care, Formula_Type) VALUES
+	(1,'2016-11-24', 'He is a lot to manage', 1, 'He needs a lot of fiber', 'Oral');
 INSERT INTO Medical_History VALUES
-	(2,'2016-12-12', 'She needs a lot of supervision', 1, 'She cannot have sugar', 'Low sugar', 'G-tube');
+	(2,'2016-12-12', 'She needs a lot of supervision', 1, 'She cannot have sugar', 'G-tube');
 
 
 
@@ -159,19 +187,26 @@ INSERT INTO Med_Hist_Allergies (ID, Date_Submitted, Type, Allergy, Reaction) VAL
 
 
 INSERT INTO Physical_Exam (ID, Date_Submitted, Date_Completed, Height, Weight, Pulse, Resperations, Blood_Pressure, HEENT, Skin, Cardiovascular, GU_GYN, Pulmonary, Glasses_HearingAids_PE, Abdomen, Lymph_Nodes, Extremities,Spine, Miscellaneous, Comments) VALUES
-	(1,'2016-11-24', '2016-10-31', '5" 6""', 140, 59, 30, 145, 'I do not remember what this is', 'Pale', 'Heart pumping', 'Doing great',
+	(1,'2016-11-24', '2016-10-31', '5" 6""', 140, 59, 30, '145', 'I do not remember what this is', 'Pale', 'Heart pumping', 'Doing great',
 		'No problems here', 'Has reading and near sighted glasses and hearing aids', 'Ripped abs', 'they are nodin', 'Arthritis in extremities',
 		'strong spine', 'graying hair and balding', 'overall doing great, just aging'),
-	(2,'2016-12-12', '2016-05-20', '4" 5"', 98, 68, 20, 130, 'Who knows', 'Tan, watch out for skin cancer', 'Heart is doing the thing', 'So good', 'really cool pulmonary', 'No glasses or hearing aids', 'flabby tummy', 'not as nodin as John', 'weak arms', 'spine is aight','really nice hair', 'is overall doing well');
+	(2,'2016-12-12', '2016-05-20', '4" 5"', 98, 68, 20, '130', 'Who knows', 'Tan, watch out for skin cancer', 'Heart is doing the thing', 'So good', 'really cool pulmonary', 'No glasses or hearing aids', 'flabby tummy', 'not as nodin as John', 'weak arms', 'spine is aight','really nice hair', 'is overall doing well');
 
 
 INSERT INTO Cognitive_Development_Level (ID, Date_Submitted, Development_Level, Other_Psychosocial_Information) VALUES (1,'2016-11-24',NULL,NULL), (2,'2016-12-12',NULL,NULL);
 
+INSERT INTO Varicella_Screening (ID, Date_Submitted, Two_Doses, Chicken_Pox, Chicken_Pox_Date, Varicella_Antibody, Varicella_Antibody_Date) VALUES
+	(1,'2016-11-24', 1, 1,'2016-02-15', 1, '2014-03-15'),
+	(2,'2016-12-12', 1, 1, '2013-03-13', 1, '2011-11-11');
 
 INSERT INTO Tuberculosis_Screening (ID, Date_Submitted, Type, Date_Screened, Result) VALUES
 	(1,'2016-11-24', 'Chest X-ray', '2016-02-15', 'No Tuberculosis here'),
-	(2,'2016-12-12', 'Tuberculin Skin Test', '2016-05-20', 'May have tuberculosis should test again');
+	(1,'2016-11-24', 'Tuberculin Skin Test', Null, Null),
+	(1,'2016-11-24', 'Quantiferon Testing', Null, Null),
 
+	(2,'2016-12-12', 'Tuberculin Skin Test', '2016-05-20', 'May have tuberculosis should test again'),
+	(2,'2016-12-12', 'Chest X-ray', Null, Null),
+	(2,'2016-12-12', 'Quantiferon Testing', Null, Null);
 
 INSERT INTO MedCareProvider_Medications (ID, Date_Submitted, Medication_Name, Amount_Including_Dosage, Times_To_Give) VALUES
 	(1,'2016-11-24', 'Allegra', '30mg', 'before bed'),
@@ -179,15 +214,15 @@ INSERT INTO MedCareProvider_Medications (ID, Date_Submitted, Medication_Name, Am
 
 
 INSERT INTO Medical_Provider_Verification_Statement (ID, Date_Submitted, Signature,Sig_Date, Name, Address_Street, Address_City, Address_State, Address_Zip,Phone, Emergency_Contact) VALUES
-	(1,'2016-11-24', 1, '2015-03-04', 'Dr. John Smith', '123 Georgia Tech Station', 'Atlanta', 'GA', 12345, 7701234567, 'No emergency contact'),
-	(2,'2016-12-12', 1, '2015-04-11', 'Dr. Joe Tan', '123 ULM Station', 'Monroe', 'LA', 34567, 3184567890, 'Grandfather');
+	(1,'2016-11-24', 1, '2015-03-04', 'Dr. John Smith', '123 Georgia Tech Station', 'Atlanta', 'GA', 12345, '7701234567', 'No emergency contact'),
+	(2,'2016-12-12', 1, '2015-04-11', 'Dr. Joe Tan', '123 ULM Station', 'Monroe', 'LA', 34567, '3184567890', 'Grandfather');
 
 
 INSERT INTO HIV_Provider(ID, Date_Submitted) VALUES
 	(1,'2016-11-24'), (2,'2016-12-12');
 
 
-INSERT INTO Heatlh_History (ID, Date_Submitted, Major_Surgical_History, Health_History, History_of_Noncompliance, Explanation) VALUES
+INSERT INTO Health_History (ID, Date_Submitted, Major_Surgical_History, Health_History, History_of_Noncompliance, Explanation) VALUES
 	(1,'2016-11-24','I aint been operated on', 'Chronic Cough', 0, 'He complies pretty well'),
 	(2,'2016-12-12', 'some people call me the terminator','ADD or ADHD', 1, 'She is rude and is not compliant');
 
