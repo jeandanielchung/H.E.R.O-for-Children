@@ -2,7 +2,7 @@ import Tkinter as tk
 from Tkinter import *
 from tkMessageBox import *
 import tkMessageBox
-import MySQLdb
+import pymysql
 
 #TODO: Immunization PDF
 
@@ -20,10 +20,10 @@ class Main():
         self.session['login'] = False
     def connect(self):
         try:
-            db = MySQLdb.connect(
+            db = pymysql.connect(
                 host = "localhost",
                 user="root",
-                passwd = "Darling",
+                passwd = "2011",
                 db="HERO")
             exitOK = False
             return db
@@ -4974,7 +4974,7 @@ class Main():
                 %s, %s);""",
                 (id, date,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 1
                 print e
@@ -4986,7 +4986,7 @@ class Main():
                 %s, %s);""",
                 (id, date,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 2
                 print e
@@ -5003,7 +5003,7 @@ class Main():
                         demInfo12, demInfo13, demInfo14, demInfo15, demInfo16, demInfo17, demInfo18, demInfo19, demInfo20, demInfoTransport
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 3
                 print e
@@ -5026,7 +5026,7 @@ class Main():
                         demContactInfo30, demContactInfoTime3, demContactInfo31
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 4
                 print e
@@ -5046,7 +5046,7 @@ class Main():
                             emergencyInfo20, emergencyInfo21, emergencyInfo22, emergencyInfo23
                             ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 5
                 print e
@@ -5059,7 +5059,7 @@ class Main():
                         insuranceInfo0, insuranceInfo1, insuranceInfo2, insuranceInfo3
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 errorCode = 6
                 print e
                 print errorCode
@@ -5071,7 +5071,7 @@ class Main():
                         medProviderInfo0, medProviderInfo1, medProviderInfo2, medProviderInfo3
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 7
                 print e
@@ -5084,7 +5084,7 @@ class Main():
                         medInfoCurr, medInfo0, medInfo1
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 8
                 print e
@@ -5097,7 +5097,7 @@ class Main():
                         allergyInfo0, allergyInfo1, allergyInfo2, allergyInfo3, allergyInfo4, allergyInfo5, allergyInfo6
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 9
                 print e
@@ -5111,7 +5111,7 @@ class Main():
                         dietaryNeedsHowInfo, dietaryNeedsInfo5, dietaryNeedsInfo6, dietaryNeedsInfo7, dietaryNeedsInfo8, dietaryNeedsInfo9
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 10
                 print e
@@ -5124,7 +5124,7 @@ class Main():
                         genHealthLimit, genHealth0, genHealth1, genHealth2, genHealth3, genHealth4, genHealth5, genHealth6
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 11
                 print e
@@ -5137,7 +5137,7 @@ class Main():
                         behavior0, behavior1, behaviorExperiances, behavior2, behavior3, behaviorInterests, behavior4
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 12
                 print e
@@ -5155,7 +5155,7 @@ class Main():
                             ,))
                     i += 3
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 13
                 print e
@@ -5168,7 +5168,7 @@ class Main():
                         parentSig0, parentSig1, parentSig2, parentSig3, parentSig4, parentSig5
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 14
                 print e
@@ -5181,7 +5181,7 @@ class Main():
                         restrictionsRec
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 15
                 print e
@@ -5194,7 +5194,7 @@ class Main():
                         medProvider5, medProvider6, medProvider7, medProvider8
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 16
                 print e
@@ -5212,7 +5212,7 @@ class Main():
                             ,))
                     i += 1
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 17
                 print e
@@ -5250,7 +5250,7 @@ class Main():
                             ,))
                     i += 2
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 18
                 print e
@@ -5264,7 +5264,7 @@ class Main():
                         physical10, physical11, physical12, physical13, physical14, physical15, physical16, physical17
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 19
                 print e
@@ -5277,7 +5277,7 @@ class Main():
                         cogDev0, cogDev1
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 20
                 print e
@@ -5290,7 +5290,7 @@ class Main():
                         varicella0, varicella1, varicella2, varicella3, varicella4
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 21
                 print e
@@ -5313,7 +5313,7 @@ class Main():
                         tuberculosis30, tuberculosis31
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 22
                 print e
@@ -5331,7 +5331,7 @@ class Main():
                             ,))
                     i += 3
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 23
                 print e
@@ -5344,7 +5344,7 @@ class Main():
                         medProvVerState0, medProvVerState1, medProvVerState2, medProvVerState3, medProvVerState4, medProvVerState5, medProvVerState6, medProvVerState7, medProvVerState8
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 24
                 print e
@@ -5355,7 +5355,7 @@ class Main():
                 curr.execute("""INSERT INTO HIV_Provider VALUES (%s, %s);""",
                     (id, date,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 25
                 print e
@@ -5368,7 +5368,7 @@ class Main():
                         healthHistory0, healthHistory, healthHistory19, healthHistory20, healthHistory21
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 26
                 print e
@@ -5381,7 +5381,7 @@ class Main():
                         lab0, lab1, lab2, lab3, lab4, lab5, lab6, lab7, lab8, lab9, lab10
                         ,))
 
-            except (MySQLdb.Error) as e:
+            except (pymysql.Error) as e:
                 success = 0
                 errorCode = 28
                 print e
@@ -7246,7 +7246,7 @@ class Main():
                 curr.execute("""INSERT INTO Child_Application VALUES (%s, %s, %s, %s, %s, %s, %s, %s);""",
                     (id, date, sig, programsC, ReferralOther, programsB, programsOther, programsA,))
 
-            except (MySQLdb.IntegrityError) as e:
+            except (pymysql.IntegrityError) as e:
                 success = 0
 
             try:
@@ -7255,7 +7255,7 @@ class Main():
                              (id, date, cI0, cI1, cI2, cI3, cI4, cI5, cI6, cI7, cI8, cI9, cI10, cI11, cI12, cI13, cI14, cI15, cI16,
                                  cI17, cI18, cI19, cI20, cI21, cI22, cI23, cI24, cI25, cI26, cI27, cI28, cI29,))
 
-            except (MySQLdb.IntegrityError) as e:
+            except (pymysql.IntegrityError) as e:
                 success = 0
 
             try:
@@ -7264,7 +7264,7 @@ class Main():
                              (id, date, pI0, pI1, pI2, pI3, pI4, pI5, pI6, pI7, pI8, pI9, pI10, pI11,
                                  pI12, pI13, pI14, pI15,))
 
-            except (MySQLdb.IntegrityError) as e:
+            except (pymysql.IntegrityError) as e:
                 success = 0
 
             try:
@@ -7272,7 +7272,7 @@ class Main():
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""",
                                  (id, date, abs0, abs1, abs2, abs3, abs4, abs5, abs6, abs7,))
 
-            except (MySQLdb.IntegrityError) as e:
+            except (pymysql.IntegrityError) as e:
                 success = 0
 
             if person1:
@@ -7282,7 +7282,7 @@ class Main():
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house10, house11, house12, house13, house14,))
 
-                except (MySQLdb.IntegrityError) as e:
+                except (pymysql.IntegrityError) as e:
                     success = 0
 
             if person2:
@@ -7292,7 +7292,7 @@ class Main():
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house20, house21, house22, house23, house24,))
 
-                except (MySQLdb.IntegrityError) as e:
+                except (pymysql.IntegrityError) as e:
                     success = 0
 
             if person3:
@@ -7302,7 +7302,7 @@ class Main():
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house30, house31, house32, house33, house34,))
 
-                except (MySQLdb.IntegrityError) as e:
+                except (pymysql.IntegrityError) as e:
                     success = 0
 
             if person4:
@@ -7312,7 +7312,7 @@ class Main():
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house40, house41, house42, house43, house44,))
 
-                except (MySQLdb.IntegrityError) as e:
+                except (pymysql.IntegrityError) as e:
                     success = 0
 
             if person5:
@@ -7322,7 +7322,7 @@ class Main():
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house50, house51, house52, house53, house54,))
 
-                except (MySQLdb.IntegrityError) as e:
+                except (pymysql.IntegrityError) as e:
                     success = 0
 
             if person6:
@@ -7332,7 +7332,7 @@ class Main():
                         (%s, %s, %s, %s, %s, %s, %s, %s);""",
                                      (id, date, count, house60, house61, house62, house63, house64,))
 
-                except (MySQLdb.IntegrityError) as e:
+                except (pymysql.IntegrityError) as e:
                     success = 0
 
             try:
@@ -7340,7 +7340,7 @@ class Main():
                     (%s, %s, %s);""",
                     (id, date, income,))
 
-            except (MySQLdb.IntegrityError) as e:
+            except (pymysql.IntegrityError) as e:
                 success = 0
 
             try:
@@ -7348,7 +7348,7 @@ class Main():
                     (%s, %s, %s, %s);""",
                     (id, date, sourceIncome, otherSource,))
 
-            except (MySQLdb.IntegrityError) as e:
+            except (pymysql.IntegrityError) as e:
                 success = 0
 
             try:
@@ -7357,7 +7357,7 @@ class Main():
                     (id, date, emergency0, emergency1, emergency2, emergency3, emergency4, emergency5, emergency6,
                          emergency7, emergency8, emergency9,))
 
-            except (MySQLdb.IntegrityError) as e:
+            except (pymysql.IntegrityError) as e:
                 success = 0
 
             try:
@@ -7365,7 +7365,7 @@ class Main():
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s);""",
                     (id, date, s0, s1, s2, s3, s4, s5, s6,))
 
-            except (MySQLdb.IntegrityError) as e:
+            except (pymysql.IntegrityError) as e:
                 success = 0
             
 
@@ -7531,7 +7531,7 @@ class Main():
         exitButton.grid(row = 0, column = 1)
 
         #database fetch
-        db = MySQLdb.connect(host = "localhost", user="root", passwd = "Darling", db="HERO")
+        db = pymysql.connect(host = "localhost", user="root", passwd = "Darling", db="HERO")
         curr = db.cursor()
         curr.execute("SELECT * FROM User")
         results = curr.fetchall()
@@ -7554,7 +7554,7 @@ class Main():
             count += 1
 
     def deleteUser(self, username):        
-        db = MySQLdb.connect(host = "localhost", user="root", passwd = "Darling", db="HERO")
+        db = pymysql.connect(host = "localhost", user="root", passwd = "Darling", db="HERO")
         curr = db.cursor()
 
         curr.execute("DELETE FROM User WHERE Username = %s", (username,))
@@ -7687,7 +7687,7 @@ class Main():
         camp = ''
         child = ''
 
-        db = MySQLdb.connect(host="localhost", user="root", passwd="Darling", db="HERO")
+        db = pymysql.connect(host="localhost", user="root", passwd="Darling", db="HERO")
         curr = db.cursor()
 
         #check for program selection
@@ -8893,7 +8893,7 @@ class Main():
         camp = ''
         child = ''
 
-        db = MySQLdb.connect(host="localhost", user="root", passwd="Darling", db="HERO")
+        db = pymysql.connect(host="localhost", user="root", passwd="Darling", db="HERO")
         curr = db.cursor()
 
         #check for program selection
@@ -17586,7 +17586,7 @@ class Main():
         if askyesno('Verify', 'Really delete?'):
 
             #Open Database Connection
-            db = MySQLdb.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+            db = pymysql.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
             curr = db.cursor()
 
             #Execute
