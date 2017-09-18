@@ -7531,7 +7531,7 @@ class Main():
         exitButton.grid(row = 0, column = 1)
 
         #database fetch
-        db = pymysql.connect(host = "localhost", user="root", passwd = "Darling", db="HERO")
+        db = self.connect()
         curr = db.cursor()
         curr.execute("SELECT * FROM User")
         results = curr.fetchall()
@@ -7554,7 +7554,7 @@ class Main():
             count += 1
 
     def deleteUser(self, username):        
-        db = pymysql.connect(host = "localhost", user="root", passwd = "Darling", db="HERO")
+        db = self.connect()
         curr = db.cursor()
 
         curr.execute("DELETE FROM User WHERE Username = %s", (username,))
@@ -7687,7 +7687,7 @@ class Main():
         camp = ''
         child = ''
 
-        db = pymysql.connect(host="localhost", user="root", passwd="Darling", db="HERO")
+        db = self.connect()
         curr = db.cursor()
 
         #check for program selection
@@ -8893,7 +8893,7 @@ class Main():
         camp = ''
         child = ''
 
-        db = pymysql.connect(host="localhost", user="root", passwd="Darling", db="HERO")
+        db = self.connect()
         curr = db.cursor()
 
         #check for program selection
@@ -17586,7 +17586,7 @@ class Main():
         if askyesno('Verify', 'Really delete?'):
 
             #Open Database Connection
-            db = pymysql.connect(host = "localhost", user="root", passwd="Darling", db="HERO" )
+            db = self.connect()
             curr = db.cursor()
 
             #Execute
